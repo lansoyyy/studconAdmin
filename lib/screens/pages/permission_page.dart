@@ -362,7 +362,7 @@ class _ReportTabState extends State<PermissionPage> {
 
                                       rows: [
                                         // row to set the values
-                                        for (int i = 0;
+                                        for (int i = 1;
                                             i < snapshot.data!.size;
                                             i++)
                                           DataRow(
