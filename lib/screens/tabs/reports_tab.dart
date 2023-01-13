@@ -42,7 +42,8 @@ class _ReportTabState extends State<ReportTab> {
 
   void _loggedin() async {
     /// for using an image from assets
-    // final image = await imageFromAssetBundle('assets/image.png');
+    final image = await imageFromAssetBundle('assets/images/bsu.png');
+    final image1 = await imageFromAssetBundle('assets/images/dean.jpg');
 
     doc.addPage(
       pw.Page(
@@ -51,115 +52,151 @@ class _ReportTabState extends State<ReportTab> {
           return pw.Container(
             margin: const pw.EdgeInsets.all(20),
             child: pw.Column(children: [
-              pw.Table(children: [
-                pw.TableRow(children: [
+              pw.Row(
+                mainAxisAlignment: pw.MainAxisAlignment.center,
+                children: [
+                  pw.Image(image, height: 50, width: 50),
+                  pw.SizedBox(width: 25),
                   pw.Column(
-                      crossAxisAlignment: pw.CrossAxisAlignment.center,
-                      mainAxisAlignment: pw.MainAxisAlignment.center,
-                      children: [
-                        pw.Text('Name', style: const pw.TextStyle(fontSize: 6)),
-                        pw.Divider(thickness: 1)
-                      ]),
-                  pw.Column(
-                      crossAxisAlignment: pw.CrossAxisAlignment.center,
-                      mainAxisAlignment: pw.MainAxisAlignment.center,
-                      children: [
-                        pw.Text('Email',
-                            style: const pw.TextStyle(fontSize: 6)),
-                        pw.Divider(thickness: 1)
-                      ]),
-                  pw.Column(
-                      crossAxisAlignment: pw.CrossAxisAlignment.center,
-                      mainAxisAlignment: pw.MainAxisAlignment.center,
-                      children: [
-                        pw.Text('Course',
-                            style: const pw.TextStyle(fontSize: 6)),
-                        pw.Divider(thickness: 1)
-                      ]),
-                  pw.Column(
-                      crossAxisAlignment: pw.CrossAxisAlignment.center,
-                      mainAxisAlignment: pw.MainAxisAlignment.center,
-                      children: [
-                        pw.Text('Year Level',
-                            style: const pw.TextStyle(fontSize: 6)),
-                        pw.Divider(thickness: 1)
-                      ]),
-                  pw.Column(
-                      crossAxisAlignment: pw.CrossAxisAlignment.center,
-                      mainAxisAlignment: pw.MainAxisAlignment.center,
-                      children: [
-                        pw.Text('Concern',
-                            style: const pw.TextStyle(fontSize: 6)),
-                        pw.Divider(thickness: 1)
-                      ]),
-                  pw.Column(
-                      crossAxisAlignment: pw.CrossAxisAlignment.center,
-                      mainAxisAlignment: pw.MainAxisAlignment.center,
-                      children: [
-                        pw.Text('Status',
-                            style: const pw.TextStyle(fontSize: 6)),
-                        pw.Divider(thickness: 1)
-                      ]),
-                ])
-              ]),
-              pw.SizedBox(
-                height: 20,
-              ),
-              for (int i = 1; i < name.length; i++)
-                pw.Table(
-                    border: pw.TableBorder.all(color: PdfColors.black),
+                    crossAxisAlignment: pw.CrossAxisAlignment.center,
                     children: [
-                      pw.TableRow(children: [
-                        pw.Column(
-                            crossAxisAlignment: pw.CrossAxisAlignment.center,
-                            mainAxisAlignment: pw.MainAxisAlignment.center,
-                            children: [
-                              pw.Text(name[i],
-                                  style: const pw.TextStyle(fontSize: 6)),
-                              pw.Divider(thickness: 1)
-                            ]),
-                        pw.Column(
-                            crossAxisAlignment: pw.CrossAxisAlignment.center,
-                            mainAxisAlignment: pw.MainAxisAlignment.center,
-                            children: [
-                              pw.Text(email[i],
-                                  style: const pw.TextStyle(fontSize: 6)),
-                              pw.Divider(thickness: 1)
-                            ]),
-                        pw.Column(
-                            crossAxisAlignment: pw.CrossAxisAlignment.center,
-                            mainAxisAlignment: pw.MainAxisAlignment.center,
-                            children: [
-                              pw.Text(courseStud[i],
-                                  style: const pw.TextStyle(fontSize: 6)),
-                              pw.Divider(thickness: 1)
-                            ]),
-                        pw.Column(
-                            crossAxisAlignment: pw.CrossAxisAlignment.center,
-                            mainAxisAlignment: pw.MainAxisAlignment.center,
-                            children: [
-                              pw.Text(yearLevel[i],
-                                  style: const pw.TextStyle(fontSize: 6)),
-                              pw.Divider(thickness: 1)
-                            ]),
-                        pw.Column(
-                            crossAxisAlignment: pw.CrossAxisAlignment.center,
-                            mainAxisAlignment: pw.MainAxisAlignment.center,
-                            children: [
-                              pw.Text(concern[i],
-                                  style: const pw.TextStyle(fontSize: 6)),
-                              pw.Divider(thickness: 1)
-                            ]),
-                        pw.Column(
-                            crossAxisAlignment: pw.CrossAxisAlignment.center,
-                            mainAxisAlignment: pw.MainAxisAlignment.center,
-                            children: [
-                              pw.Text(status[i],
-                                  style: const pw.TextStyle(fontSize: 6)),
-                              pw.Divider(thickness: 1)
-                            ]),
-                      ])
+                      pw.Text('BUKIDNON STATE UNIVERSITY',
+                          style: const pw.TextStyle(fontSize: 12)),
+                      pw.Text('COLLEGE OF TECHNOLOGIES',
+                          style: const pw.TextStyle(fontSize: 12)),
+                      pw.Text('Sayre Hwy, Malaybalay, 8700 Bukidnon',
+                          style: const pw.TextStyle(fontSize: 8)),
+                      pw.Text(
+                          'Tel (088) 813-5661 to 5663; TeleFax (088) 813-2717, www.buksu.edu.ph',
+                          style: const pw.TextStyle(fontSize: 8)),
+                    ],
+                  ),
+                  pw.SizedBox(width: 25),
+                  pw.Image(image1, height: 50, width: 50),
+                ],
+              ),
+              pw.SizedBox(height: 50),
+              pw.Text("STUDENT'S CONSULTATION LOG BOOK",
+                  style: const pw.TextStyle(fontSize: 10)),
+              pw.SizedBox(height: 10),
+              pw.Table(
+                  border: pw.TableBorder.all(color: PdfColors.black),
+                  children: [
+                    pw.TableRow(children: [
+                      pw.Padding(
+                        padding: pw.EdgeInsets.all(2),
+                        child: pw.Text('Name of Faculty',
+                            style: const pw.TextStyle(fontSize: 6)),
+                      ),
+                      pw.Padding(
+                        padding: pw.EdgeInsets.fromLTRB(50, 2, 50, 2),
+                        child: pw.Text('                   ',
+                            style: const pw.TextStyle(fontSize: 6)),
+                      ),
+                      pw.Padding(
+                        padding: pw.EdgeInsets.all(2),
+                        child: pw.Text('Semester & School Year',
+                            style: const pw.TextStyle(fontSize: 6)),
+                      ),
+                      pw.Padding(
+                        padding: pw.EdgeInsets.fromLTRB(50, 2, 50, 2),
+                        child: pw.Text('                   ',
+                            style: const pw.TextStyle(fontSize: 6)),
+                      ),
+                    ]),
+                    pw.TableRow(children: [
+                      pw.Padding(
+                        padding: pw.EdgeInsets.all(2),
+                        child: pw.Text('Department',
+                            style: const pw.TextStyle(fontSize: 6)),
+                      ),
+                      pw.Padding(
+                        padding: pw.EdgeInsets.fromLTRB(50, 2, 50, 2),
+                        child:
+                            pw.Text('', style: const pw.TextStyle(fontSize: 6)),
+                      ),
+                      pw.Padding(
+                        padding: pw.EdgeInsets.fromLTRB(50, 2, 50, 2),
+                        child: pw.Text('                   ',
+                            style: const pw.TextStyle(fontSize: 6)),
+                      ),
+                      pw.Padding(
+                        padding: pw.EdgeInsets.fromLTRB(50, 2, 50, 2),
+                        child: pw.Text('                   ',
+                            style: const pw.TextStyle(fontSize: 6)),
+                      ),
                     ])
+                  ]),
+              pw.SizedBox(height: 20),
+              pw.Table(
+                  border: pw.TableBorder.all(color: PdfColors.black),
+                  children: [
+                    pw.TableRow(children: [
+                      pw.Padding(
+                        padding: pw.EdgeInsets.all(2),
+                        child: pw.Text('Name',
+                            style: const pw.TextStyle(fontSize: 6)),
+                      ),
+                      pw.Padding(
+                        padding: pw.EdgeInsets.all(2),
+                        child: pw.Text('Email',
+                            style: const pw.TextStyle(fontSize: 6)),
+                      ),
+                      pw.Padding(
+                        padding: pw.EdgeInsets.all(2),
+                        child: pw.Text('Course',
+                            style: const pw.TextStyle(fontSize: 6)),
+                      ),
+                      pw.Padding(
+                        padding: pw.EdgeInsets.all(2),
+                        child: pw.Text('Year Level',
+                            style: const pw.TextStyle(fontSize: 6)),
+                      ),
+                      pw.Padding(
+                        padding: pw.EdgeInsets.all(2),
+                        child: pw.Text('Concern',
+                            style: const pw.TextStyle(fontSize: 6)),
+                      ),
+                      pw.Padding(
+                        padding: pw.EdgeInsets.all(2),
+                        child: pw.Text('Status',
+                            style: const pw.TextStyle(fontSize: 6)),
+                      ),
+                    ]),
+                    for (int i = 0; i < name.length; i++)
+                      pw.TableRow(children: [
+                        pw.Padding(
+                          padding: pw.EdgeInsets.all(5),
+                          child: pw.Text(name[i],
+                              style: const pw.TextStyle(fontSize: 6)),
+                        ),
+                        pw.Padding(
+                          padding: pw.EdgeInsets.all(5),
+                          child: pw.Text(email[i],
+                              style: const pw.TextStyle(fontSize: 6)),
+                        ),
+                        pw.Padding(
+                          padding: pw.EdgeInsets.all(5),
+                          child: pw.Text(courseStud[i],
+                              style: const pw.TextStyle(fontSize: 6)),
+                        ),
+                        pw.Padding(
+                          padding: pw.EdgeInsets.all(5),
+                          child: pw.Text(yearLevel[i],
+                              style: const pw.TextStyle(fontSize: 6)),
+                        ),
+                        pw.Padding(
+                          padding: pw.EdgeInsets.all(5),
+                          child: pw.Text(concern[i],
+                              style: const pw.TextStyle(fontSize: 6)),
+                        ),
+                        pw.Padding(
+                          padding: pw.EdgeInsets.all(5),
+                          child: pw.Text(status[i],
+                              style: const pw.TextStyle(fontSize: 6)),
+                        ),
+                      ])
+                  ]),
             ]),
           );
         },
@@ -502,7 +539,7 @@ class _ReportTabState extends State<ReportTab> {
                     return Expanded(
                       child: SizedBox(
                         child: ListView.builder(
-                            itemCount: 1,
+                            itemCount: data.size == 0 ? 0 : 1,
                             itemBuilder: ((context, index) {
                               name.add(data.docs[index]['name']);
                               email.add(data.docs[index]['email']);
