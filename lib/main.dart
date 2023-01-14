@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'STUDCON',
       debugShowCheckedModeBanner: false,
-      initialRoute: Routes.homescreen,
+      initialRoute: Routes.loginpage,
       routes: {
         Routes.loginpage: (context) => const LoginPage(),
         Routes.homescreen: (context) => const HomeScreen(),
