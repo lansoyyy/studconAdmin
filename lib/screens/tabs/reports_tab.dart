@@ -548,14 +548,14 @@ class _ReportTabState extends State<ReportTab> {
         onLayout: (PdfPageFormat format) async => doc.save());
 
     /// share the document to other applications:
-    await Printing.sharePdf(
-        bytes: await doc.save(), filename: 'my-document.pdf');
+    // await Printing.sharePdf(
+    //     bytes: await doc.save(), filename: 'my-document.pdf');
 
-    /// tutorial for using path_provider: https://www.youtube.com/watch?v=fJtFDrjEvE8
-    /// save PDF with Flutter library "path_provider":
-    final output = await getTemporaryDirectory();
-    final file = File('${output.path}/reports.pdf');
-    await file.writeAsBytes(await doc.save());
+    // /// tutorial for using path_provider: https://www.youtube.com/watch?v=fJtFDrjEvE8
+    // /// save PDF with Flutter library "path_provider":
+    // final output = await getTemporaryDirectory();
+    // final file = File('${output.path}/reports.pdf');
+    // await file.writeAsBytes(await doc.save());
   }
 
   void consultationReport() async {
@@ -920,14 +920,14 @@ class _ReportTabState extends State<ReportTab> {
         onLayout: (PdfPageFormat format) async => doc.save());
 
     /// share the document to other applications:
-    await Printing.sharePdf(
-        bytes: await doc.save(), filename: 'my-document.pdf');
+    // await Printing.sharePdf(
+    //     bytes: await doc.save(), filename: 'my-document.pdf');
 
-    /// tutorial for using path_provider: https://www.youtube.com/watch?v=fJtFDrjEvE8
-    /// save PDF with Flutter library "path_provider":
-    final output = await getTemporaryDirectory();
-    final file = File('${output.path}/reports.pdf');
-    await file.writeAsBytes(await doc.save());
+    // /// tutorial for using path_provider: https://www.youtube.com/watch?v=fJtFDrjEvE8
+    // /// save PDF with Flutter library "path_provider":
+    // final output = await getTemporaryDirectory();
+    // final file = File('${output.path}/reports.pdf');
+    // await file.writeAsBytes(await doc.save());
   }
 
   void reportByYear() async {
@@ -1134,14 +1134,14 @@ class _ReportTabState extends State<ReportTab> {
         onLayout: (PdfPageFormat format) async => doc.save());
 
     /// share the document to other applications:
-    await Printing.sharePdf(
-        bytes: await doc.save(), filename: 'my-document.pdf');
+    // await Printing.sharePdf(
+    //     bytes: await doc.save(), filename: 'my-document.pdf');
 
-    /// tutorial for using path_provider: https://www.youtube.com/watch?v=fJtFDrjEvE8
-    /// save PDF with Flutter library "path_provider":
-    final output = await getTemporaryDirectory();
-    final file = File('${output.path}/reports.pdf');
-    await file.writeAsBytes(await doc.save());
+    // /// tutorial for using path_provider: https://www.youtube.com/watch?v=fJtFDrjEvE8
+    // /// save PDF with Flutter library "path_provider":
+    // final output = await getTemporaryDirectory();
+    // final file = File('${output.path}/reports.pdf');
+    // await file.writeAsBytes(await doc.save());
   }
 
   String sort = 'name';
@@ -1380,14 +1380,14 @@ class _ReportTabState extends State<ReportTab> {
         onLayout: (PdfPageFormat format) async => doc.save());
 
     /// share the document to other applications:
-    await Printing.sharePdf(
-        bytes: await doc.save(), filename: 'my-document.pdf');
+    // await Printing.sharePdf(
+    //     bytes: await doc.save(), filename: 'my-document.pdf');
 
-    /// tutorial for using path_provider: https://www.youtube.com/watch?v=fJtFDrjEvE8
-    /// save PDF with Flutter library "path_provider":
-    final output = await getTemporaryDirectory();
-    final file = File('${output.path}/reports.pdf');
-    await file.writeAsBytes(await doc.save());
+    // /// tutorial for using path_provider: https://www.youtube.com/watch?v=fJtFDrjEvE8
+    // /// save PDF with Flutter library "path_provider":
+    // final output = await getTemporaryDirectory();
+    // final file = File('${output.path}/reports.pdf');
+    // await file.writeAsBytes(await doc.save());
   }
 
   @override
