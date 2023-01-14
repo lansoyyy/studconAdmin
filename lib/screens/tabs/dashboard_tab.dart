@@ -4,6 +4,7 @@ import 'package:consultation_system/widgets/appabr_widget.dart';
 import 'package:consultation_system/widgets/text_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
 
 class DashboardTab extends StatefulWidget {
@@ -156,110 +157,154 @@ class _DashboardTabState extends State<DashboardTab> {
     }
   }
 
+  final box = GetStorage();
+
   @override
   Widget build(BuildContext context) {
     String date = DateFormat("MMMM, EEEE, yyyy").format(DateTime.now());
 
     return Scaffold(
       appBar: appbarWidget(widget.page),
-      body: SingleChildScrollView(
-        child: Container(
-          padding: const EdgeInsets.only(left: 20),
-          color: Colors.white,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(
-                height: 20,
-              ),
-              NormalText(label: "Dashboard", fontSize: 24, color: primary),
-              NormalText(label: "($date)", fontSize: 18, color: brownAccent),
-              const SizedBox(
-                height: 20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Container(
-                    padding: const EdgeInsets.only(left: 20, top: 10),
-                    height: 100,
-                    width: 250,
-                    color: greyAccent,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        NormalText(
-                            label: 'TOTAL MESSAGES',
-                            fontSize: 12,
-                            color: primary),
-                        const SizedBox(
-                          height: 20,
+      body: Container(
+        color: greyAccent,
+        child: SingleChildScrollView(
+          child: Container(
+            padding: const EdgeInsets.only(left: 20),
+            color: greyAccent,
+            height: 750,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      NormalText(
+                          label: "Dashboard", fontSize: 24, color: primary),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          GestureDetector(
+                            child: Container(
+                              padding: const EdgeInsets.only(left: 20, top: 10),
+                              height: 100,
+                              width: 250,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: Colors.black,
+                                ),
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  NormalText(
+                                      label: 'TOTAL MESSAGES',
+                                      fontSize: 12,
+                                      color: primary),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  BoldText(
+                                      label: message.toString(),
+                                      fontSize: 32,
+                                      color: primary),
+                                ],
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          GestureDetector(
+                            child: Container(
+                              padding: const EdgeInsets.only(left: 20, top: 10),
+                              height: 100,
+                              width: 250,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                border: Border.all(
+                                  color: Colors.black,
+                                ),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  NormalText(
+                                      label: 'UNREAD MESSAGES',
+                                      fontSize: 12,
+                                      color: primary),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  BoldText(
+                                      label: unreadmessage.toString(),
+                                      fontSize: 32,
+                                      color: primary),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      GestureDetector(
+                        child: Container(
+                          padding: const EdgeInsets.only(left: 20, top: 10),
+                          height: 100,
+                          width: 250,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Colors.black,
+                            ),
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              NormalText(
+                                  label: 'READ MESSAGES',
+                                  fontSize: 12,
+                                  color: primary),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              BoldText(
+                                  label: readmessage.toString(),
+                                  fontSize: 32,
+                                  color: primary),
+                            ],
+                          ),
                         ),
-                        BoldText(
-                            label: message.toString(),
-                            fontSize: 32,
-                            color: primary),
-                      ],
-                    ),
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                    ],
                   ),
-                  Container(
-                    padding: const EdgeInsets.only(left: 20, top: 10),
-                    height: 100,
-                    width: 250,
-                    color: greyAccent,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        NormalText(
-                            label: 'UNREAD MESSAGES',
-                            fontSize: 12,
-                            color: primary),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        BoldText(
-                            label: unreadmessage.toString(),
-                            fontSize: 32,
-                            color: primary),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.only(left: 20, top: 10),
-                    height: 100,
-                    width: 250,
-                    color: greyAccent,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        NormalText(
-                            label: 'READ MESSAGES',
-                            fontSize: 12,
-                            color: primary),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        BoldText(
-                            label: readmessage.toString(),
-                            fontSize: 32,
-                            color: primary),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              Center(
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 18, bottom: 20),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 18, bottom: 20, top: 70),
                   child: Container(
                     padding:
                         const EdgeInsets.only(left: 20, top: 10, right: 20),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                     height: 400,
-                    width: 600,
-                    color: greyAccent,
+                    width: 400,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -300,7 +345,7 @@ class _DashboardTabState extends State<DashboardTab> {
                                 child: SizedBox(
                                   child: ListView.separated(
                                     separatorBuilder: (context, index) {
-                                      return const Divider();
+                                      return Divider();
                                     },
                                     itemBuilder: (context, index) {
                                       return StreamBuilder<QuerySnapshot>(
@@ -354,8 +399,8 @@ class _DashboardTabState extends State<DashboardTab> {
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
