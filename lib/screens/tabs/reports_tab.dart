@@ -1,12 +1,9 @@
-import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:consultation_system/constant/colors.dart';
 import 'package:consultation_system/widgets/drop_down_button.dart';
 import 'package:consultation_system/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
@@ -853,9 +850,10 @@ class _ReportTabState extends State<ReportTab> {
                 mainAxisAlignment: pw.MainAxisAlignment.center,
                 children: [
                   pw.Text('Semester:___________ ',
-                      style: pw.TextStyle(fontSize: 6)),
+                      style: const pw.TextStyle(fontSize: 6)),
                   pw.SizedBox(width: 30),
-                  pw.Text('SY:___________ ', style: pw.TextStyle(fontSize: 6)),
+                  pw.Text('SY:___________ ',
+                      style: const pw.TextStyle(fontSize: 6)),
                 ],
               ),
               pw.SizedBox(height: 20),
@@ -864,243 +862,238 @@ class _ReportTabState extends State<ReportTab> {
                   children: [
                     pw.TableRow(children: [
                       pw.Padding(
-                        padding: pw.EdgeInsets.all(2),
+                        padding: const pw.EdgeInsets.all(2),
                         child: pw.Text('Year Level',
                             style: const pw.TextStyle(fontSize: 6)),
                       ),
                       pw.Padding(
-                        padding: pw.EdgeInsets.all(2),
+                        padding: const pw.EdgeInsets.all(2),
                         child: pw.Text('No. of Students Enrolled',
                             style: const pw.TextStyle(fontSize: 6)),
                       ),
                       pw.Padding(
-                        padding: pw.EdgeInsets.all(2),
+                        padding: const pw.EdgeInsets.all(2),
                         child: pw.Text('No. of Students Consulted',
                             style: const pw.TextStyle(fontSize: 6)),
                       ),
                       pw.Padding(
-                        padding: pw.EdgeInsets.all(2),
+                        padding: const pw.EdgeInsets.all(2),
                         child: pw.Text('Percentage of Consultation',
                             style: const pw.TextStyle(fontSize: 6)),
                       ),
                       pw.Padding(
-                        padding: pw.EdgeInsets.all(2),
+                        padding: const pw.EdgeInsets.all(2),
                         child: pw.Text('Consultation Platform',
                             style: const pw.TextStyle(fontSize: 6)),
                       ),
                       pw.Padding(
-                        padding: pw.EdgeInsets.all(2),
+                        padding: const pw.EdgeInsets.all(2),
                         child: pw.Text(
                             'Major or Common Issues Encountered by Students',
                             style: const pw.TextStyle(fontSize: 6)),
                       ),
                       pw.Padding(
-                        padding: pw.EdgeInsets.all(2),
+                        padding: const pw.EdgeInsets.all(2),
                         child: pw.Text('Action Taken and Status',
                             style: const pw.TextStyle(fontSize: 6)),
                       ),
                     ]),
                     pw.TableRow(children: [
                       pw.Padding(
-                        padding: pw.EdgeInsets.all(2),
+                        padding: const pw.EdgeInsets.all(2),
                         child: pw.Text('1st',
                             style: const pw.TextStyle(fontSize: 6)),
                       ),
                       pw.Padding(
-                        padding: pw.EdgeInsets.all(2),
+                        padding: const pw.EdgeInsets.all(2),
                         child: pw.Text(total1.toString(),
                             style: const pw.TextStyle(fontSize: 6)),
                       ),
                       pw.Padding(
-                        padding: pw.EdgeInsets.all(2),
+                        padding: const pw.EdgeInsets.all(2),
                         child: pw.Text(year1.toString(),
                             style: const pw.TextStyle(fontSize: 6)),
                       ),
                       pw.Padding(
-                        padding: pw.EdgeInsets.all(2),
+                        padding: const pw.EdgeInsets.all(2),
                         child: pw.Text(
                             year1 == 0
                                 ? "0.00%"
-                                : ((year1 / total1) * 100).toStringAsFixed(2) +
-                                    "%",
+                                : "${((year1 / total1) * 100).toStringAsFixed(2)}%",
                             style: const pw.TextStyle(fontSize: 6)),
                       ),
                       pw.Padding(
-                        padding: pw.EdgeInsets.all(2),
+                        padding: const pw.EdgeInsets.all(2),
                         child: pw.Text('Studcon Messaging App',
                             style: const pw.TextStyle(fontSize: 6)),
                       ),
                       pw.Padding(
-                        padding: pw.EdgeInsets.all(2),
+                        padding: const pw.EdgeInsets.all(2),
                         child: pw.Text(year1 == 0 ? 'None' : concern1,
                             style: const pw.TextStyle(fontSize: 6)),
                       ),
                       pw.Padding(
-                        padding: pw.EdgeInsets.all(2),
+                        padding: const pw.EdgeInsets.all(2),
                         child: pw.Text(year1 == 0 ? 'None' : type,
                             style: const pw.TextStyle(fontSize: 6)),
                       ),
                     ]),
                     pw.TableRow(children: [
                       pw.Padding(
-                        padding: pw.EdgeInsets.all(2),
+                        padding: const pw.EdgeInsets.all(2),
                         child: pw.Text('2nd',
                             style: const pw.TextStyle(fontSize: 6)),
                       ),
                       pw.Padding(
-                        padding: pw.EdgeInsets.all(2),
+                        padding: const pw.EdgeInsets.all(2),
                         child: pw.Text(total2.toString(),
                             style: const pw.TextStyle(fontSize: 6)),
                       ),
                       pw.Padding(
-                        padding: pw.EdgeInsets.all(2),
+                        padding: const pw.EdgeInsets.all(2),
                         child: pw.Text(year2.toString(),
                             style: const pw.TextStyle(fontSize: 6)),
                       ),
                       pw.Padding(
-                        padding: pw.EdgeInsets.all(2),
+                        padding: const pw.EdgeInsets.all(2),
                         child: pw.Text(
                             year2 == 0
                                 ? "0.00%"
-                                : ((year2 / total2) * 100).toStringAsFixed(2) +
-                                    "%",
+                                : "${((year2 / total2) * 100).toStringAsFixed(2)}%",
                             style: const pw.TextStyle(fontSize: 6)),
                       ),
                       pw.Padding(
-                        padding: pw.EdgeInsets.all(2),
+                        padding: const pw.EdgeInsets.all(2),
                         child: pw.Text('Studcon Messaging App',
                             style: const pw.TextStyle(fontSize: 6)),
                       ),
                       pw.Padding(
-                        padding: pw.EdgeInsets.all(2),
+                        padding: const pw.EdgeInsets.all(2),
                         child: pw.Text(year2 == 0 ? 'None' : concern1,
                             style: const pw.TextStyle(fontSize: 6)),
                       ),
                       pw.Padding(
-                        padding: pw.EdgeInsets.all(2),
+                        padding: const pw.EdgeInsets.all(2),
                         child: pw.Text(year2 == 0 ? 'None' : type,
                             style: const pw.TextStyle(fontSize: 6)),
                       ),
                     ]),
                     pw.TableRow(children: [
                       pw.Padding(
-                        padding: pw.EdgeInsets.all(2),
+                        padding: const pw.EdgeInsets.all(2),
                         child: pw.Text('3rd',
                             style: const pw.TextStyle(fontSize: 6)),
                       ),
                       pw.Padding(
-                        padding: pw.EdgeInsets.all(2),
+                        padding: const pw.EdgeInsets.all(2),
                         child: pw.Text(total3.toString(),
                             style: const pw.TextStyle(fontSize: 6)),
                       ),
                       pw.Padding(
-                        padding: pw.EdgeInsets.all(2),
+                        padding: const pw.EdgeInsets.all(2),
                         child: pw.Text(year3.toString(),
                             style: const pw.TextStyle(fontSize: 6)),
                       ),
                       pw.Padding(
-                        padding: pw.EdgeInsets.all(2),
+                        padding: const pw.EdgeInsets.all(2),
                         child: pw.Text(
                             year3 == 0
                                 ? "0.00%"
-                                : ((year3 / total3) * 100).toStringAsFixed(2) +
-                                    "%",
+                                : "${((year3 / total3) * 100).toStringAsFixed(2)}%",
                             style: const pw.TextStyle(fontSize: 6)),
                       ),
                       pw.Padding(
-                        padding: pw.EdgeInsets.all(2),
+                        padding: const pw.EdgeInsets.all(2),
                         child: pw.Text('Studcon Messaging App',
                             style: const pw.TextStyle(fontSize: 6)),
                       ),
                       pw.Padding(
-                        padding: pw.EdgeInsets.all(2),
+                        padding: const pw.EdgeInsets.all(2),
                         child: pw.Text(year3 == 0 ? 'None' : concern1,
                             style: const pw.TextStyle(fontSize: 6)),
                       ),
                       pw.Padding(
-                        padding: pw.EdgeInsets.all(2),
+                        padding: const pw.EdgeInsets.all(2),
                         child: pw.Text(year3 == 0 ? 'None' : type,
                             style: const pw.TextStyle(fontSize: 6)),
                       ),
                     ]),
                     pw.TableRow(children: [
                       pw.Padding(
-                        padding: pw.EdgeInsets.all(2),
+                        padding: const pw.EdgeInsets.all(2),
                         child: pw.Text('4th',
                             style: const pw.TextStyle(fontSize: 6)),
                       ),
                       pw.Padding(
-                        padding: pw.EdgeInsets.all(2),
+                        padding: const pw.EdgeInsets.all(2),
                         child: pw.Text(total4.toString(),
                             style: const pw.TextStyle(fontSize: 6)),
                       ),
                       pw.Padding(
-                        padding: pw.EdgeInsets.all(2),
+                        padding: const pw.EdgeInsets.all(2),
                         child: pw.Text(year4.toString(),
                             style: const pw.TextStyle(fontSize: 6)),
                       ),
                       pw.Padding(
-                        padding: pw.EdgeInsets.all(2),
+                        padding: const pw.EdgeInsets.all(2),
                         child: pw.Text(
                             year4 == 0
                                 ? "0.00%"
-                                : ((year4 / total4) * 100).toStringAsFixed(2) +
-                                    "%",
+                                : "${((year4 / total4) * 100).toStringAsFixed(2)}%",
                             style: const pw.TextStyle(fontSize: 6)),
                       ),
                       pw.Padding(
-                        padding: pw.EdgeInsets.all(2),
+                        padding: const pw.EdgeInsets.all(2),
                         child: pw.Text('Studcon Messaging App',
                             style: const pw.TextStyle(fontSize: 6)),
                       ),
                       pw.Padding(
-                        padding: pw.EdgeInsets.all(2),
+                        padding: const pw.EdgeInsets.all(2),
                         child: pw.Text(year4 == 0 ? 'None' : concern1,
                             style: const pw.TextStyle(fontSize: 6)),
                       ),
                       pw.Padding(
-                        padding: pw.EdgeInsets.all(2),
+                        padding: const pw.EdgeInsets.all(2),
                         child: pw.Text(year4 == 0 ? 'None' : type,
                             style: const pw.TextStyle(fontSize: 6)),
                       ),
                     ]),
                     pw.TableRow(children: [
                       pw.Padding(
-                        padding: pw.EdgeInsets.all(2),
+                        padding: const pw.EdgeInsets.all(2),
                         child: pw.Text('5th',
                             style: const pw.TextStyle(fontSize: 6)),
                       ),
                       pw.Padding(
-                        padding: pw.EdgeInsets.all(2),
+                        padding: const pw.EdgeInsets.all(2),
                         child: pw.Text(total5.toString(),
                             style: const pw.TextStyle(fontSize: 6)),
                       ),
                       pw.Padding(
-                        padding: pw.EdgeInsets.all(2),
+                        padding: const pw.EdgeInsets.all(2),
                         child: pw.Text(year5.toString(),
                             style: const pw.TextStyle(fontSize: 6)),
                       ),
                       pw.Padding(
-                        padding: pw.EdgeInsets.all(2),
+                        padding: const pw.EdgeInsets.all(2),
                         child: pw.Text(
                             year5 == 0
                                 ? "0.00%"
-                                : ((year5 / total5) * 100).toStringAsFixed(2) +
-                                    "%",
+                                : "${((year5 / total5) * 100).toStringAsFixed(2)}%",
                             style: const pw.TextStyle(fontSize: 6)),
                       ),
                       pw.Padding(
-                        padding: pw.EdgeInsets.all(2),
+                        padding: const pw.EdgeInsets.all(2),
                         child: pw.Text('Studcon Messaging App',
                             style: const pw.TextStyle(fontSize: 6)),
                       ),
                       pw.Padding(
-                        padding: pw.EdgeInsets.all(2),
+                        padding: const pw.EdgeInsets.all(2),
                         child: pw.Text(year5 == 0 ? 'None' : concern1,
                             style: const pw.TextStyle(fontSize: 6)),
                       ),
                       pw.Padding(
-                        padding: pw.EdgeInsets.all(2),
+                        padding: const pw.EdgeInsets.all(2),
                         child: pw.Text(year5 == 0 ? 'None' : type,
                             style: const pw.TextStyle(fontSize: 6)),
                       ),
@@ -1110,7 +1103,8 @@ class _ReportTabState extends State<ReportTab> {
                 child: pw.SizedBox(height: 50),
               ),
               pw.Row(mainAxisAlignment: pw.MainAxisAlignment.center, children: [
-                pw.Text('Consolidated by: ', style: pw.TextStyle(fontSize: 6)),
+                pw.Text('Consolidated by: ',
+                    style: const pw.TextStyle(fontSize: 6)),
                 pw.Column(
                     mainAxisAlignment: pw.MainAxisAlignment.end,
                     crossAxisAlignment: pw.CrossAxisAlignment.center,
@@ -1124,7 +1118,7 @@ class _ReportTabState extends State<ReportTab> {
                   child: pw.SizedBox(height: 50),
                 ),
                 pw.Text('Reviewed and Approved by: ',
-                    style: pw.TextStyle(fontSize: 6)),
+                    style: const pw.TextStyle(fontSize: 6)),
                 pw.Column(
                     mainAxisAlignment: pw.MainAxisAlignment.end,
                     crossAxisAlignment: pw.CrossAxisAlignment.center,
@@ -1144,15 +1138,17 @@ class _ReportTabState extends State<ReportTab> {
                       crossAxisAlignment: pw.CrossAxisAlignment.start,
                       children: [
                         pw.Text('Document Code: OVPAA-F-INS-060B',
-                            style: pw.TextStyle(fontSize: 6)),
+                            style: const pw.TextStyle(fontSize: 6)),
                         pw.Text('Uncontrolled document once printed',
                             style: pw.TextStyle(
                                 fontSize: 4, fontStyle: pw.FontStyle.italic)),
                       ]),
-                  pw.Text('Revision No.:0', style: pw.TextStyle(fontSize: 6)),
-                  pw.Text('Issue No.:1', style: pw.TextStyle(fontSize: 6)),
+                  pw.Text('Revision No.:0',
+                      style: const pw.TextStyle(fontSize: 6)),
+                  pw.Text('Issue No.:1',
+                      style: const pw.TextStyle(fontSize: 6)),
                   pw.Text('Issue Date: $cdate2',
-                      style: pw.TextStyle(fontSize: 6)),
+                      style: const pw.TextStyle(fontSize: 6)),
                 ],
               ),
             ]),
@@ -1225,9 +1221,10 @@ class _ReportTabState extends State<ReportTab> {
                 mainAxisAlignment: pw.MainAxisAlignment.center,
                 children: [
                   pw.Text('Semester:___________ ',
-                      style: pw.TextStyle(fontSize: 6)),
+                      style: const pw.TextStyle(fontSize: 6)),
                   pw.SizedBox(width: 30),
-                  pw.Text('SY:___________ ', style: pw.TextStyle(fontSize: 6)),
+                  pw.Text('SY:___________ ',
+                      style: const pw.TextStyle(fontSize: 6)),
                 ],
               ),
               pw.SizedBox(height: 20),
@@ -1236,38 +1233,38 @@ class _ReportTabState extends State<ReportTab> {
                   children: [
                     pw.TableRow(children: [
                       pw.Padding(
-                        padding: pw.EdgeInsets.all(2),
+                        padding: const pw.EdgeInsets.all(2),
                         child: pw.Text('Class Section',
                             style: const pw.TextStyle(fontSize: 6)),
                       ),
                       pw.Padding(
-                        padding: pw.EdgeInsets.all(2),
+                        padding: const pw.EdgeInsets.all(2),
                         child: pw.Text('No. of Students Enrolled',
                             style: const pw.TextStyle(fontSize: 6)),
                       ),
                       pw.Padding(
-                        padding: pw.EdgeInsets.all(2),
+                        padding: const pw.EdgeInsets.all(2),
                         child: pw.Text('No. of Students Consulted',
                             style: const pw.TextStyle(fontSize: 6)),
                       ),
                       pw.Padding(
-                        padding: pw.EdgeInsets.all(2),
+                        padding: const pw.EdgeInsets.all(2),
                         child: pw.Text('Percentage of Consultation',
                             style: const pw.TextStyle(fontSize: 6)),
                       ),
                       pw.Padding(
-                        padding: pw.EdgeInsets.all(2),
+                        padding: const pw.EdgeInsets.all(2),
                         child: pw.Text('Consultation Platform',
                             style: const pw.TextStyle(fontSize: 6)),
                       ),
                       pw.Padding(
-                        padding: pw.EdgeInsets.all(2),
+                        padding: const pw.EdgeInsets.all(2),
                         child: pw.Text(
                             'Major or Common Issues Encountered by Students',
                             style: const pw.TextStyle(fontSize: 6)),
                       ),
                       pw.Padding(
-                        padding: pw.EdgeInsets.all(2),
+                        padding: const pw.EdgeInsets.all(2),
                         child: pw.Text('Action Taken and Status',
                             style: const pw.TextStyle(fontSize: 6)),
                       ),
@@ -1275,17 +1272,17 @@ class _ReportTabState extends State<ReportTab> {
                     for (int i = 0; i < listSections.length; i++)
                       pw.TableRow(children: [
                         pw.Padding(
-                          padding: pw.EdgeInsets.all(2),
+                          padding: const pw.EdgeInsets.all(2),
                           child: pw.Text(listSections[i],
                               style: const pw.TextStyle(fontSize: 6)),
                         ),
                         pw.Padding(
-                          padding: pw.EdgeInsets.all(2),
+                          padding: const pw.EdgeInsets.all(2),
                           child: pw.Text(enrolled[i].toString(),
                               style: const pw.TextStyle(fontSize: 6)),
                         ),
                         pw.Padding(
-                          padding: pw.EdgeInsets.all(2),
+                          padding: const pw.EdgeInsets.all(2),
                           child: pw.Text(
                               sectionNumber[i] == 0
                                   ? "0"
@@ -1293,28 +1290,26 @@ class _ReportTabState extends State<ReportTab> {
                               style: const pw.TextStyle(fontSize: 6)),
                         ),
                         pw.Padding(
-                          padding: pw.EdgeInsets.all(2),
+                          padding: const pw.EdgeInsets.all(2),
                           child: pw.Text(
                               sectionNumber[i] == 0
                                   ? "0.00%"
-                                  : ((sectionNumber[i] / enrolled[i]) * 100)
-                                          .toStringAsFixed(2) +
-                                      "%",
+                                  : "${((sectionNumber[i] / enrolled[i]) * 100).toStringAsFixed(2)}%",
                               style: const pw.TextStyle(fontSize: 6)),
                         ),
                         pw.Padding(
-                          padding: pw.EdgeInsets.all(2),
+                          padding: const pw.EdgeInsets.all(2),
                           child: pw.Text('Studcon Messaging App',
                               style: const pw.TextStyle(fontSize: 6)),
                         ),
                         pw.Padding(
-                          padding: pw.EdgeInsets.all(2),
+                          padding: const pw.EdgeInsets.all(2),
                           child: pw.Text(
                               sectionNumber[i] == 0 ? 'None' : concern1,
                               style: const pw.TextStyle(fontSize: 6)),
                         ),
                         pw.Padding(
-                          padding: pw.EdgeInsets.all(2),
+                          padding: const pw.EdgeInsets.all(2),
                           child: pw.Text(sectionNumber[i] == 0 ? 'None' : type,
                               style: const pw.TextStyle(fontSize: 6)),
                         ),
@@ -1324,7 +1319,8 @@ class _ReportTabState extends State<ReportTab> {
                 child: pw.SizedBox(height: 50),
               ),
               pw.Row(mainAxisAlignment: pw.MainAxisAlignment.center, children: [
-                pw.Text('Consolidated by: ', style: pw.TextStyle(fontSize: 6)),
+                pw.Text('Consolidated by: ',
+                    style: const pw.TextStyle(fontSize: 6)),
                 pw.Column(
                     mainAxisAlignment: pw.MainAxisAlignment.end,
                     crossAxisAlignment: pw.CrossAxisAlignment.center,
@@ -1338,7 +1334,7 @@ class _ReportTabState extends State<ReportTab> {
                   child: pw.SizedBox(height: 50),
                 ),
                 pw.Text('Reviewed and Approved by: ',
-                    style: pw.TextStyle(fontSize: 6)),
+                    style: const pw.TextStyle(fontSize: 6)),
                 pw.Column(
                     mainAxisAlignment: pw.MainAxisAlignment.end,
                     crossAxisAlignment: pw.CrossAxisAlignment.center,
@@ -1358,15 +1354,17 @@ class _ReportTabState extends State<ReportTab> {
                       crossAxisAlignment: pw.CrossAxisAlignment.start,
                       children: [
                         pw.Text('Document Code: OVPAA-F-INS-060B',
-                            style: pw.TextStyle(fontSize: 6)),
+                            style: const pw.TextStyle(fontSize: 6)),
                         pw.Text('Uncontrolled document once printed',
                             style: pw.TextStyle(
                                 fontSize: 4, fontStyle: pw.FontStyle.italic)),
                       ]),
-                  pw.Text('Revision No.:0', style: pw.TextStyle(fontSize: 6)),
-                  pw.Text('Issue No.:1', style: pw.TextStyle(fontSize: 6)),
+                  pw.Text('Revision No.:0',
+                      style: const pw.TextStyle(fontSize: 6)),
+                  pw.Text('Issue No.:1',
+                      style: const pw.TextStyle(fontSize: 6)),
                   pw.Text('Issue Date: $cdate2',
-                      style: pw.TextStyle(fontSize: 6)),
+                      style: const pw.TextStyle(fontSize: 6)),
                 ],
               ),
             ]),
@@ -1461,9 +1459,10 @@ class _ReportTabState extends State<ReportTab> {
                 mainAxisAlignment: pw.MainAxisAlignment.center,
                 children: [
                   pw.Text('Semester:___________ ',
-                      style: pw.TextStyle(fontSize: 6)),
+                      style: const pw.TextStyle(fontSize: 6)),
                   pw.SizedBox(width: 30),
-                  pw.Text('SY:___________ ', style: pw.TextStyle(fontSize: 6)),
+                  pw.Text('SY:___________ ',
+                      style: const pw.TextStyle(fontSize: 6)),
                 ],
               ),
               pw.SizedBox(height: 20),
@@ -1472,38 +1471,38 @@ class _ReportTabState extends State<ReportTab> {
                   children: [
                     pw.TableRow(children: [
                       pw.Padding(
-                        padding: pw.EdgeInsets.all(2),
+                        padding: const pw.EdgeInsets.all(2),
                         child: pw.Text('Class Code',
                             style: const pw.TextStyle(fontSize: 6)),
                       ),
                       pw.Padding(
-                        padding: pw.EdgeInsets.all(2),
+                        padding: const pw.EdgeInsets.all(2),
                         child: pw.Text('No. of Students Enrolled',
                             style: const pw.TextStyle(fontSize: 6)),
                       ),
                       pw.Padding(
-                        padding: pw.EdgeInsets.all(2),
+                        padding: const pw.EdgeInsets.all(2),
                         child: pw.Text('No. of Students Consulted',
                             style: const pw.TextStyle(fontSize: 6)),
                       ),
                       pw.Padding(
-                        padding: pw.EdgeInsets.all(2),
+                        padding: const pw.EdgeInsets.all(2),
                         child: pw.Text('Percentage of Consultation',
                             style: const pw.TextStyle(fontSize: 6)),
                       ),
                       pw.Padding(
-                        padding: pw.EdgeInsets.all(2),
+                        padding: const pw.EdgeInsets.all(2),
                         child: pw.Text('Consultation Platform',
                             style: const pw.TextStyle(fontSize: 6)),
                       ),
                       pw.Padding(
-                        padding: pw.EdgeInsets.all(2),
+                        padding: const pw.EdgeInsets.all(2),
                         child: pw.Text(
                             'Major or Common Issues Encountered by Students',
                             style: const pw.TextStyle(fontSize: 6)),
                       ),
                       pw.Padding(
-                        padding: pw.EdgeInsets.all(2),
+                        padding: const pw.EdgeInsets.all(2),
                         child: pw.Text('Action Taken and Status',
                             style: const pw.TextStyle(fontSize: 6)),
                       ),
@@ -1511,17 +1510,17 @@ class _ReportTabState extends State<ReportTab> {
                     for (int i = 0; i < classCodes.length; i++)
                       pw.TableRow(children: [
                         pw.Padding(
-                          padding: pw.EdgeInsets.all(2),
+                          padding: const pw.EdgeInsets.all(2),
                           child: pw.Text(classCodes[i],
                               style: const pw.TextStyle(fontSize: 6)),
                         ),
                         pw.Padding(
-                          padding: pw.EdgeInsets.all(2),
+                          padding: const pw.EdgeInsets.all(2),
                           child: pw.Text(codeEnrolled[i].toString(),
                               style: const pw.TextStyle(fontSize: 6)),
                         ),
                         pw.Padding(
-                          padding: pw.EdgeInsets.all(2),
+                          padding: const pw.EdgeInsets.all(2),
                           child: pw.Text(
                               codeNumber[i] == 0
                                   ? "0"
@@ -1529,7 +1528,7 @@ class _ReportTabState extends State<ReportTab> {
                               style: const pw.TextStyle(fontSize: 6)),
                         ),
                         pw.Padding(
-                          padding: pw.EdgeInsets.all(2),
+                          padding: const pw.EdgeInsets.all(2),
                           child: pw.Text(
                               ((codeNumber[i] / codeEnrolled[i]) * 100)
                                           .toStringAsFixed(2) +
@@ -1538,17 +1537,17 @@ class _ReportTabState extends State<ReportTab> {
                               style: const pw.TextStyle(fontSize: 6)),
                         ),
                         pw.Padding(
-                          padding: pw.EdgeInsets.all(2),
+                          padding: const pw.EdgeInsets.all(2),
                           child: pw.Text('Studcon Messaging App',
                               style: const pw.TextStyle(fontSize: 6)),
                         ),
                         pw.Padding(
-                          padding: pw.EdgeInsets.all(2),
+                          padding: const pw.EdgeInsets.all(2),
                           child: pw.Text(codeNumber[i] == 0 ? 'None' : concern1,
                               style: const pw.TextStyle(fontSize: 6)),
                         ),
                         pw.Padding(
-                          padding: pw.EdgeInsets.all(2),
+                          padding: const pw.EdgeInsets.all(2),
                           child: pw.Text(codeNumber[i] == 0 ? 'None' : type,
                               style: const pw.TextStyle(fontSize: 6)),
                         ),
@@ -1558,7 +1557,8 @@ class _ReportTabState extends State<ReportTab> {
                 child: pw.SizedBox(height: 50),
               ),
               pw.Row(mainAxisAlignment: pw.MainAxisAlignment.center, children: [
-                pw.Text('Consolidated by: ', style: pw.TextStyle(fontSize: 6)),
+                pw.Text('Consolidated by: ',
+                    style: const pw.TextStyle(fontSize: 6)),
                 pw.Column(
                     mainAxisAlignment: pw.MainAxisAlignment.end,
                     crossAxisAlignment: pw.CrossAxisAlignment.center,
@@ -1571,7 +1571,8 @@ class _ReportTabState extends State<ReportTab> {
                 pw.Expanded(
                   child: pw.SizedBox(height: 50),
                 ),
-                pw.Text('Reviewed by: ', style: pw.TextStyle(fontSize: 6)),
+                pw.Text('Reviewed by: ',
+                    style: const pw.TextStyle(fontSize: 6)),
                 pw.Column(
                     mainAxisAlignment: pw.MainAxisAlignment.end,
                     crossAxisAlignment: pw.CrossAxisAlignment.center,
@@ -1584,7 +1585,8 @@ class _ReportTabState extends State<ReportTab> {
                 pw.Expanded(
                   child: pw.SizedBox(height: 50),
                 ),
-                pw.Text('Approved by: ', style: pw.TextStyle(fontSize: 6)),
+                pw.Text('Approved by: ',
+                    style: const pw.TextStyle(fontSize: 6)),
                 pw.Column(
                     mainAxisAlignment: pw.MainAxisAlignment.end,
                     crossAxisAlignment: pw.CrossAxisAlignment.center,
@@ -1604,15 +1606,17 @@ class _ReportTabState extends State<ReportTab> {
                       crossAxisAlignment: pw.CrossAxisAlignment.start,
                       children: [
                         pw.Text('Document Code: OVPAA-F-INS-060B',
-                            style: pw.TextStyle(fontSize: 6)),
+                            style: const pw.TextStyle(fontSize: 6)),
                         pw.Text('Uncontrolled document once printed',
                             style: pw.TextStyle(
                                 fontSize: 4, fontStyle: pw.FontStyle.italic)),
                       ]),
-                  pw.Text('Revision No.:0', style: pw.TextStyle(fontSize: 6)),
-                  pw.Text('Issue No.:1', style: pw.TextStyle(fontSize: 6)),
+                  pw.Text('Revision No.:0',
+                      style: const pw.TextStyle(fontSize: 6)),
+                  pw.Text('Issue No.:1',
+                      style: const pw.TextStyle(fontSize: 6)),
                   pw.Text('Issue Date: $cdate2',
-                      style: pw.TextStyle(fontSize: 6)),
+                      style: const pw.TextStyle(fontSize: 6)),
                 ],
               ),
             ]),
@@ -1657,96 +1661,105 @@ class _ReportTabState extends State<ReportTab> {
                         const SizedBox(
                           width: 30,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 10),
-                          child: Container(
-                            width: 150,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.fromLTRB(20, 2, 20, 2),
-                              child: DropdownButton(
-                                underline: Container(color: Colors.transparent),
-                                iconEnabledColor: Colors.black,
-                                isExpanded: true,
-                                style: const TextStyle(color: Colors.white),
-                                value: _dropdownValue,
-                                items: [
-                                  DropdownMenuItem(
-                                    onTap: () {
-                                      year = 'All';
-                                    },
-                                    value: 0,
-                                    child: DropDownItem(label: 'All'),
+                        index == 0
+                            ? Padding(
+                                padding: const EdgeInsets.only(top: 10),
+                                child: Container(
+                                  width: 90,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(5),
                                   ),
-                                  DropdownMenuItem(
-                                    onTap: () {
-                                      year = 'First Year';
-                                    },
-                                    value: 1,
-                                    child: DropDownItem(label: '1st Year'),
-                                  ),
-                                  DropdownMenuItem(
-                                    onTap: () {
-                                      year = 'Second Year';
-                                    },
-                                    value: 2,
-                                    child: DropDownItem(label: '2nd Year'),
-                                  ),
-                                  DropdownMenuItem(
-                                    onTap: () {
-                                      year = 'Third Year';
-                                    },
-                                    value: 3,
-                                    child: DropDownItem(label: '3rd Year'),
-                                  ),
-                                  DropdownMenuItem(
-                                    onTap: () {
-                                      year = 'Fourth Year';
-                                    },
-                                    value: 4,
-                                    child: DropDownItem(label: '4th Year'),
-                                  ),
-                                ],
-                                onChanged: (value) {
-                                  setState(() {
-                                    _dropdownValue =
-                                        int.parse(value.toString());
-                                    hasLoaded = false;
-                                  });
-                                  name.clear();
-                                  email.clear();
-                                  courseStud.clear();
-                                  yearLevel.clear();
-                                  concern.clear();
-                                  status.clear();
-                                  getData();
+                                  child: Padding(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(20, 2, 20, 2),
+                                    child: DropdownButton(
+                                      underline:
+                                          Container(color: Colors.transparent),
+                                      iconEnabledColor: Colors.black,
+                                      isExpanded: true,
+                                      style:
+                                          const TextStyle(color: Colors.white),
+                                      value: _dropdownValue,
+                                      items: [
+                                        DropdownMenuItem(
+                                          onTap: () {
+                                            year = 'All';
+                                          },
+                                          value: 0,
+                                          child: DropDownItem(label: 'All'),
+                                        ),
+                                        DropdownMenuItem(
+                                          onTap: () {
+                                            year = 'First Year';
+                                          },
+                                          value: 1,
+                                          child:
+                                              DropDownItem(label: '1st Year'),
+                                        ),
+                                        DropdownMenuItem(
+                                          onTap: () {
+                                            year = 'Second Year';
+                                          },
+                                          value: 2,
+                                          child:
+                                              DropDownItem(label: '2nd Year'),
+                                        ),
+                                        DropdownMenuItem(
+                                          onTap: () {
+                                            year = 'Third Year';
+                                          },
+                                          value: 3,
+                                          child:
+                                              DropDownItem(label: '3rd Year'),
+                                        ),
+                                        DropdownMenuItem(
+                                          onTap: () {
+                                            year = 'Fourth Year';
+                                          },
+                                          value: 4,
+                                          child:
+                                              DropDownItem(label: '4th Year'),
+                                        ),
+                                      ],
+                                      onChanged: (value) {
+                                        setState(() {
+                                          _dropdownValue =
+                                              int.parse(value.toString());
+                                          hasLoaded = false;
+                                        });
+                                        name.clear();
+                                        email.clear();
+                                        courseStud.clear();
+                                        yearLevel.clear();
+                                        concern.clear();
+                                        status.clear();
+                                        getData();
 
-                                  getData2();
-                                  getData3();
-                                  getData4();
-                                  getData5();
-                                  getTotal();
-                                  getTotal2();
-                                  getTotal3();
-                                  getTotal4();
-                                  getTotal5();
-                                  getSections();
-                                  getCodes();
-                                },
-                              ),
-                            ),
-                          ),
-                        ),
+                                        getData2();
+                                        getData3();
+                                        getData4();
+                                        getData5();
+                                        getTotal();
+                                        getTotal2();
+                                        getTotal3();
+                                        getTotal4();
+                                        getTotal5();
+                                        getSections();
+                                        getCodes();
+                                      },
+                                    ),
+                                  ),
+                                ),
+                              )
+                            : const SizedBox(),
                         const SizedBox(
                           width: 30,
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 10),
                           child: Container(
-                            width: 300,
+                            width: 210,
                             decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(5),
@@ -1891,75 +1904,81 @@ class _ReportTabState extends State<ReportTab> {
                         const SizedBox(
                           width: 30,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 10),
-                          child: Container(
-                            width: 150,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.fromLTRB(20, 2, 20, 2),
-                              child: DropdownButton(
-                                underline: Container(color: Colors.transparent),
-                                iconEnabledColor: Colors.black,
-                                isExpanded: true,
-                                style: const TextStyle(color: Colors.white),
-                                value: _dropdownValue2,
-                                items: [
-                                  DropdownMenuItem(
-                                    onTap: () {
-                                      setState(() {
-                                        sort = 'name';
-                                      });
-                                    },
-                                    value: 0,
-                                    child:
-                                        DropDownItem(label: 'Sort by: Names'),
+                        index == 0
+                            ? Padding(
+                                padding: const EdgeInsets.only(top: 10),
+                                child: Container(
+                                  width: 150,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(5),
                                   ),
-                                  DropdownMenuItem(
-                                    onTap: () {
-                                      setState(() {
-                                        sort = 'dateTime';
-                                      });
-                                    },
-                                    value: 1,
-                                    child: DropDownItem(label: 'Sort by: Date'),
-                                  ),
-                                ],
-                                onChanged: (value) {
-                                  setState(() {
-                                    _dropdownValue2 =
-                                        int.parse(value.toString());
-                                    hasLoaded = false;
-                                  });
-                                  name.clear();
-                                  email.clear();
-                                  courseStud.clear();
-                                  yearLevel.clear();
-                                  concern.clear();
-                                  status.clear();
-                                  getData();
+                                  child: Padding(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(20, 2, 20, 2),
+                                    child: DropdownButton(
+                                      underline:
+                                          Container(color: Colors.transparent),
+                                      iconEnabledColor: Colors.black,
+                                      isExpanded: true,
+                                      style:
+                                          const TextStyle(color: Colors.white),
+                                      value: _dropdownValue2,
+                                      items: [
+                                        DropdownMenuItem(
+                                          onTap: () {
+                                            setState(() {
+                                              sort = 'name';
+                                            });
+                                          },
+                                          value: 0,
+                                          child: DropDownItem(
+                                              label: 'Sort by: Names'),
+                                        ),
+                                        DropdownMenuItem(
+                                          onTap: () {
+                                            setState(() {
+                                              sort = 'dateTime';
+                                            });
+                                          },
+                                          value: 1,
+                                          child: DropDownItem(
+                                              label: 'Sort by: Date'),
+                                        ),
+                                      ],
+                                      onChanged: (value) {
+                                        setState(() {
+                                          _dropdownValue2 =
+                                              int.parse(value.toString());
+                                          hasLoaded = false;
+                                        });
+                                        name.clear();
+                                        email.clear();
+                                        courseStud.clear();
+                                        yearLevel.clear();
+                                        concern.clear();
+                                        status.clear();
+                                        getData();
 
-                                  getData2();
-                                  getData3();
-                                  getData4();
-                                  getData5();
-                                  getTotal();
-                                  getTotal2();
-                                  getTotal3();
-                                  getTotal4();
-                                  getTotal5();
-                                  getSections();
-                                  getCodes();
-                                },
-                              ),
-                            ),
-                          ),
-                        ),
+                                        getData2();
+                                        getData3();
+                                        getData4();
+                                        getData5();
+                                        getTotal();
+                                        getTotal2();
+                                        getTotal3();
+                                        getTotal4();
+                                        getTotal5();
+                                        getSections();
+                                        getCodes();
+                                      },
+                                    ),
+                                  ),
+                                ),
+                              )
+                            : const SizedBox(),
                         const SizedBox(
-                          width: 50,
+                          width: 20,
                         ),
                         Container(
                           decoration: BoxDecoration(
@@ -1972,8 +1991,8 @@ class _ReportTabState extends State<ReportTab> {
                             child: Row(
                               children: [
                                 BoldText(
-                                    label: 'Types of Report',
-                                    fontSize: 14,
+                                    label: 'Generate Reports',
+                                    fontSize: 12,
                                     color: Colors.black),
                                 PopupMenuButton(itemBuilder: ((context) {
                                   return [
@@ -2196,18 +2215,18 @@ class _ReportTabState extends State<ReportTab> {
                                 Align(
                                   alignment: Alignment.topLeft,
                                   child: MaterialButton(
-                                      child: NormalText(
-                                          label: 'Export in PDF',
-                                          fontSize: 12,
-                                          color: Colors.white),
                                       color: primary,
                                       minWidth: 150,
                                       height: 50,
                                       onPressed: (() {
                                         _loggedin();
-                                      })),
+                                      }),
+                                      child: NormalText(
+                                          label: 'Export in PDF',
+                                          fontSize: 12,
+                                          color: Colors.white)),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 20,
                                 ),
                                 StreamBuilder<QuerySnapshot>(
@@ -2466,476 +2485,92 @@ class _ReportTabState extends State<ReportTab> {
                                     }),
                               ],
                             ),
-                            Column(
-                              children: [
-                                Align(
-                                  alignment: Alignment.topLeft,
-                                  child: MaterialButton(
-                                      child: NormalText(
-                                          label: 'Export in PDF',
-                                          fontSize: 12,
-                                          color: Colors.white),
-                                      color: primary,
-                                      minWidth: 150,
-                                      height: 50,
-                                      onPressed: (() {
-                                        consultationReport();
-                                      })),
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 25),
-                                  child: Container(
-                                    height: 450,
-                                    decoration: BoxDecoration(
-                                        border: Border.all(
-                                            width: 3,
-                                            color: Colors.grey[200]!)),
-                                    child: SingleChildScrollView(
-                                      child: DataTable(
-                                        headingRowColor: MaterialStateProperty
-                                            .resolveWith<Color?>(
-                                                (Set<MaterialState> states) {
-                                          return Colors.blue[400];
-                                          // Use the default value.
+                            SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  Align(
+                                    alignment: Alignment.topLeft,
+                                    child: MaterialButton(
+                                        color: primary,
+                                        minWidth: 150,
+                                        height: 50,
+                                        onPressed: (() {
+                                          consultationReport();
                                         }),
-                                        border: TableBorder.all(
-                                          color: Colors.white,
-                                        ),
-                                        // datatable widget
-                                        columns: [
-                                          // column to set the name
-                                          DataColumn(
-                                              label: BoldText(
-                                                  label: 'Year\nLevel',
-                                                  fontSize: 12,
-                                                  color: Colors.white)),
-                                          DataColumn(
-                                              label: BoldText(
-                                                  label:
-                                                      'No. of\nStudents Enrolled',
-                                                  fontSize: 12,
-                                                  color: Colors.white)),
-                                          DataColumn(
-                                              label: BoldText(
-                                                  label:
-                                                      'No. of\nStudents Consulted',
-                                                  fontSize: 12,
-                                                  color: Colors.white)),
-                                          DataColumn(
-                                              label: BoldText(
-                                                  label:
-                                                      'Percentage of\nConsultation',
-                                                  fontSize: 12,
-                                                  color: Colors.white)),
-                                          DataColumn(
-                                              label: BoldText(
-                                                  label:
-                                                      'Consultation\nPlatform',
-                                                  fontSize: 12,
-                                                  color: Colors.white)),
-                                          DataColumn(
-                                              label: BoldText(
-                                                  label:
-                                                      'Major or Common\nConcerns/Issues\nEncountered by Students',
-                                                  fontSize: 12,
-                                                  color: Colors.white)),
-                                          DataColumn(
-                                              label: BoldText(
-                                                  label:
-                                                      'Actions Taken\nand Status',
-                                                  fontSize: 12,
-                                                  color: Colors.white)),
-                                        ],
-
-                                        rows: [
-                                          DataRow(
-                                              color: MaterialStateProperty
-                                                  .resolveWith<Color?>(
-                                                      (Set<MaterialState>
-                                                          states) {
-                                                return Colors.blueGrey[100];
-                                              }),
-                                              cells: [
-                                                DataCell(
-                                                  NormalText(
-                                                      label: '1st',
-                                                      fontSize: 12,
-                                                      color: Colors.black),
-                                                ),
-                                                DataCell(
-                                                  NormalText(
-                                                      label: total1.toString(),
-                                                      fontSize: 12,
-                                                      color: Colors.black),
-                                                ),
-                                                DataCell(
-                                                  NormalText(
-                                                      label: year1.toString(),
-                                                      fontSize: 12,
-                                                      color: Colors.black),
-                                                ),
-                                                DataCell(
-                                                  NormalText(
-                                                      label: year1 == 0
-                                                          ? "0.00%"
-                                                          : ((year1 / total1) *
-                                                                      100)
-                                                                  .toStringAsFixed(
-                                                                      2) +
-                                                              "%",
-                                                      fontSize: 12,
-                                                      color: Colors.black),
-                                                ),
-                                                DataCell(
-                                                  NormalText(
-                                                      label:
-                                                          'Studcon Messaging App',
-                                                      fontSize: 12,
-                                                      color: Colors.black),
-                                                ),
-                                                DataCell(
-                                                  NormalText(
-                                                      label: concern1,
-                                                      fontSize: 12,
-                                                      color: Colors.black),
-                                                ),
-                                                DataCell(
-                                                  NormalText(
-                                                      label: type,
-                                                      fontSize: 12,
-                                                      color: Colors.black),
-                                                ),
-                                              ]),
-                                          DataRow(
-                                              color: MaterialStateProperty
-                                                  .resolveWith<Color?>(
-                                                      (Set<MaterialState>
-                                                          states) {
-                                                return Colors.blueGrey[100];
-                                              }),
-                                              cells: [
-                                                DataCell(
-                                                  NormalText(
-                                                      label: '2nd',
-                                                      fontSize: 12,
-                                                      color: Colors.black),
-                                                ),
-                                                DataCell(
-                                                  NormalText(
-                                                      label: total2.toString(),
-                                                      fontSize: 12,
-                                                      color: Colors.black),
-                                                ),
-                                                DataCell(
-                                                  NormalText(
-                                                      label: year2.toString(),
-                                                      fontSize: 12,
-                                                      color: Colors.black),
-                                                ),
-                                                DataCell(
-                                                  NormalText(
-                                                      label: year2 == 0
-                                                          ? "0.00%"
-                                                          : ((year2 / total2) *
-                                                                      100)
-                                                                  .toStringAsFixed(
-                                                                      2) +
-                                                              "%",
-                                                      fontSize: 12,
-                                                      color: Colors.black),
-                                                ),
-                                                DataCell(
-                                                  NormalText(
-                                                      label:
-                                                          'Studcon Messaging App',
-                                                      fontSize: 12,
-                                                      color: Colors.black),
-                                                ),
-                                                DataCell(
-                                                  NormalText(
-                                                      label: concern1,
-                                                      fontSize: 12,
-                                                      color: Colors.black),
-                                                ),
-                                                DataCell(
-                                                  NormalText(
-                                                      label: type,
-                                                      fontSize: 12,
-                                                      color: Colors.black),
-                                                ),
-                                              ]),
-                                          DataRow(
-                                              color: MaterialStateProperty
-                                                  .resolveWith<Color?>(
-                                                      (Set<MaterialState>
-                                                          states) {
-                                                return Colors.blueGrey[100];
-                                              }),
-                                              cells: [
-                                                DataCell(
-                                                  NormalText(
-                                                      label: '3rd',
-                                                      fontSize: 12,
-                                                      color: Colors.black),
-                                                ),
-                                                DataCell(
-                                                  NormalText(
-                                                      label: total3.toString(),
-                                                      fontSize: 12,
-                                                      color: Colors.black),
-                                                ),
-                                                DataCell(
-                                                  NormalText(
-                                                      label: year3.toString(),
-                                                      fontSize: 12,
-                                                      color: Colors.black),
-                                                ),
-                                                DataCell(
-                                                  NormalText(
-                                                      label: year3 == 0
-                                                          ? "0.00%"
-                                                          : ((year3 / total3) *
-                                                                      100)
-                                                                  .toStringAsFixed(
-                                                                      2) +
-                                                              "%",
-                                                      fontSize: 12,
-                                                      color: Colors.black),
-                                                ),
-                                                DataCell(
-                                                  NormalText(
-                                                      label:
-                                                          'Studcon Messaging App',
-                                                      fontSize: 12,
-                                                      color: Colors.black),
-                                                ),
-                                                DataCell(
-                                                  NormalText(
-                                                      label: concern1,
-                                                      fontSize: 12,
-                                                      color: Colors.black),
-                                                ),
-                                                DataCell(
-                                                  NormalText(
-                                                      label: type,
-                                                      fontSize: 12,
-                                                      color: Colors.black),
-                                                ),
-                                              ]),
-                                          DataRow(
-                                              color: MaterialStateProperty
-                                                  .resolveWith<Color?>(
-                                                      (Set<MaterialState>
-                                                          states) {
-                                                return Colors.blueGrey[100];
-                                              }),
-                                              cells: [
-                                                DataCell(
-                                                  NormalText(
-                                                      label: '4th',
-                                                      fontSize: 12,
-                                                      color: Colors.black),
-                                                ),
-                                                DataCell(
-                                                  NormalText(
-                                                      label: total4.toString(),
-                                                      fontSize: 12,
-                                                      color: Colors.black),
-                                                ),
-                                                DataCell(
-                                                  NormalText(
-                                                      label: year4.toString(),
-                                                      fontSize: 12,
-                                                      color: Colors.black),
-                                                ),
-                                                DataCell(
-                                                  NormalText(
-                                                      label: year4 == 0
-                                                          ? "0.00%"
-                                                          : ((year4 / total4) *
-                                                                      100)
-                                                                  .toStringAsFixed(
-                                                                      2) +
-                                                              "%",
-                                                      fontSize: 12,
-                                                      color: Colors.black),
-                                                ),
-                                                DataCell(
-                                                  NormalText(
-                                                      label:
-                                                          'Studcon Messaging App',
-                                                      fontSize: 12,
-                                                      color: Colors.black),
-                                                ),
-                                                DataCell(
-                                                  NormalText(
-                                                      label: concern1,
-                                                      fontSize: 12,
-                                                      color: Colors.black),
-                                                ),
-                                                DataCell(
-                                                  NormalText(
-                                                      label: type,
-                                                      fontSize: 12,
-                                                      color: Colors.black),
-                                                ),
-                                              ]),
-                                          DataRow(
-                                              color: MaterialStateProperty
-                                                  .resolveWith<Color?>(
-                                                      (Set<MaterialState>
-                                                          states) {
-                                                return Colors.blueGrey[100];
-                                              }),
-                                              cells: [
-                                                DataCell(
-                                                  NormalText(
-                                                      label: '5th',
-                                                      fontSize: 12,
-                                                      color: Colors.black),
-                                                ),
-                                                DataCell(
-                                                  NormalText(
-                                                      label: total5.toString(),
-                                                      fontSize: 12,
-                                                      color: Colors.black),
-                                                ),
-                                                DataCell(
-                                                  NormalText(
-                                                      label: year5.toString(),
-                                                      fontSize: 12,
-                                                      color: Colors.black),
-                                                ),
-                                                DataCell(
-                                                  NormalText(
-                                                      label: year5 == 0
-                                                          ? "0.00%"
-                                                          : ((year5 / total5) *
-                                                                      100)
-                                                                  .toStringAsFixed(
-                                                                      2) +
-                                                              "%",
-                                                      fontSize: 12,
-                                                      color: Colors.black),
-                                                ),
-                                                DataCell(
-                                                  NormalText(
-                                                      label:
-                                                          'Studcon Messaging App',
-                                                      fontSize: 12,
-                                                      color: Colors.black),
-                                                ),
-                                                DataCell(
-                                                  NormalText(
-                                                      label: concern1,
-                                                      fontSize: 12,
-                                                      color: Colors.black),
-                                                ),
-                                                DataCell(
-                                                  NormalText(
-                                                      label: type,
-                                                      fontSize: 12,
-                                                      color: Colors.black),
-                                                ),
-                                              ]),
-                                        ],
-                                      ),
-                                    ),
+                                        child: NormalText(
+                                            label: 'Export in PDF',
+                                            fontSize: 12,
+                                            color: Colors.white)),
                                   ),
-                                ),
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                Align(
-                                  alignment: Alignment.topLeft,
-                                  child: MaterialButton(
-                                      child: NormalText(
-                                          label: 'Export in PDF',
-                                          fontSize: 12,
-                                          color: Colors.white),
-                                      color: primary,
-                                      minWidth: 150,
-                                      height: 50,
-                                      onPressed: (() {
-                                        reportByYear();
-                                      })),
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 25),
-                                  child: Container(
-                                    height: 450,
-                                    decoration: BoxDecoration(
-                                        border: Border.all(
-                                            width: 3,
-                                            color: Colors.grey[200]!)),
-                                    child: SingleChildScrollView(
-                                      child: DataTable(
-                                        headingRowColor: MaterialStateProperty
-                                            .resolveWith<Color?>(
-                                                (Set<MaterialState> states) {
-                                          return Colors.blue[400];
-                                          // Use the default value.
-                                        }),
-                                        border: TableBorder.all(
-                                          color: Colors.white,
-                                        ),
-                                        // datatable widget
-                                        columns: [
-                                          // column to set the name
-                                          DataColumn(
-                                              label: BoldText(
-                                                  label: 'Class\nSection',
-                                                  fontSize: 12,
-                                                  color: Colors.white)),
-                                          DataColumn(
-                                              label: BoldText(
-                                                  label:
-                                                      'No. of\nStudents Enrolled',
-                                                  fontSize: 12,
-                                                  color: Colors.white)),
-                                          DataColumn(
-                                              label: BoldText(
-                                                  label:
-                                                      'No. of\nStudents Consulted',
-                                                  fontSize: 12,
-                                                  color: Colors.white)),
-                                          DataColumn(
-                                              label: BoldText(
-                                                  label:
-                                                      'Percentage of\nConsultation',
-                                                  fontSize: 12,
-                                                  color: Colors.white)),
-                                          DataColumn(
-                                              label: BoldText(
-                                                  label:
-                                                      'Consultation\nPlatform',
-                                                  fontSize: 12,
-                                                  color: Colors.white)),
-                                          DataColumn(
-                                              label: BoldText(
-                                                  label:
-                                                      'Major or Common\nConcerns/Issues\nEncountered by Students',
-                                                  fontSize: 12,
-                                                  color: Colors.white)),
-                                          DataColumn(
-                                              label: BoldText(
-                                                  label:
-                                                      'Actions Taken\nand Status',
-                                                  fontSize: 12,
-                                                  color: Colors.white)),
-                                        ],
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 25),
+                                    child: Container(
+                                      height: 450,
+                                      decoration: BoxDecoration(
+                                          border: Border.all(
+                                              width: 3,
+                                              color: Colors.grey[200]!)),
+                                      child: SingleChildScrollView(
+                                        child: DataTable(
+                                          headingRowColor: MaterialStateProperty
+                                              .resolveWith<Color?>(
+                                                  (Set<MaterialState> states) {
+                                            return Colors.blue[400];
+                                            // Use the default value.
+                                          }),
+                                          border: TableBorder.all(
+                                            color: Colors.white,
+                                          ),
+                                          // datatable widget
+                                          columns: [
+                                            // column to set the name
+                                            DataColumn(
+                                                label: BoldText(
+                                                    label: 'Year\nLevel',
+                                                    fontSize: 12,
+                                                    color: Colors.white)),
+                                            DataColumn(
+                                                label: BoldText(
+                                                    label:
+                                                        'No. of\nStudents Enrolled',
+                                                    fontSize: 12,
+                                                    color: Colors.white)),
+                                            DataColumn(
+                                                label: BoldText(
+                                                    label:
+                                                        'No. of\nStudents Consulted',
+                                                    fontSize: 12,
+                                                    color: Colors.white)),
+                                            DataColumn(
+                                                label: BoldText(
+                                                    label:
+                                                        'Percentage of\nConsultation',
+                                                    fontSize: 12,
+                                                    color: Colors.white)),
+                                            DataColumn(
+                                                label: BoldText(
+                                                    label:
+                                                        'Consultation\nPlatform',
+                                                    fontSize: 12,
+                                                    color: Colors.white)),
+                                            DataColumn(
+                                                label: BoldText(
+                                                    label:
+                                                        'Major or Common\nConcerns/Issues\nEncountered by Students',
+                                                    fontSize: 12,
+                                                    color: Colors.white)),
+                                            DataColumn(
+                                                label: BoldText(
+                                                    label:
+                                                        'Actions Taken\nand Status',
+                                                    fontSize: 12,
+                                                    color: Colors.white)),
+                                          ],
 
-                                        rows: [
-                                          for (int i = 0;
-                                              i < listSections.length;
-                                              i++)
+                                          rows: [
                                             DataRow(
                                                 color: MaterialStateProperty
                                                     .resolveWith<Color?>(
@@ -2946,32 +2581,28 @@ class _ReportTabState extends State<ReportTab> {
                                                 cells: [
                                                   DataCell(
                                                     NormalText(
-                                                        label: listSections[i],
+                                                        label: '1st',
                                                         fontSize: 12,
                                                         color: Colors.black),
                                                   ),
                                                   DataCell(
                                                     NormalText(
-                                                        label: enrolled[i]
-                                                            .toString(),
+                                                        label:
+                                                            total1.toString(),
                                                         fontSize: 12,
                                                         color: Colors.black),
                                                   ),
                                                   DataCell(
                                                     NormalText(
-                                                        label: sectionNumber[i]
-                                                            .toString(),
+                                                        label: year1.toString(),
                                                         fontSize: 12,
                                                         color: Colors.black),
                                                   ),
                                                   DataCell(
                                                     NormalText(
-                                                        label: sectionNumber[
-                                                                    i] ==
-                                                                0
-                                                            ? "0"
-                                                            : sectionNumber[i]
-                                                                .toString(),
+                                                        label: year1 == 0
+                                                            ? "0.00%"
+                                                            : "${((year1 / total1) * 100).toStringAsFixed(2)}%",
                                                         fontSize: 12,
                                                         color: Colors.black),
                                                   ),
@@ -2994,103 +2625,7 @@ class _ReportTabState extends State<ReportTab> {
                                                         fontSize: 12,
                                                         color: Colors.black),
                                                   ),
-                                                ])
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                Align(
-                                  alignment: Alignment.topLeft,
-                                  child: MaterialButton(
-                                      child: NormalText(
-                                          label: 'Export in PDF',
-                                          fontSize: 12,
-                                          color: Colors.white),
-                                      color: primary,
-                                      minWidth: 150,
-                                      height: 50,
-                                      onPressed: (() {
-                                        codeReport();
-                                      })),
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 25),
-                                  child: Container(
-                                    height: 450,
-                                    decoration: BoxDecoration(
-                                        border: Border.all(
-                                            width: 3,
-                                            color: Colors.grey[200]!)),
-                                    child: SingleChildScrollView(
-                                      child: DataTable(
-                                        headingRowColor: MaterialStateProperty
-                                            .resolveWith<Color?>(
-                                                (Set<MaterialState> states) {
-                                          return Colors.blue[400];
-                                          // Use the default value.
-                                        }),
-                                        border: TableBorder.all(
-                                          color: Colors.white,
-                                        ),
-                                        // datatable widget
-                                        columns: [
-                                          // column to set the name
-                                          DataColumn(
-                                              label: BoldText(
-                                                  label: 'Class\nCode',
-                                                  fontSize: 12,
-                                                  color: Colors.white)),
-                                          DataColumn(
-                                              label: BoldText(
-                                                  label:
-                                                      'No. of\nStudents Enrolled',
-                                                  fontSize: 12,
-                                                  color: Colors.white)),
-                                          DataColumn(
-                                              label: BoldText(
-                                                  label:
-                                                      'No. of\nStudents Consulted',
-                                                  fontSize: 12,
-                                                  color: Colors.white)),
-
-                                          DataColumn(
-                                              label: BoldText(
-                                                  label:
-                                                      'Percentage of\nConsultation',
-                                                  fontSize: 12,
-                                                  color: Colors.white)),
-                                          DataColumn(
-                                              label: BoldText(
-                                                  label:
-                                                      'Consultation\nPlatform',
-                                                  fontSize: 12,
-                                                  color: Colors.white)),
-                                          DataColumn(
-                                              label: BoldText(
-                                                  label:
-                                                      'Major or Common\nConcerns/Issues\nEncountered by Students',
-                                                  fontSize: 12,
-                                                  color: Colors.white)),
-                                          DataColumn(
-                                              label: BoldText(
-                                                  label:
-                                                      'Actions Taken\nand Status',
-                                                  fontSize: 12,
-                                                  color: Colors.white)),
-                                        ],
-
-                                        rows: [
-                                          for (int i = 0;
-                                              i < classCodes.length;
-                                              i++)
+                                                ]),
                                             DataRow(
                                                 color: MaterialStateProperty
                                                     .resolveWith<Color?>(
@@ -3101,31 +2636,28 @@ class _ReportTabState extends State<ReportTab> {
                                                 cells: [
                                                   DataCell(
                                                     NormalText(
-                                                        label: classCodes[i],
+                                                        label: '2nd',
                                                         fontSize: 12,
                                                         color: Colors.black),
                                                   ),
                                                   DataCell(
                                                     NormalText(
-                                                        label: codeEnrolled[i]
-                                                            .toString(),
+                                                        label:
+                                                            total2.toString(),
                                                         fontSize: 12,
                                                         color: Colors.black),
                                                   ),
                                                   DataCell(
                                                     NormalText(
-                                                        label: codeNumber[i]
-                                                            .toString(),
+                                                        label: year2.toString(),
                                                         fontSize: 12,
                                                         color: Colors.black),
                                                   ),
                                                   DataCell(
                                                     NormalText(
-                                                        label: codeNumber[i] ==
-                                                                0
-                                                            ? "0"
-                                                            : codeEnrolled[i]
-                                                                .toString(),
+                                                        label: year2 == 0
+                                                            ? "0.00%"
+                                                            : "${((year2 / total2) * 100).toStringAsFixed(2)}%",
                                                         fontSize: 12,
                                                         color: Colors.black),
                                                   ),
@@ -3148,13 +2680,494 @@ class _ReportTabState extends State<ReportTab> {
                                                         fontSize: 12,
                                                         color: Colors.black),
                                                   ),
-                                                ])
-                                        ],
+                                                ]),
+                                            DataRow(
+                                                color: MaterialStateProperty
+                                                    .resolveWith<Color?>(
+                                                        (Set<MaterialState>
+                                                            states) {
+                                                  return Colors.blueGrey[100];
+                                                }),
+                                                cells: [
+                                                  DataCell(
+                                                    NormalText(
+                                                        label: '3rd',
+                                                        fontSize: 12,
+                                                        color: Colors.black),
+                                                  ),
+                                                  DataCell(
+                                                    NormalText(
+                                                        label:
+                                                            total3.toString(),
+                                                        fontSize: 12,
+                                                        color: Colors.black),
+                                                  ),
+                                                  DataCell(
+                                                    NormalText(
+                                                        label: year3.toString(),
+                                                        fontSize: 12,
+                                                        color: Colors.black),
+                                                  ),
+                                                  DataCell(
+                                                    NormalText(
+                                                        label: year3 == 0
+                                                            ? "0.00%"
+                                                            : "${((year3 / total3) * 100).toStringAsFixed(2)}%",
+                                                        fontSize: 12,
+                                                        color: Colors.black),
+                                                  ),
+                                                  DataCell(
+                                                    NormalText(
+                                                        label:
+                                                            'Studcon Messaging App',
+                                                        fontSize: 12,
+                                                        color: Colors.black),
+                                                  ),
+                                                  DataCell(
+                                                    NormalText(
+                                                        label: concern1,
+                                                        fontSize: 12,
+                                                        color: Colors.black),
+                                                  ),
+                                                  DataCell(
+                                                    NormalText(
+                                                        label: type,
+                                                        fontSize: 12,
+                                                        color: Colors.black),
+                                                  ),
+                                                ]),
+                                            DataRow(
+                                                color: MaterialStateProperty
+                                                    .resolveWith<Color?>(
+                                                        (Set<MaterialState>
+                                                            states) {
+                                                  return Colors.blueGrey[100];
+                                                }),
+                                                cells: [
+                                                  DataCell(
+                                                    NormalText(
+                                                        label: '4th',
+                                                        fontSize: 12,
+                                                        color: Colors.black),
+                                                  ),
+                                                  DataCell(
+                                                    NormalText(
+                                                        label:
+                                                            total4.toString(),
+                                                        fontSize: 12,
+                                                        color: Colors.black),
+                                                  ),
+                                                  DataCell(
+                                                    NormalText(
+                                                        label: year4.toString(),
+                                                        fontSize: 12,
+                                                        color: Colors.black),
+                                                  ),
+                                                  DataCell(
+                                                    NormalText(
+                                                        label: year4 == 0
+                                                            ? "0.00%"
+                                                            : "${((year4 / total4) * 100).toStringAsFixed(2)}%",
+                                                        fontSize: 12,
+                                                        color: Colors.black),
+                                                  ),
+                                                  DataCell(
+                                                    NormalText(
+                                                        label:
+                                                            'Studcon Messaging App',
+                                                        fontSize: 12,
+                                                        color: Colors.black),
+                                                  ),
+                                                  DataCell(
+                                                    NormalText(
+                                                        label: concern1,
+                                                        fontSize: 12,
+                                                        color: Colors.black),
+                                                  ),
+                                                  DataCell(
+                                                    NormalText(
+                                                        label: type,
+                                                        fontSize: 12,
+                                                        color: Colors.black),
+                                                  ),
+                                                ]),
+                                            DataRow(
+                                                color: MaterialStateProperty
+                                                    .resolveWith<Color?>(
+                                                        (Set<MaterialState>
+                                                            states) {
+                                                  return Colors.blueGrey[100];
+                                                }),
+                                                cells: [
+                                                  DataCell(
+                                                    NormalText(
+                                                        label: '5th',
+                                                        fontSize: 12,
+                                                        color: Colors.black),
+                                                  ),
+                                                  DataCell(
+                                                    NormalText(
+                                                        label:
+                                                            total5.toString(),
+                                                        fontSize: 12,
+                                                        color: Colors.black),
+                                                  ),
+                                                  DataCell(
+                                                    NormalText(
+                                                        label: year5.toString(),
+                                                        fontSize: 12,
+                                                        color: Colors.black),
+                                                  ),
+                                                  DataCell(
+                                                    NormalText(
+                                                        label: year5 == 0
+                                                            ? "0.00%"
+                                                            : "${((year5 / total5) * 100).toStringAsFixed(2)}%",
+                                                        fontSize: 12,
+                                                        color: Colors.black),
+                                                  ),
+                                                  DataCell(
+                                                    NormalText(
+                                                        label:
+                                                            'Studcon Messaging App',
+                                                        fontSize: 12,
+                                                        color: Colors.black),
+                                                  ),
+                                                  DataCell(
+                                                    NormalText(
+                                                        label: concern1,
+                                                        fontSize: 12,
+                                                        color: Colors.black),
+                                                  ),
+                                                  DataCell(
+                                                    NormalText(
+                                                        label: type,
+                                                        fontSize: 12,
+                                                        color: Colors.black),
+                                                  ),
+                                                ]),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
+                            ),
+                            SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  Align(
+                                    alignment: Alignment.topLeft,
+                                    child: MaterialButton(
+                                        color: primary,
+                                        minWidth: 150,
+                                        height: 50,
+                                        onPressed: (() {
+                                          reportByYear();
+                                        }),
+                                        child: NormalText(
+                                            label: 'Export in PDF',
+                                            fontSize: 12,
+                                            color: Colors.white)),
+                                  ),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 25),
+                                    child: Container(
+                                      height: 450,
+                                      decoration: BoxDecoration(
+                                          border: Border.all(
+                                              width: 3,
+                                              color: Colors.grey[200]!)),
+                                      child: SingleChildScrollView(
+                                        child: DataTable(
+                                          headingRowColor: MaterialStateProperty
+                                              .resolveWith<Color?>(
+                                                  (Set<MaterialState> states) {
+                                            return Colors.blue[400];
+                                            // Use the default value.
+                                          }),
+                                          border: TableBorder.all(
+                                            color: Colors.white,
+                                          ),
+                                          // datatable widget
+                                          columns: [
+                                            // column to set the name
+                                            DataColumn(
+                                                label: BoldText(
+                                                    label: 'Class\nSection',
+                                                    fontSize: 12,
+                                                    color: Colors.white)),
+                                            DataColumn(
+                                                label: BoldText(
+                                                    label:
+                                                        'No. of\nStudents Enrolled',
+                                                    fontSize: 12,
+                                                    color: Colors.white)),
+                                            DataColumn(
+                                                label: BoldText(
+                                                    label:
+                                                        'No. of\nStudents Consulted',
+                                                    fontSize: 12,
+                                                    color: Colors.white)),
+                                            DataColumn(
+                                                label: BoldText(
+                                                    label:
+                                                        'Percentage of\nConsultation',
+                                                    fontSize: 12,
+                                                    color: Colors.white)),
+                                            DataColumn(
+                                                label: BoldText(
+                                                    label:
+                                                        'Consultation\nPlatform',
+                                                    fontSize: 12,
+                                                    color: Colors.white)),
+                                            DataColumn(
+                                                label: BoldText(
+                                                    label:
+                                                        'Major or Common\nConcerns/Issues\nEncountered by Students',
+                                                    fontSize: 12,
+                                                    color: Colors.white)),
+                                            DataColumn(
+                                                label: BoldText(
+                                                    label:
+                                                        'Actions Taken\nand Status',
+                                                    fontSize: 12,
+                                                    color: Colors.white)),
+                                          ],
+
+                                          rows: [
+                                            for (int i = 0;
+                                                i < listSections.length;
+                                                i++)
+                                              DataRow(
+                                                  color: MaterialStateProperty
+                                                      .resolveWith<Color?>(
+                                                          (Set<MaterialState>
+                                                              states) {
+                                                    return Colors.blueGrey[100];
+                                                  }),
+                                                  cells: [
+                                                    DataCell(
+                                                      NormalText(
+                                                          label:
+                                                              listSections[i],
+                                                          fontSize: 12,
+                                                          color: Colors.black),
+                                                    ),
+                                                    DataCell(
+                                                      NormalText(
+                                                          label: enrolled[i]
+                                                              .toString(),
+                                                          fontSize: 12,
+                                                          color: Colors.black),
+                                                    ),
+                                                    DataCell(
+                                                      NormalText(
+                                                          label:
+                                                              sectionNumber[i]
+                                                                  .toString(),
+                                                          fontSize: 12,
+                                                          color: Colors.black),
+                                                    ),
+                                                    DataCell(
+                                                      NormalText(
+                                                          label: sectionNumber[
+                                                                      i] ==
+                                                                  0
+                                                              ? "0"
+                                                              : sectionNumber[i]
+                                                                  .toString(),
+                                                          fontSize: 12,
+                                                          color: Colors.black),
+                                                    ),
+                                                    DataCell(
+                                                      NormalText(
+                                                          label:
+                                                              'Studcon Messaging App',
+                                                          fontSize: 12,
+                                                          color: Colors.black),
+                                                    ),
+                                                    DataCell(
+                                                      NormalText(
+                                                          label: concern1,
+                                                          fontSize: 12,
+                                                          color: Colors.black),
+                                                    ),
+                                                    DataCell(
+                                                      NormalText(
+                                                          label: type,
+                                                          fontSize: 12,
+                                                          color: Colors.black),
+                                                    ),
+                                                  ])
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  Align(
+                                    alignment: Alignment.topLeft,
+                                    child: MaterialButton(
+                                        color: primary,
+                                        minWidth: 150,
+                                        height: 50,
+                                        onPressed: (() {
+                                          codeReport();
+                                        }),
+                                        child: NormalText(
+                                            label: 'Export in PDF',
+                                            fontSize: 12,
+                                            color: Colors.white)),
+                                  ),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 25),
+                                    child: Container(
+                                      height: 450,
+                                      decoration: BoxDecoration(
+                                          border: Border.all(
+                                              width: 3,
+                                              color: Colors.grey[200]!)),
+                                      child: SingleChildScrollView(
+                                        child: DataTable(
+                                          headingRowColor: MaterialStateProperty
+                                              .resolveWith<Color?>(
+                                                  (Set<MaterialState> states) {
+                                            return Colors.blue[400];
+                                            // Use the default value.
+                                          }),
+                                          border: TableBorder.all(
+                                            color: Colors.white,
+                                          ),
+                                          // datatable widget
+                                          columns: [
+                                            // column to set the name
+                                            DataColumn(
+                                                label: BoldText(
+                                                    label: 'Class\nCode',
+                                                    fontSize: 12,
+                                                    color: Colors.white)),
+                                            DataColumn(
+                                                label: BoldText(
+                                                    label:
+                                                        'No. of\nStudents Enrolled',
+                                                    fontSize: 12,
+                                                    color: Colors.white)),
+                                            DataColumn(
+                                                label: BoldText(
+                                                    label:
+                                                        'No. of\nStudents Consulted',
+                                                    fontSize: 12,
+                                                    color: Colors.white)),
+
+                                            DataColumn(
+                                                label: BoldText(
+                                                    label:
+                                                        'Percentage of\nConsultation',
+                                                    fontSize: 12,
+                                                    color: Colors.white)),
+                                            DataColumn(
+                                                label: BoldText(
+                                                    label:
+                                                        'Consultation\nPlatform',
+                                                    fontSize: 12,
+                                                    color: Colors.white)),
+                                            DataColumn(
+                                                label: BoldText(
+                                                    label:
+                                                        'Major or Common\nConcerns/Issues\nEncountered by Students',
+                                                    fontSize: 12,
+                                                    color: Colors.white)),
+                                            DataColumn(
+                                                label: BoldText(
+                                                    label:
+                                                        'Actions Taken\nand Status',
+                                                    fontSize: 12,
+                                                    color: Colors.white)),
+                                          ],
+
+                                          rows: [
+                                            for (int i = 0;
+                                                i < classCodes.length;
+                                                i++)
+                                              DataRow(
+                                                  color: MaterialStateProperty
+                                                      .resolveWith<Color?>(
+                                                          (Set<MaterialState>
+                                                              states) {
+                                                    return Colors.blueGrey[100];
+                                                  }),
+                                                  cells: [
+                                                    DataCell(
+                                                      NormalText(
+                                                          label: classCodes[i],
+                                                          fontSize: 12,
+                                                          color: Colors.black),
+                                                    ),
+                                                    DataCell(
+                                                      NormalText(
+                                                          label: codeEnrolled[i]
+                                                              .toString(),
+                                                          fontSize: 12,
+                                                          color: Colors.black),
+                                                    ),
+                                                    DataCell(
+                                                      NormalText(
+                                                          label: codeNumber[i]
+                                                              .toString(),
+                                                          fontSize: 12,
+                                                          color: Colors.black),
+                                                    ),
+                                                    DataCell(
+                                                      NormalText(
+                                                          label: codeNumber[
+                                                                      i] ==
+                                                                  0
+                                                              ? "0"
+                                                              : codeEnrolled[i]
+                                                                  .toString(),
+                                                          fontSize: 12,
+                                                          color: Colors.black),
+                                                    ),
+                                                    DataCell(
+                                                      NormalText(
+                                                          label:
+                                                              'Studcon Messaging App',
+                                                          fontSize: 12,
+                                                          color: Colors.black),
+                                                    ),
+                                                    DataCell(
+                                                      NormalText(
+                                                          label: concern1,
+                                                          fontSize: 12,
+                                                          color: Colors.black),
+                                                    ),
+                                                    DataCell(
+                                                      NormalText(
+                                                          label: type,
+                                                          fontSize: 12,
+                                                          color: Colors.black),
+                                                    ),
+                                                  ])
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ],
                         ),
@@ -3165,7 +3178,7 @@ class _ReportTabState extends State<ReportTab> {
               ),
             ),
           )
-        : Scaffold(
+        : const Scaffold(
             backgroundColor: greyAccent,
             body: Center(child: CircularProgressIndicator()));
   }
