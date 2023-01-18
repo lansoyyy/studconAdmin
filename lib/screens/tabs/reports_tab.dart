@@ -2318,7 +2318,7 @@ class _ReportTabState extends State<ReportTab> {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Container(
-                                              width: 100,
+                                              width: 120,
                                               decoration: BoxDecoration(
                                                 color: Colors.white,
                                                 borderRadius:
