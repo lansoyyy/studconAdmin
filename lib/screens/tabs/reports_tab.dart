@@ -1664,92 +1664,104 @@ class _ReportTabState extends State<ReportTab> {
                         index == 0
                             ? Padding(
                                 padding: const EdgeInsets.only(top: 10),
-                                child: Container(
-                                  width: 90,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(5),
-                                  ),
-                                  child: Padding(
-                                    padding:
-                                        const EdgeInsets.fromLTRB(20, 2, 20, 2),
-                                    child: DropdownButton(
-                                      underline:
-                                          Container(color: Colors.transparent),
-                                      iconEnabledColor: Colors.black,
-                                      isExpanded: true,
-                                      style:
-                                          const TextStyle(color: Colors.white),
-                                      value: _dropdownValue,
-                                      items: [
-                                        DropdownMenuItem(
-                                          onTap: () {
-                                            year = 'All';
-                                          },
-                                          value: 0,
-                                          child: DropDownItem(label: 'All'),
-                                        ),
-                                        DropdownMenuItem(
-                                          onTap: () {
-                                            year = 'First Year';
-                                          },
-                                          value: 1,
-                                          child:
-                                              DropDownItem(label: '1st Year'),
-                                        ),
-                                        DropdownMenuItem(
-                                          onTap: () {
-                                            year = 'Second Year';
-                                          },
-                                          value: 2,
-                                          child:
-                                              DropDownItem(label: '2nd Year'),
-                                        ),
-                                        DropdownMenuItem(
-                                          onTap: () {
-                                            year = 'Third Year';
-                                          },
-                                          value: 3,
-                                          child:
-                                              DropDownItem(label: '3rd Year'),
-                                        ),
-                                        DropdownMenuItem(
-                                          onTap: () {
-                                            year = 'Fourth Year';
-                                          },
-                                          value: 4,
-                                          child:
-                                              DropDownItem(label: '4th Year'),
-                                        ),
-                                      ],
-                                      onChanged: (value) {
-                                        setState(() {
-                                          _dropdownValue =
-                                              int.parse(value.toString());
-                                          hasLoaded = false;
-                                        });
-                                        name.clear();
-                                        email.clear();
-                                        courseStud.clear();
-                                        yearLevel.clear();
-                                        concern.clear();
-                                        status.clear();
-                                        getData();
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      width: 90,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(5),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                            20, 2, 20, 2),
+                                        child: DropdownButton(
+                                          underline: Container(
+                                              color: Colors.transparent),
+                                          iconEnabledColor: Colors.black,
+                                          isExpanded: true,
+                                          style: const TextStyle(
+                                              color: Colors.white),
+                                          value: _dropdownValue,
+                                          items: [
+                                            DropdownMenuItem(
+                                              onTap: () {
+                                                year = 'All';
+                                              },
+                                              value: 0,
+                                              child: DropDownItem(label: 'All'),
+                                            ),
+                                            DropdownMenuItem(
+                                              onTap: () {
+                                                year = 'First Year';
+                                              },
+                                              value: 1,
+                                              child: DropDownItem(
+                                                  label: '1st Year'),
+                                            ),
+                                            DropdownMenuItem(
+                                              onTap: () {
+                                                year = 'Second Year';
+                                              },
+                                              value: 2,
+                                              child: DropDownItem(
+                                                  label: '2nd Year'),
+                                            ),
+                                            DropdownMenuItem(
+                                              onTap: () {
+                                                year = 'Third Year';
+                                              },
+                                              value: 3,
+                                              child: DropDownItem(
+                                                  label: '3rd Year'),
+                                            ),
+                                            DropdownMenuItem(
+                                              onTap: () {
+                                                year = 'Fourth Year';
+                                              },
+                                              value: 4,
+                                              child: DropDownItem(
+                                                  label: '4th Year'),
+                                            ),
+                                          ],
+                                          onChanged: (value) {
+                                            setState(() {
+                                              _dropdownValue =
+                                                  int.parse(value.toString());
+                                              hasLoaded = false;
+                                            });
+                                            name.clear();
+                                            email.clear();
+                                            courseStud.clear();
+                                            yearLevel.clear();
+                                            concern.clear();
+                                            status.clear();
+                                            getData();
 
-                                        getData2();
-                                        getData3();
-                                        getData4();
-                                        getData5();
-                                        getTotal();
-                                        getTotal2();
-                                        getTotal3();
-                                        getTotal4();
-                                        getTotal5();
-                                        getSections();
-                                        getCodes();
-                                      },
+                                            getData2();
+                                            getData3();
+                                            getData4();
+                                            getData5();
+                                            getTotal();
+                                            getTotal2();
+                                            getTotal3();
+                                            getTotal4();
+                                            getTotal5();
+                                            getSections();
+                                            getCodes();
+                                          },
+                                        ),
+                                      ),
                                     ),
-                                  ),
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
+                                    NormalText(
+                                        label: '  Filter by Year Level',
+                                        fontSize: 8,
+                                        color: Colors.grey),
+                                  ],
                                 ),
                               )
                             : const SizedBox(),
@@ -1758,147 +1770,161 @@ class _ReportTabState extends State<ReportTab> {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 10),
-                          child: Container(
-                            width: 210,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.fromLTRB(20, 2, 20, 2),
-                              child: DropdownButton(
-                                underline: Container(color: Colors.transparent),
-                                iconEnabledColor: Colors.black,
-                                isExpanded: true,
-                                value: _dropdownValue1,
-                                items: [
-                                  DropdownMenuItem(
-                                    onTap: () {
-                                      course = "All";
-                                    },
-                                    value: 0,
-                                    child: Center(
-                                        child: Row(children: const [
-                                      Text("All",
-                                          style: TextStyle(
-                                            fontFamily: 'QRegular',
-                                            color: primary,
-                                          ))
-                                    ])),
-                                  ),
-                                  DropdownMenuItem(
-                                    onTap: () {
-                                      course = "Automotive";
-                                    },
-                                    value: 1,
-                                    child: Center(
-                                        child: Row(children: const [
-                                      Text("Automotive",
-                                          style: TextStyle(
-                                            fontFamily: 'QRegular',
-                                            color: primary,
-                                          ))
-                                    ])),
-                                  ),
-                                  DropdownMenuItem(
-                                    onTap: () {
-                                      course = "Food Technology";
-                                    },
-                                    value: 2,
-                                    child: Center(
-                                        child: Row(children: const [
-                                      Text("Food Technology",
-                                          style: TextStyle(
-                                            fontFamily: 'QRegular',
-                                            color: primary,
-                                          ))
-                                    ])),
-                                  ),
-                                  DropdownMenuItem(
-                                    onTap: () {
-                                      course = "Electronic Technology";
-                                    },
-                                    value: 3,
-                                    child: Center(
-                                        child: Row(children: const [
-                                      Text("Electronic Technology",
-                                          style: TextStyle(
-                                            fontFamily: 'QRegular',
-                                            color: primary,
-                                          ))
-                                    ])),
-                                  ),
-                                  DropdownMenuItem(
-                                    onTap: () {
-                                      course =
-                                          "Entertainment and Multimedia Computing";
-                                    },
-                                    value: 4,
-                                    child: Center(
-                                        child: Row(children: const [
-                                      Text(
-                                          "Entertainment and\nMultimedia Computing",
-                                          style: TextStyle(
-                                            fontFamily: 'QRegular',
-                                            color: primary,
-                                          ))
-                                    ])),
-                                  ),
-                                  DropdownMenuItem(
-                                    onTap: () {
-                                      course = "Information Technology";
-                                    },
-                                    value: 5,
-                                    child: Center(
-                                        child: Row(children: const [
-                                      Text("Information Technology",
-                                          style: TextStyle(
-                                            fontFamily: 'QRegular',
-                                            color: primary,
-                                          ))
-                                    ])),
-                                  ),
-                                ],
-                                onChanged: (value) {
-                                  setState(() {
-                                    _dropdownValue1 =
-                                        int.parse(value.toString());
-                                    hasLoaded = false;
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: 210,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(20, 2, 20, 2),
+                                  child: DropdownButton(
+                                    underline:
+                                        Container(color: Colors.transparent),
+                                    iconEnabledColor: Colors.black,
+                                    isExpanded: true,
+                                    value: _dropdownValue1,
+                                    items: [
+                                      DropdownMenuItem(
+                                        onTap: () {
+                                          course = "All";
+                                        },
+                                        value: 0,
+                                        child: Center(
+                                            child: Row(children: const [
+                                          Text("All",
+                                              style: TextStyle(
+                                                fontFamily: 'QRegular',
+                                                color: primary,
+                                              ))
+                                        ])),
+                                      ),
+                                      DropdownMenuItem(
+                                        onTap: () {
+                                          course = "Automotive";
+                                        },
+                                        value: 1,
+                                        child: Center(
+                                            child: Row(children: const [
+                                          Text("Automotive",
+                                              style: TextStyle(
+                                                fontFamily: 'QRegular',
+                                                color: primary,
+                                              ))
+                                        ])),
+                                      ),
+                                      DropdownMenuItem(
+                                        onTap: () {
+                                          course = "Food Technology";
+                                        },
+                                        value: 2,
+                                        child: Center(
+                                            child: Row(children: const [
+                                          Text("Food Technology",
+                                              style: TextStyle(
+                                                fontFamily: 'QRegular',
+                                                color: primary,
+                                              ))
+                                        ])),
+                                      ),
+                                      DropdownMenuItem(
+                                        onTap: () {
+                                          course = "Electronic Technology";
+                                        },
+                                        value: 3,
+                                        child: Center(
+                                            child: Row(children: const [
+                                          Text("Electronic Technology",
+                                              style: TextStyle(
+                                                fontFamily: 'QRegular',
+                                                color: primary,
+                                              ))
+                                        ])),
+                                      ),
+                                      DropdownMenuItem(
+                                        onTap: () {
+                                          course =
+                                              "Entertainment and Multimedia Computing";
+                                        },
+                                        value: 4,
+                                        child: Center(
+                                            child: Row(children: const [
+                                          Text(
+                                              "Entertainment and\nMultimedia Computing",
+                                              style: TextStyle(
+                                                fontFamily: 'QRegular',
+                                                color: primary,
+                                              ))
+                                        ])),
+                                      ),
+                                      DropdownMenuItem(
+                                        onTap: () {
+                                          course = "Information Technology";
+                                        },
+                                        value: 5,
+                                        child: Center(
+                                            child: Row(children: const [
+                                          Text("Information Technology",
+                                              style: TextStyle(
+                                                fontFamily: 'QRegular',
+                                                color: primary,
+                                              ))
+                                        ])),
+                                      ),
+                                    ],
+                                    onChanged: (value) {
+                                      setState(() {
+                                        _dropdownValue1 =
+                                            int.parse(value.toString());
+                                        hasLoaded = false;
 
-                                    year1 = 0;
-                                    year2 = 0;
-                                    year3 = 0;
-                                    year4 = 0;
-                                    year5 = 0;
-                                    total1 = 0;
-                                    total2 = 0;
-                                    total3 = 0;
-                                    total4 = 0;
-                                    total5 = 0;
-                                  });
+                                        year1 = 0;
+                                        year2 = 0;
+                                        year3 = 0;
+                                        year4 = 0;
+                                        year5 = 0;
+                                        total1 = 0;
+                                        total2 = 0;
+                                        total3 = 0;
+                                        total4 = 0;
+                                        total5 = 0;
+                                      });
 
-                                  name.clear();
-                                  email.clear();
-                                  courseStud.clear();
-                                  yearLevel.clear();
-                                  concern.clear();
-                                  status.clear();
-                                  getData();
+                                      name.clear();
+                                      email.clear();
+                                      courseStud.clear();
+                                      yearLevel.clear();
+                                      concern.clear();
+                                      status.clear();
+                                      getData();
 
-                                  getData2();
-                                  getData3();
-                                  getData4();
-                                  getData5();
-                                  getTotal();
-                                  getTotal2();
-                                  getTotal3();
-                                  getTotal4();
-                                  getTotal5();
-                                  getSections();
-                                  getCodes();
-                                },
+                                      getData2();
+                                      getData3();
+                                      getData4();
+                                      getData5();
+                                      getTotal();
+                                      getTotal2();
+                                      getTotal3();
+                                      getTotal4();
+                                      getTotal5();
+                                      getSections();
+                                      getCodes();
+                                    },
+                                  ),
+                                ),
                               ),
-                            ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              NormalText(
+                                  label: '  Filter by Department',
+                                  fontSize: 8,
+                                  color: Colors.grey),
+                            ],
                           ),
                         ),
                         const SizedBox(
@@ -1980,223 +2006,206 @@ class _ReportTabState extends State<ReportTab> {
                         const SizedBox(
                           width: 20,
                         ),
-                        Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                                left: 15, right: 15, bottom: 7, top: 7),
-                            child: Row(
-                              children: [
-                                BoldText(
-                                    label: 'Generate Reports',
-                                    fontSize: 12,
-                                    color: Colors.black),
-                                PopupMenuButton(itemBuilder: ((context) {
-                                  return [
-                                    PopupMenuItem(
-                                      child: ListTile(
-                                        onTap: (() {
-                                          setState(() {
-                                            index = 0;
-                                            hasLoaded = false;
-                                            year1 = 0;
-                                            year2 = 0;
-                                            year3 = 0;
-                                            year4 = 0;
-                                            year5 = 0;
-                                            total1 = 0;
-                                            total2 = 0;
-                                            total3 = 0;
-                                            total4 = 0;
-                                            total5 = 0;
-                                          });
+                        PopupMenuButton(
+                            tooltip: 'Generate Reports',
+                            itemBuilder: ((context) {
+                              return [
+                                PopupMenuItem(
+                                  child: ListTile(
+                                    onTap: (() {
+                                      setState(() {
+                                        index = 0;
+                                        hasLoaded = false;
+                                        year1 = 0;
+                                        year2 = 0;
+                                        year3 = 0;
+                                        year4 = 0;
+                                        year5 = 0;
+                                        total1 = 0;
+                                        total2 = 0;
+                                        total3 = 0;
+                                        total4 = 0;
+                                        total5 = 0;
+                                      });
 
-                                          name.clear();
-                                          email.clear();
-                                          courseStud.clear();
-                                          yearLevel.clear();
-                                          concern.clear();
-                                          status.clear();
-                                          sections.clear();
-                                          classCodes.clear();
+                                      name.clear();
+                                      email.clear();
+                                      courseStud.clear();
+                                      yearLevel.clear();
+                                      concern.clear();
+                                      status.clear();
+                                      sections.clear();
+                                      classCodes.clear();
 
-                                          getData();
+                                      getData();
 
-                                          getData2();
-                                          getData3();
-                                          getData4();
-                                          getData5();
-                                          getTotal();
-                                          getTotal2();
-                                          getTotal3();
-                                          getTotal4();
-                                          getTotal5();
-                                          getSections();
-                                          getCodes();
-                                          Navigator.pop(context);
-                                        }),
-                                        title: NormalText(
-                                            label: 'Log Book',
-                                            fontSize: 12,
-                                            color: Colors.black),
-                                      ),
-                                    ),
-                                    PopupMenuItem(
-                                      child: ListTile(
-                                        onTap: (() {
-                                          setState(() {
-                                            index = 1;
-                                            hasLoaded = false;
-                                            year1 = 0;
-                                            year2 = 0;
-                                            year3 = 0;
-                                            year4 = 0;
-                                            year5 = 0;
-                                            total1 = 0;
-                                            total2 = 0;
-                                            total3 = 0;
-                                            total4 = 0;
-                                            total5 = 0;
-                                          });
+                                      getData2();
+                                      getData3();
+                                      getData4();
+                                      getData5();
+                                      getTotal();
+                                      getTotal2();
+                                      getTotal3();
+                                      getTotal4();
+                                      getTotal5();
+                                      getSections();
+                                      getCodes();
+                                      Navigator.pop(context);
+                                    }),
+                                    title: NormalText(
+                                        label: 'Log Book',
+                                        fontSize: 12,
+                                        color: Colors.black),
+                                  ),
+                                ),
+                                PopupMenuItem(
+                                  child: ListTile(
+                                    onTap: (() {
+                                      setState(() {
+                                        index = 1;
+                                        hasLoaded = false;
+                                        year1 = 0;
+                                        year2 = 0;
+                                        year3 = 0;
+                                        year4 = 0;
+                                        year5 = 0;
+                                        total1 = 0;
+                                        total2 = 0;
+                                        total3 = 0;
+                                        total4 = 0;
+                                        total5 = 0;
+                                      });
 
-                                          name.clear();
-                                          email.clear();
-                                          courseStud.clear();
-                                          yearLevel.clear();
-                                          concern.clear();
-                                          status.clear();
-                                          sections.clear();
-                                          classCodes.clear();
-                                          getData();
+                                      name.clear();
+                                      email.clear();
+                                      courseStud.clear();
+                                      yearLevel.clear();
+                                      concern.clear();
+                                      status.clear();
+                                      sections.clear();
+                                      classCodes.clear();
+                                      getData();
 
-                                          getData2();
-                                          getData3();
-                                          getData4();
-                                          getData5();
-                                          getTotal();
-                                          getTotal2();
-                                          getTotal3();
-                                          getTotal4();
-                                          getTotal5();
-                                          getSections();
-                                          getCodes();
-                                          Navigator.pop(context);
+                                      getData2();
+                                      getData3();
+                                      getData4();
+                                      getData5();
+                                      getTotal();
+                                      getTotal2();
+                                      getTotal3();
+                                      getTotal4();
+                                      getTotal5();
+                                      getSections();
+                                      getCodes();
+                                      Navigator.pop(context);
 
-                                          // consultationReport();
-                                        }),
-                                        title: NormalText(
-                                            label: 'Consultation Report',
-                                            fontSize: 12,
-                                            color: Colors.black),
-                                      ),
-                                    ),
-                                    PopupMenuItem(
-                                      child: ListTile(
-                                        onTap: (() {
-                                          setState(() {
-                                            index = 2;
-                                            hasLoaded = false;
-                                            year1 = 0;
-                                            year2 = 0;
-                                            year3 = 0;
-                                            year4 = 0;
-                                            year5 = 0;
-                                            total1 = 0;
-                                            total2 = 0;
-                                            total3 = 0;
-                                            total4 = 0;
-                                            total5 = 0;
-                                          });
+                                      // consultationReport();
+                                    }),
+                                    title: NormalText(
+                                        label: 'Consultation Report',
+                                        fontSize: 12,
+                                        color: Colors.black),
+                                  ),
+                                ),
+                                PopupMenuItem(
+                                  child: ListTile(
+                                    onTap: (() {
+                                      setState(() {
+                                        index = 2;
+                                        hasLoaded = false;
+                                        year1 = 0;
+                                        year2 = 0;
+                                        year3 = 0;
+                                        year4 = 0;
+                                        year5 = 0;
+                                        total1 = 0;
+                                        total2 = 0;
+                                        total3 = 0;
+                                        total4 = 0;
+                                        total5 = 0;
+                                      });
 
-                                          sections.clear();
-                                          classCodes.clear();
+                                      sections.clear();
+                                      classCodes.clear();
 
-                                          name.clear();
-                                          email.clear();
-                                          courseStud.clear();
-                                          yearLevel.clear();
-                                          concern.clear();
-                                          status.clear();
-                                          getData();
+                                      name.clear();
+                                      email.clear();
+                                      courseStud.clear();
+                                      yearLevel.clear();
+                                      concern.clear();
+                                      status.clear();
+                                      getData();
 
-                                          getData2();
-                                          getData3();
-                                          getData4();
-                                          getData5();
-                                          getTotal();
-                                          getTotal2();
-                                          getTotal3();
-                                          getTotal4();
-                                          getTotal5();
-                                          getSections();
-                                          getCodes();
-                                          Navigator.pop(context);
-                                          // reportByYear();
-                                        }),
-                                        title: NormalText(
-                                            label: 'Report by Year Level',
-                                            fontSize: 12,
-                                            color: Colors.black),
-                                      ),
-                                    ),
-                                    PopupMenuItem(
-                                      child: ListTile(
-                                        onTap: (() {
-                                          setState(() {
-                                            index = 3;
-                                            hasLoaded = false;
-                                            year1 = 0;
-                                            year2 = 0;
-                                            year3 = 0;
-                                            year4 = 0;
-                                            year5 = 0;
-                                            total1 = 0;
-                                            total2 = 0;
-                                            total3 = 0;
-                                            total4 = 0;
-                                            total5 = 0;
-                                          });
+                                      getData2();
+                                      getData3();
+                                      getData4();
+                                      getData5();
+                                      getTotal();
+                                      getTotal2();
+                                      getTotal3();
+                                      getTotal4();
+                                      getTotal5();
+                                      getSections();
+                                      getCodes();
+                                      Navigator.pop(context);
+                                      // reportByYear();
+                                    }),
+                                    title: NormalText(
+                                        label: 'Report by Year Level',
+                                        fontSize: 12,
+                                        color: Colors.black),
+                                  ),
+                                ),
+                                PopupMenuItem(
+                                  child: ListTile(
+                                    onTap: (() {
+                                      setState(() {
+                                        index = 3;
+                                        hasLoaded = false;
+                                        year1 = 0;
+                                        year2 = 0;
+                                        year3 = 0;
+                                        year4 = 0;
+                                        year5 = 0;
+                                        total1 = 0;
+                                        total2 = 0;
+                                        total3 = 0;
+                                        total4 = 0;
+                                        total5 = 0;
+                                      });
 
-                                          name.clear();
-                                          email.clear();
-                                          courseStud.clear();
-                                          yearLevel.clear();
-                                          concern.clear();
-                                          status.clear();
-                                          sections.clear();
-                                          classCodes.clear();
-                                          getData();
+                                      name.clear();
+                                      email.clear();
+                                      courseStud.clear();
+                                      yearLevel.clear();
+                                      concern.clear();
+                                      status.clear();
+                                      sections.clear();
+                                      classCodes.clear();
+                                      getData();
 
-                                          getData2();
-                                          getData3();
-                                          getData4();
-                                          getData5();
-                                          getTotal();
-                                          getTotal2();
-                                          getTotal3();
-                                          getTotal4();
-                                          getTotal5();
-                                          getSections();
-                                          getCodes();
-                                          Navigator.pop(context);
-                                          // codeReport();
-                                        }),
-                                        title: NormalText(
-                                            label:
-                                                'Student Consultation Report',
-                                            fontSize: 12,
-                                            color: Colors.black),
-                                      ),
-                                    ),
-                                  ];
-                                })),
-                              ],
-                            ),
-                          ),
-                        ),
+                                      getData2();
+                                      getData3();
+                                      getData4();
+                                      getData5();
+                                      getTotal();
+                                      getTotal2();
+                                      getTotal3();
+                                      getTotal4();
+                                      getTotal5();
+                                      getSections();
+                                      getCodes();
+                                      Navigator.pop(context);
+                                      // codeReport();
+                                    }),
+                                    title: NormalText(
+                                        label: 'Student Consultation Report',
+                                        fontSize: 12,
+                                        color: Colors.black),
+                                  ),
+                                ),
+                              ];
+                            })),
                         const SizedBox(
                           width: 50,
                         ),
