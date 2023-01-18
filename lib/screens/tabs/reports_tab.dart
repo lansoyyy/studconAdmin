@@ -50,20 +50,39 @@ class _ReportTabState extends State<ReportTab> {
 
   getData() async {
     // Use provider
-    var collection = FirebaseFirestore.instance
-        .collection('Concerns')
-        .where('yearLevel', isEqualTo: 'First Year');
+    if (course != 'All') {
+      var collection = FirebaseFirestore.instance
+          .collection('Concerns')
+          .where('course', isEqualTo: course)
+          .where('yearLevel', isEqualTo: 'First Year');
 
-    var querySnapshot = await collection.get();
-    if (mounted) {
-      setState(() {
-        for (var queryDocumentSnapshot in querySnapshot.docs) {
-          Map<String, dynamic> data = queryDocumentSnapshot.data();
-          year1 = querySnapshot.size;
-          concern1 = data['concern'];
-          type = data['type'];
-        }
-      });
+      var querySnapshot = await collection.get();
+      if (mounted) {
+        setState(() {
+          for (var queryDocumentSnapshot in querySnapshot.docs) {
+            Map<String, dynamic> data = queryDocumentSnapshot.data();
+            year1 = querySnapshot.size;
+            concern1 = data['concern'];
+            type = data['type'];
+          }
+        });
+      }
+    } else {
+      var collection = FirebaseFirestore.instance
+          .collection('Concerns')
+          .where('yearLevel', isEqualTo: 'First Year');
+
+      var querySnapshot = await collection.get();
+      if (mounted) {
+        setState(() {
+          for (var queryDocumentSnapshot in querySnapshot.docs) {
+            Map<String, dynamic> data = queryDocumentSnapshot.data();
+            year1 = querySnapshot.size;
+            concern1 = data['concern'];
+            type = data['type'];
+          }
+        });
+      }
     }
   }
 
@@ -88,22 +107,44 @@ class _ReportTabState extends State<ReportTab> {
       });
     }
 
-    for (int i = 0; i < listSections.length; i++) {
-      var collection = FirebaseFirestore.instance
-          .collection('Concerns')
-          .where('section', isEqualTo: listSections[i]);
+    if (course != 'All') {
+      for (int i = 0; i < listSections.length; i++) {
+        var collection = FirebaseFirestore.instance
+            .collection('Concerns')
+            .where('course', isEqualTo: course)
+            .where('section', isEqualTo: listSections[i]);
 
-      var querySnapshot = await collection.get();
+        var querySnapshot = await collection.get();
 
-      sectionNumber.add(querySnapshot.size);
+        sectionNumber.add(querySnapshot.size);
 
-      var collection1 = FirebaseFirestore.instance
-          .collection('Users')
-          .where('section', isEqualTo: listSections[i]);
+        var collection1 = FirebaseFirestore.instance
+            .collection('Users')
+            .where('course', isEqualTo: course)
+            .where('section', isEqualTo: listSections[i]);
 
-      var querySnapshot1 = await collection1.get();
+        var querySnapshot1 = await collection1.get();
 
-      enrolled.add(querySnapshot1.size);
+        enrolled.add(querySnapshot1.size);
+      }
+    } else {
+      for (int i = 0; i < listSections.length; i++) {
+        var collection = FirebaseFirestore.instance
+            .collection('Concerns')
+            .where('section', isEqualTo: listSections[i]);
+
+        var querySnapshot = await collection.get();
+
+        sectionNumber.add(querySnapshot.size);
+
+        var collection1 = FirebaseFirestore.instance
+            .collection('Users')
+            .where('section', isEqualTo: listSections[i]);
+
+        var querySnapshot1 = await collection1.get();
+
+        enrolled.add(querySnapshot1.size);
+      }
     }
   }
 
@@ -126,21 +167,41 @@ class _ReportTabState extends State<ReportTab> {
       });
     }
 
-    for (int i = 0; i < classCodes.length; i++) {
-      var collection = FirebaseFirestore.instance
-          .collection('Concerns')
-          .where('classCode', isEqualTo: classCodes[i]);
+    if (course != 'All') {
+      for (int i = 0; i < classCodes.length; i++) {
+        var collection = FirebaseFirestore.instance
+            .collection('Concerns')
+            .where('course', isEqualTo: course)
+            .where('classCode', isEqualTo: classCodes[i]);
 
-      var querySnapshot = await collection.get();
+        var querySnapshot = await collection.get();
 
-      codeNumber.add(querySnapshot.size);
+        codeNumber.add(querySnapshot.size);
 
-      var collection1 = FirebaseFirestore.instance
-          .collection('Users')
-          .where('classCode', isEqualTo: classCodes[i]);
+        var collection1 = FirebaseFirestore.instance
+            .collection('Users')
+            .where('classCode', isEqualTo: classCodes[i]);
 
-      var querySnapshot1 = await collection1.get();
-      codeEnrolled.add(querySnapshot1.size);
+        var querySnapshot1 = await collection1.get();
+        codeEnrolled.add(querySnapshot1.size);
+      }
+    } else {
+      for (int i = 0; i < classCodes.length; i++) {
+        var collection = FirebaseFirestore.instance
+            .collection('Concerns')
+            .where('classCode', isEqualTo: classCodes[i]);
+
+        var querySnapshot = await collection.get();
+
+        codeNumber.add(querySnapshot.size);
+
+        var collection1 = FirebaseFirestore.instance
+            .collection('Users')
+            .where('classCode', isEqualTo: classCodes[i]);
+
+        var querySnapshot1 = await collection1.get();
+        codeEnrolled.add(querySnapshot1.size);
+      }
     }
     setState(() {
       hasLoaded = true;
@@ -151,18 +212,36 @@ class _ReportTabState extends State<ReportTab> {
 
   getData2() async {
     // Use provider
-    var collection = FirebaseFirestore.instance
-        .collection('Concerns')
-        .where('yearLevel', isEqualTo: 'Second Year');
 
-    var querySnapshot = await collection.get();
-    if (mounted) {
-      setState(() {
-        for (var queryDocumentSnapshot in querySnapshot.docs) {
-          Map<String, dynamic> data = queryDocumentSnapshot.data();
-          year2 = querySnapshot.size;
-        }
-      });
+    if (course != 'All') {
+      var collection = FirebaseFirestore.instance
+          .collection('Concerns')
+          .where('course', isEqualTo: course)
+          .where('yearLevel', isEqualTo: 'Second Year');
+
+      var querySnapshot = await collection.get();
+      if (mounted) {
+        setState(() {
+          for (var queryDocumentSnapshot in querySnapshot.docs) {
+            Map<String, dynamic> data = queryDocumentSnapshot.data();
+            year2 = querySnapshot.size;
+          }
+        });
+      }
+    } else {
+      var collection = FirebaseFirestore.instance
+          .collection('Concerns')
+          .where('yearLevel', isEqualTo: 'Second Year');
+
+      var querySnapshot = await collection.get();
+      if (mounted) {
+        setState(() {
+          for (var queryDocumentSnapshot in querySnapshot.docs) {
+            Map<String, dynamic> data = queryDocumentSnapshot.data();
+            year2 = querySnapshot.size;
+          }
+        });
+      }
     }
   }
 
@@ -170,18 +249,35 @@ class _ReportTabState extends State<ReportTab> {
 
   getData3() async {
     // Use provider
-    var collection = FirebaseFirestore.instance
-        .collection('Concerns')
-        .where('yearLevel', isEqualTo: 'Third Year');
+    if (course != 'All') {
+      var collection = FirebaseFirestore.instance
+          .collection('Concerns')
+          .where('course', isEqualTo: course)
+          .where('yearLevel', isEqualTo: 'Third Year');
 
-    var querySnapshot = await collection.get();
-    if (mounted) {
-      setState(() {
-        for (var queryDocumentSnapshot in querySnapshot.docs) {
-          Map<String, dynamic> data = queryDocumentSnapshot.data();
-          year3 = querySnapshot.size;
-        }
-      });
+      var querySnapshot = await collection.get();
+      if (mounted) {
+        setState(() {
+          for (var queryDocumentSnapshot in querySnapshot.docs) {
+            Map<String, dynamic> data = queryDocumentSnapshot.data();
+            year3 = querySnapshot.size;
+          }
+        });
+      }
+    } else {
+      var collection = FirebaseFirestore.instance
+          .collection('Concerns')
+          .where('yearLevel', isEqualTo: 'Third Year');
+
+      var querySnapshot = await collection.get();
+      if (mounted) {
+        setState(() {
+          for (var queryDocumentSnapshot in querySnapshot.docs) {
+            Map<String, dynamic> data = queryDocumentSnapshot.data();
+            year3 = querySnapshot.size;
+          }
+        });
+      }
     }
   }
 
@@ -189,18 +285,35 @@ class _ReportTabState extends State<ReportTab> {
 
   getData4() async {
     // Use provider
-    var collection = FirebaseFirestore.instance
-        .collection('Concerns')
-        .where('yearLevel', isEqualTo: 'Fourth Year');
+    if (course != 'All') {
+      var collection = FirebaseFirestore.instance
+          .collection('Concerns')
+          .where('course', isEqualTo: course)
+          .where('yearLevel', isEqualTo: 'Fourth Year');
 
-    var querySnapshot = await collection.get();
-    if (mounted) {
-      setState(() {
-        for (var queryDocumentSnapshot in querySnapshot.docs) {
-          Map<String, dynamic> data = queryDocumentSnapshot.data();
-          year4 = querySnapshot.size;
-        }
-      });
+      var querySnapshot = await collection.get();
+      if (mounted) {
+        setState(() {
+          for (var queryDocumentSnapshot in querySnapshot.docs) {
+            Map<String, dynamic> data = queryDocumentSnapshot.data();
+            year4 = querySnapshot.size;
+          }
+        });
+      }
+    } else {
+      var collection = FirebaseFirestore.instance
+          .collection('Concerns')
+          .where('yearLevel', isEqualTo: 'Fourth Year');
+
+      var querySnapshot = await collection.get();
+      if (mounted) {
+        setState(() {
+          for (var queryDocumentSnapshot in querySnapshot.docs) {
+            Map<String, dynamic> data = queryDocumentSnapshot.data();
+            year4 = querySnapshot.size;
+          }
+        });
+      }
     }
   }
 
@@ -208,18 +321,35 @@ class _ReportTabState extends State<ReportTab> {
 
   getData5() async {
     // Use provider
-    var collection = FirebaseFirestore.instance
-        .collection('Concerns')
-        .where('yearLevel', isEqualTo: 'Fifth Year');
+    if (course != 'All') {
+      var collection = FirebaseFirestore.instance
+          .collection('Concerns')
+          .where('course', isEqualTo: course)
+          .where('yearLevel', isEqualTo: 'Fifth Year');
 
-    var querySnapshot = await collection.get();
-    if (mounted) {
-      setState(() {
-        for (var queryDocumentSnapshot in querySnapshot.docs) {
-          Map<String, dynamic> data = queryDocumentSnapshot.data();
-          year5 = querySnapshot.size;
-        }
-      });
+      var querySnapshot = await collection.get();
+      if (mounted) {
+        setState(() {
+          for (var queryDocumentSnapshot in querySnapshot.docs) {
+            Map<String, dynamic> data = queryDocumentSnapshot.data();
+            year5 = querySnapshot.size;
+          }
+        });
+      }
+    } else {
+      var collection = FirebaseFirestore.instance
+          .collection('Concerns')
+          .where('yearLevel', isEqualTo: 'Fifth Year');
+
+      var querySnapshot = await collection.get();
+      if (mounted) {
+        setState(() {
+          for (var queryDocumentSnapshot in querySnapshot.docs) {
+            Map<String, dynamic> data = queryDocumentSnapshot.data();
+            year5 = querySnapshot.size;
+          }
+        });
+      }
     }
   }
 
@@ -227,18 +357,35 @@ class _ReportTabState extends State<ReportTab> {
 
   getTotal() async {
     // Use provider
-    var collection = FirebaseFirestore.instance
-        .collection('Users')
-        .where('yearLevel', isEqualTo: 'First Year');
+    if (course != 'All') {
+      var collection = FirebaseFirestore.instance
+          .collection('Users')
+          .where('course', isEqualTo: course)
+          .where('yearLevel', isEqualTo: 'First Year');
 
-    var querySnapshot = await collection.get();
-    if (mounted) {
-      setState(() {
-        for (var queryDocumentSnapshot in querySnapshot.docs) {
-          Map<String, dynamic> data = queryDocumentSnapshot.data();
-          total1 = querySnapshot.size;
-        }
-      });
+      var querySnapshot = await collection.get();
+      if (mounted) {
+        setState(() {
+          for (var queryDocumentSnapshot in querySnapshot.docs) {
+            Map<String, dynamic> data = queryDocumentSnapshot.data();
+            total1 = querySnapshot.size;
+          }
+        });
+      }
+    } else {
+      var collection = FirebaseFirestore.instance
+          .collection('Users')
+          .where('yearLevel', isEqualTo: 'First Year');
+
+      var querySnapshot = await collection.get();
+      if (mounted) {
+        setState(() {
+          for (var queryDocumentSnapshot in querySnapshot.docs) {
+            Map<String, dynamic> data = queryDocumentSnapshot.data();
+            total1 = querySnapshot.size;
+          }
+        });
+      }
     }
   }
 
@@ -246,18 +393,35 @@ class _ReportTabState extends State<ReportTab> {
 
   getTotal2() async {
     // Use provider
-    var collection = FirebaseFirestore.instance
-        .collection('Users')
-        .where('yearLevel', isEqualTo: 'Second Year');
+    if (course != 'All') {
+      var collection = FirebaseFirestore.instance
+          .collection('Users')
+          .where('course', isEqualTo: course)
+          .where('yearLevel', isEqualTo: 'Second Year');
 
-    var querySnapshot = await collection.get();
-    if (mounted) {
-      setState(() {
-        for (var queryDocumentSnapshot in querySnapshot.docs) {
-          Map<String, dynamic> data = queryDocumentSnapshot.data();
-          total2 = querySnapshot.size;
-        }
-      });
+      var querySnapshot = await collection.get();
+      if (mounted) {
+        setState(() {
+          for (var queryDocumentSnapshot in querySnapshot.docs) {
+            Map<String, dynamic> data = queryDocumentSnapshot.data();
+            total2 = querySnapshot.size;
+          }
+        });
+      }
+    } else {
+      var collection = FirebaseFirestore.instance
+          .collection('Users')
+          .where('yearLevel', isEqualTo: 'Second Year');
+
+      var querySnapshot = await collection.get();
+      if (mounted) {
+        setState(() {
+          for (var queryDocumentSnapshot in querySnapshot.docs) {
+            Map<String, dynamic> data = queryDocumentSnapshot.data();
+            total2 = querySnapshot.size;
+          }
+        });
+      }
     }
   }
 
@@ -265,18 +429,35 @@ class _ReportTabState extends State<ReportTab> {
 
   getTotal3() async {
     // Use provider
-    var collection = FirebaseFirestore.instance
-        .collection('Users')
-        .where('yearLevel', isEqualTo: 'Third Year');
+    if (course != 'All') {
+      var collection = FirebaseFirestore.instance
+          .collection('Users')
+          .where('course', isEqualTo: course)
+          .where('yearLevel', isEqualTo: 'Third Year');
 
-    var querySnapshot = await collection.get();
-    if (mounted) {
-      setState(() {
-        for (var queryDocumentSnapshot in querySnapshot.docs) {
-          Map<String, dynamic> data = queryDocumentSnapshot.data();
-          total3 = querySnapshot.size;
-        }
-      });
+      var querySnapshot = await collection.get();
+      if (mounted) {
+        setState(() {
+          for (var queryDocumentSnapshot in querySnapshot.docs) {
+            Map<String, dynamic> data = queryDocumentSnapshot.data();
+            total3 = querySnapshot.size;
+          }
+        });
+      }
+    } else {
+      var collection = FirebaseFirestore.instance
+          .collection('Users')
+          .where('yearLevel', isEqualTo: 'Third Year');
+
+      var querySnapshot = await collection.get();
+      if (mounted) {
+        setState(() {
+          for (var queryDocumentSnapshot in querySnapshot.docs) {
+            Map<String, dynamic> data = queryDocumentSnapshot.data();
+            total3 = querySnapshot.size;
+          }
+        });
+      }
     }
   }
 
@@ -284,18 +465,35 @@ class _ReportTabState extends State<ReportTab> {
 
   getTotal4() async {
     // Use provider
-    var collection = FirebaseFirestore.instance
-        .collection('Users')
-        .where('yearLevel', isEqualTo: 'Fourth Year');
+    if (course != 'All') {
+      var collection = FirebaseFirestore.instance
+          .collection('Users')
+          .where('course', isEqualTo: course)
+          .where('yearLevel', isEqualTo: 'Fourth Year');
 
-    var querySnapshot = await collection.get();
-    if (mounted) {
-      setState(() {
-        for (var queryDocumentSnapshot in querySnapshot.docs) {
-          Map<String, dynamic> data = queryDocumentSnapshot.data();
-          total4 = querySnapshot.size;
-        }
-      });
+      var querySnapshot = await collection.get();
+      if (mounted) {
+        setState(() {
+          for (var queryDocumentSnapshot in querySnapshot.docs) {
+            Map<String, dynamic> data = queryDocumentSnapshot.data();
+            total4 = querySnapshot.size;
+          }
+        });
+      }
+    } else {
+      var collection = FirebaseFirestore.instance
+          .collection('Users')
+          .where('yearLevel', isEqualTo: 'Fourth Year');
+
+      var querySnapshot = await collection.get();
+      if (mounted) {
+        setState(() {
+          for (var queryDocumentSnapshot in querySnapshot.docs) {
+            Map<String, dynamic> data = queryDocumentSnapshot.data();
+            total4 = querySnapshot.size;
+          }
+        });
+      }
     }
   }
 
@@ -303,18 +501,35 @@ class _ReportTabState extends State<ReportTab> {
 
   getTotal5() async {
     // Use provider
-    var collection = FirebaseFirestore.instance
-        .collection('Users')
-        .where('yearLevel', isEqualTo: 'Fifth Year');
+    if (course != 'All') {
+      var collection = FirebaseFirestore.instance
+          .collection('Users')
+          .where('course', isEqualTo: course)
+          .where('yearLevel', isEqualTo: 'Fifth Year');
 
-    var querySnapshot = await collection.get();
-    if (mounted) {
-      setState(() {
-        for (var queryDocumentSnapshot in querySnapshot.docs) {
-          Map<String, dynamic> data = queryDocumentSnapshot.data();
-          total5 = querySnapshot.size;
-        }
-      });
+      var querySnapshot = await collection.get();
+      if (mounted) {
+        setState(() {
+          for (var queryDocumentSnapshot in querySnapshot.docs) {
+            Map<String, dynamic> data = queryDocumentSnapshot.data();
+            total5 = querySnapshot.size;
+          }
+        });
+      }
+    } else {
+      var collection = FirebaseFirestore.instance
+          .collection('Users')
+          .where('yearLevel', isEqualTo: 'Fifth Year');
+
+      var querySnapshot = await collection.get();
+      if (mounted) {
+        setState(() {
+          for (var queryDocumentSnapshot in querySnapshot.docs) {
+            Map<String, dynamic> data = queryDocumentSnapshot.data();
+            total5 = querySnapshot.size;
+          }
+        });
+      }
     }
   }
 
@@ -1423,6 +1638,7 @@ class _ReportTabState extends State<ReportTab> {
 
   @override
   Widget build(BuildContext context) {
+    print(year1);
     return hasLoaded
         ? Scaffold(
             appBar: appbarWidget(widget.page),
@@ -1500,6 +1716,12 @@ class _ReportTabState extends State<ReportTab> {
                                         int.parse(value.toString());
                                     hasLoaded = false;
                                   });
+                                  name.clear();
+                                  email.clear();
+                                  courseStud.clear();
+                                  yearLevel.clear();
+                                  concern.clear();
+                                  status.clear();
                                   getData();
 
                                   getData2();
@@ -1596,7 +1818,7 @@ class _ReportTabState extends State<ReportTab> {
                                   DropdownMenuItem(
                                     onTap: () {
                                       course =
-                                          "Entertainment and\nMultimedia Computing";
+                                          "Entertainment and Multimedia Computing";
                                     },
                                     value: 4,
                                     child: Center(
@@ -1629,7 +1851,25 @@ class _ReportTabState extends State<ReportTab> {
                                     _dropdownValue1 =
                                         int.parse(value.toString());
                                     hasLoaded = false;
+
+                                    year1 = 0;
+                                    year2 = 0;
+                                    year3 = 0;
+                                    year4 = 0;
+                                    year5 = 0;
+                                    total1 = 0;
+                                    total2 = 0;
+                                    total3 = 0;
+                                    total4 = 0;
+                                    total5 = 0;
                                   });
+
+                                  name.clear();
+                                  email.clear();
+                                  courseStud.clear();
+                                  yearLevel.clear();
+                                  concern.clear();
+                                  status.clear();
                                   getData();
 
                                   getData2();
@@ -1694,6 +1934,12 @@ class _ReportTabState extends State<ReportTab> {
                                         int.parse(value.toString());
                                     hasLoaded = false;
                                   });
+                                  name.clear();
+                                  email.clear();
+                                  courseStud.clear();
+                                  yearLevel.clear();
+                                  concern.clear();
+                                  status.clear();
                                   getData();
 
                                   getData2();
@@ -1737,7 +1983,27 @@ class _ReportTabState extends State<ReportTab> {
                                           setState(() {
                                             index = 0;
                                             hasLoaded = false;
+                                            year1 = 0;
+                                            year2 = 0;
+                                            year3 = 0;
+                                            year4 = 0;
+                                            year5 = 0;
+                                            total1 = 0;
+                                            total2 = 0;
+                                            total3 = 0;
+                                            total4 = 0;
+                                            total5 = 0;
                                           });
+
+                                          name.clear();
+                                          email.clear();
+                                          courseStud.clear();
+                                          yearLevel.clear();
+                                          concern.clear();
+                                          status.clear();
+                                          sections.clear();
+                                          classCodes.clear();
+
                                           getData();
 
                                           getData2();
@@ -1765,7 +2031,26 @@ class _ReportTabState extends State<ReportTab> {
                                           setState(() {
                                             index = 1;
                                             hasLoaded = false;
+                                            year1 = 0;
+                                            year2 = 0;
+                                            year3 = 0;
+                                            year4 = 0;
+                                            year5 = 0;
+                                            total1 = 0;
+                                            total2 = 0;
+                                            total3 = 0;
+                                            total4 = 0;
+                                            total5 = 0;
                                           });
+
+                                          name.clear();
+                                          email.clear();
+                                          courseStud.clear();
+                                          yearLevel.clear();
+                                          concern.clear();
+                                          status.clear();
+                                          sections.clear();
+                                          classCodes.clear();
                                           getData();
 
                                           getData2();
@@ -1795,7 +2080,27 @@ class _ReportTabState extends State<ReportTab> {
                                           setState(() {
                                             index = 2;
                                             hasLoaded = false;
+                                            year1 = 0;
+                                            year2 = 0;
+                                            year3 = 0;
+                                            year4 = 0;
+                                            year5 = 0;
+                                            total1 = 0;
+                                            total2 = 0;
+                                            total3 = 0;
+                                            total4 = 0;
+                                            total5 = 0;
                                           });
+
+                                          sections.clear();
+                                          classCodes.clear();
+
+                                          name.clear();
+                                          email.clear();
+                                          courseStud.clear();
+                                          yearLevel.clear();
+                                          concern.clear();
+                                          status.clear();
                                           getData();
 
                                           getData2();
@@ -1824,7 +2129,26 @@ class _ReportTabState extends State<ReportTab> {
                                           setState(() {
                                             index = 3;
                                             hasLoaded = false;
+                                            year1 = 0;
+                                            year2 = 0;
+                                            year3 = 0;
+                                            year4 = 0;
+                                            year5 = 0;
+                                            total1 = 0;
+                                            total2 = 0;
+                                            total3 = 0;
+                                            total4 = 0;
+                                            total5 = 0;
                                           });
+
+                                          name.clear();
+                                          email.clear();
+                                          courseStud.clear();
+                                          yearLevel.clear();
+                                          concern.clear();
+                                          status.clear();
+                                          sections.clear();
+                                          classCodes.clear();
                                           getData();
 
                                           getData2();
