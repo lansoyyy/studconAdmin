@@ -534,6 +534,18 @@ class _ReportTabState extends State<ReportTab> {
 
   late String year = 'All';
 
+  int concernValue = 0;
+
+  late String filterConcern = 'All';
+
+  int typeValue = 0;
+
+  late String filterType = 'All';
+
+  int statusValue = 0;
+
+  late String filterStatus = 'All';
+
   int _dropdownValue1 = 0;
 
   late String course = 'All';
@@ -1391,18 +1403,73 @@ class _ReportTabState extends State<ReportTab> {
   String sort = 'name';
 
   getFilter() {
-    if (course == 'All' && year == 'All') {
+    if (course == 'All' &&
+        year == 'All' &&
+        filterConcern == 'All' &&
+        filterType == 'All') {
       return FirebaseFirestore.instance.collection('Concerns').snapshots();
+    } else if (course == 'All' && year == 'All' && filterType == 'All') {
+      return FirebaseFirestore.instance
+          .collection('Concerns')
+          .where('concern', isEqualTo: filterConcern)
+          .orderBy(sort)
+          .snapshots();
+    } else if (course == 'All' && year == 'All' && filterConcern == 'All') {
+      return FirebaseFirestore.instance
+          .collection('Concerns')
+          .where('type', isEqualTo: filterType)
+          .orderBy(sort)
+          .snapshots();
+    } else if (course == 'All' && year == 'All' && filterType == 'All') {
+      return FirebaseFirestore.instance
+          .collection('Concerns')
+          .where('concern', isEqualTo: filterConcern)
+          .orderBy(sort)
+          .snapshots();
+    } else if (course == 'All' && year == 'All') {
+      return FirebaseFirestore.instance
+          .collection('Concerns')
+          .where('type', isEqualTo: filterType)
+          .where('concern', isEqualTo: filterConcern)
+          .orderBy(sort)
+          .snapshots();
+    } else if (filterType == 'All' && filterConcern == 'All') {
+      return FirebaseFirestore.instance
+          .collection('Concerns')
+          .where('course', isEqualTo: course)
+          .where('yearLevel', isEqualTo: year)
+          .orderBy(sort)
+          .snapshots();
     } else if (course == 'All') {
       return FirebaseFirestore.instance
           .collection('Concerns')
           .where('yearLevel', isEqualTo: year)
+          .where('concern', isEqualTo: filterConcern)
+          .where('type', isEqualTo: filterType)
           .orderBy(sort)
           .snapshots();
     } else if (year == 'All') {
       return FirebaseFirestore.instance
           .collection('Concerns')
+          .where('type', isEqualTo: filterType)
           .where('course', isEqualTo: course)
+          .where('concern', isEqualTo: filterConcern)
+          .orderBy(sort)
+          .snapshots();
+    } else if (filterConcern == 'All') {
+      return FirebaseFirestore.instance
+          .collection('Concerns')
+          .where('course', isEqualTo: course)
+          .where('yearLevel', isEqualTo: year)
+          .where('type', isEqualTo: filterType)
+          .orderBy(sort)
+          .snapshots();
+    } else if (filterType == 'All') {
+      return FirebaseFirestore.instance
+          .collection('Concerns')
+          .where('course', isEqualTo: course)
+          .where('yearLevel', isEqualTo: year)
+          .where('concern', isEqualTo: filterConcern)
           .orderBy(sort)
           .snapshots();
     } else {
@@ -1410,6 +1477,8 @@ class _ReportTabState extends State<ReportTab> {
           .collection('Concerns')
           .where('yearLevel', isEqualTo: year)
           .where('course', isEqualTo: course)
+          .where('concern', isEqualTo: filterConcern)
+          .where('type', isEqualTo: filterType)
           .orderBy(sort)
           .snapshots();
     }
@@ -1642,7 +1711,7 @@ class _ReportTabState extends State<ReportTab> {
 
   @override
   Widget build(BuildContext context) {
-    print(year1);
+    print(filterConcern);
     return hasLoaded
         ? Scaffold(
             appBar: appbarWidget(widget.page),
@@ -1932,7 +2001,7 @@ class _ReportTabState extends State<ReportTab> {
                         ),
                         index == 0
                             ? Padding(
-                                padding: const EdgeInsets.only(top: 10),
+                                padding: const EdgeInsets.only(top: 0),
                                 child: Container(
                                   width: 150,
                                   decoration: BoxDecoration(
@@ -1941,7 +2010,7 @@ class _ReportTabState extends State<ReportTab> {
                                   ),
                                   child: Padding(
                                     padding:
-                                        const EdgeInsets.fromLTRB(20, 2, 20, 2),
+                                        const EdgeInsets.fromLTRB(20, 0, 20, 2),
                                     child: DropdownButton(
                                       underline:
                                           Container(color: Colors.transparent),
@@ -2221,19 +2290,238 @@ class _ReportTabState extends State<ReportTab> {
                           children: [
                             Column(
                               children: [
-                                Align(
-                                  alignment: Alignment.topLeft,
-                                  child: MaterialButton(
-                                      color: primary,
-                                      minWidth: 150,
-                                      height: 50,
-                                      onPressed: (() {
-                                        _loggedin();
-                                      }),
-                                      child: NormalText(
-                                          label: 'Export in PDF',
-                                          fontSize: 12,
-                                          color: Colors.white)),
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 20),
+                                  child: Row(
+                                    children: [
+                                      Align(
+                                        alignment: Alignment.topLeft,
+                                        child: MaterialButton(
+                                            color: primary,
+                                            minWidth: 150,
+                                            height: 50,
+                                            onPressed: (() {
+                                              _loggedin();
+                                            }),
+                                            child: NormalText(
+                                                label: 'Export in PDF',
+                                                fontSize: 12,
+                                                color: Colors.white)),
+                                      ),
+                                      const Expanded(
+                                        child: SizedBox(),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 10),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Container(
+                                              width: 100,
+                                              decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                              ),
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.fromLTRB(
+                                                        20, 2, 20, 2),
+                                                child: DropdownButton(
+                                                  underline: Container(
+                                                      color:
+                                                          Colors.transparent),
+                                                  iconEnabledColor:
+                                                      Colors.black,
+                                                  isExpanded: true,
+                                                  style: const TextStyle(
+                                                      color: Colors.white),
+                                                  value: typeValue,
+                                                  items: [
+                                                    DropdownMenuItem(
+                                                      onTap: () {
+                                                        filterType = 'All';
+                                                      },
+                                                      value: 0,
+                                                      child: DropDownItem(
+                                                          label: 'All'),
+                                                    ),
+                                                    DropdownMenuItem(
+                                                      onTap: () {
+                                                        filterType = 'Unsvoled';
+                                                      },
+                                                      value: 1,
+                                                      child: DropDownItem(
+                                                          label: 'Unsvoled'),
+                                                    ),
+                                                    DropdownMenuItem(
+                                                      onTap: () {
+                                                        filterType = 'Solved';
+                                                      },
+                                                      value: 2,
+                                                      child: DropDownItem(
+                                                          label: 'Solved'),
+                                                    ),
+                                                  ],
+                                                  onChanged: (value) {
+                                                    setState(() {
+                                                      typeValue = int.parse(
+                                                          value.toString());
+                                                      hasLoaded = false;
+                                                    });
+                                                    name.clear();
+                                                    email.clear();
+                                                    courseStud.clear();
+                                                    yearLevel.clear();
+                                                    concern.clear();
+                                                    status.clear();
+                                                    getData();
+
+                                                    getData2();
+                                                    getData3();
+                                                    getData4();
+                                                    getData5();
+                                                    getTotal();
+                                                    getTotal2();
+                                                    getTotal3();
+                                                    getTotal4();
+                                                    getTotal5();
+                                                    getSections();
+                                                    getCodes();
+                                                  },
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              height: 5,
+                                            ),
+                                            NormalText(
+                                                label: '  Filter by Status',
+                                                fontSize: 8,
+                                                color: Colors.grey),
+                                          ],
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        width: 20,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 10),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Container(
+                                              width: 200,
+                                              decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                              ),
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.fromLTRB(
+                                                        20, 2, 20, 2),
+                                                child: DropdownButton(
+                                                  underline: Container(
+                                                      color:
+                                                          Colors.transparent),
+                                                  iconEnabledColor:
+                                                      Colors.black,
+                                                  isExpanded: true,
+                                                  style: const TextStyle(
+                                                      color: Colors.white),
+                                                  value: concernValue,
+                                                  items: [
+                                                    DropdownMenuItem(
+                                                      onTap: () {
+                                                        filterConcern = 'All';
+                                                      },
+                                                      value: 0,
+                                                      child: DropDownItem(
+                                                          label: 'All'),
+                                                    ),
+                                                    DropdownMenuItem(
+                                                      onTap: () {
+                                                        filterConcern =
+                                                            'Grades';
+                                                      },
+                                                      value: 1,
+                                                      child: DropDownItem(
+                                                          label:
+                                                              'Grades (INC, not\nyet graded)'),
+                                                    ),
+                                                    DropdownMenuItem(
+                                                      onTap: () {
+                                                        filterConcern =
+                                                            'Classes';
+                                                      },
+                                                      value: 2,
+                                                      child: DropDownItem(
+                                                          label: 'Classes'),
+                                                    ),
+                                                    DropdownMenuItem(
+                                                      onTap: () {
+                                                        filterConcern =
+                                                            'Attendance';
+                                                      },
+                                                      value: 3,
+                                                      child: DropDownItem(
+                                                          label: 'Attendance'),
+                                                    ),
+                                                    DropdownMenuItem(
+                                                      onTap: () {
+                                                        filterConcern =
+                                                            'Requirements';
+                                                      },
+                                                      value: 4,
+                                                      child: DropDownItem(
+                                                          label:
+                                                              'Requirements (Projects,\nQuizzes,Late submission,\nAssignments)'),
+                                                    ),
+                                                  ],
+                                                  onChanged: (value) {
+                                                    setState(() {
+                                                      concernValue = int.parse(
+                                                          value.toString());
+                                                      hasLoaded = false;
+                                                    });
+                                                    name.clear();
+                                                    email.clear();
+                                                    courseStud.clear();
+                                                    yearLevel.clear();
+                                                    concern.clear();
+                                                    status.clear();
+                                                    getData();
+
+                                                    getData2();
+                                                    getData3();
+                                                    getData4();
+                                                    getData5();
+                                                    getTotal();
+                                                    getTotal2();
+                                                    getTotal3();
+                                                    getTotal4();
+                                                    getTotal5();
+                                                    getSections();
+                                                    getCodes();
+                                                  },
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              height: 5,
+                                            ),
+                                            NormalText(
+                                                label: '  Filter by Concern',
+                                                fontSize: 8,
+                                                color: Colors.grey),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                                 const SizedBox(
                                   height: 20,
