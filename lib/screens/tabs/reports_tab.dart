@@ -166,16 +166,33 @@ class _ReportTabState extends State<ReportTab> {
 
   getCodes() async {
     // Use provider
-    var collection = FirebaseFirestore.instance.collection('Class Code');
 
-    var querySnapshot = await collection.get();
-    if (mounted) {
-      setState(() {
-        for (var queryDocumentSnapshot in querySnapshot.docs) {
-          Map<String, dynamic> data = queryDocumentSnapshot.data();
-          classCodes.add(data['classCode']);
-        }
-      });
+    if (course == 'All') {
+      var collection = FirebaseFirestore.instance.collection('Class Code');
+
+      var querySnapshot = await collection.get();
+      if (mounted) {
+        setState(() {
+          for (var queryDocumentSnapshot in querySnapshot.docs) {
+            Map<String, dynamic> data = queryDocumentSnapshot.data();
+            classCodes.add(data['classCode']);
+          }
+        });
+      }
+    } else {
+      var collection = FirebaseFirestore.instance
+          .collection('Class Code')
+          .where('course', isEqualTo: course);
+
+      var querySnapshot = await collection.get();
+      if (mounted) {
+        setState(() {
+          for (var queryDocumentSnapshot in querySnapshot.docs) {
+            Map<String, dynamic> data = queryDocumentSnapshot.data();
+            classCodes.add(data['classCode']);
+          }
+        });
+      }
     }
 
     if (course != 'All') {
@@ -1813,7 +1830,7 @@ class _ReportTabState extends State<ReportTab> {
                                       ),
                                       DropdownMenuItem(
                                         onTap: () {
-                                          course = "Information Technology";
+                                          course = "All";
                                         },
                                         value: 5,
                                         child: Center(
@@ -2480,7 +2497,7 @@ class _ReportTabState extends State<ReportTab> {
 
                                                         rows: [
                                                           // row to set the values
-                                                          for (int i = 0;
+                                                          for (int i = 1;
                                                               i <
                                                                   snapshot.data!
                                                                       .size;
