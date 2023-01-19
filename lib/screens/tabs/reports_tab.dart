@@ -65,9 +65,7 @@ class _ReportTabState extends State<ReportTab> {
         });
       }
     } else {
-      var collection = FirebaseFirestore.instance
-          .collection('Concerns')
-          .where('yearLevel', isEqualTo: 'First Year');
+      var collection = FirebaseFirestore.instance.collection('Concerns');
 
       var querySnapshot = await collection.get();
       if (mounted) {
@@ -92,16 +90,32 @@ class _ReportTabState extends State<ReportTab> {
 
   getSections() async {
     // Use provider
-    var collection = FirebaseFirestore.instance.collection('Section');
+    if (course == 'All') {
+      var collection = FirebaseFirestore.instance.collection('Section');
 
-    var querySnapshot = await collection.get();
-    if (mounted) {
-      setState(() {
-        for (var queryDocumentSnapshot in querySnapshot.docs) {
-          Map<String, dynamic> data = queryDocumentSnapshot.data();
-          listSections.add(data['section']);
-        }
-      });
+      var querySnapshot = await collection.get();
+      if (mounted) {
+        setState(() {
+          for (var queryDocumentSnapshot in querySnapshot.docs) {
+            Map<String, dynamic> data = queryDocumentSnapshot.data();
+            listSections.add(data['section']);
+          }
+        });
+      }
+    } else {
+      var collection = FirebaseFirestore.instance
+          .collection('Section')
+          .where('course', isEqualTo: course);
+
+      var querySnapshot = await collection.get();
+      if (mounted) {
+        setState(() {
+          for (var queryDocumentSnapshot in querySnapshot.docs) {
+            Map<String, dynamic> data = queryDocumentSnapshot.data();
+            listSections.add(data['section']);
+          }
+        });
+      }
     }
 
     if (course != 'All') {
@@ -1437,31 +1451,11 @@ class _ReportTabState extends State<ReportTab> {
           .where('concern', isEqualTo: filterConcern)
           .orderBy(sort)
           .snapshots();
-    } else if (filterType == 'All' && filterConcern == 'All') {
-      return FirebaseFirestore.instance
-          .collection('Concerns')
-          .where('course', isEqualTo: course)
-          .orderBy(sort)
-          .snapshots();
-    } else if (course == 'All') {
-      return FirebaseFirestore.instance
-          .collection('Concerns')
-          .where('concern', isEqualTo: filterConcern)
-          .where('type', isEqualTo: filterType)
-          .orderBy(sort)
-          .snapshots();
     } else if (filterConcern == 'All') {
       return FirebaseFirestore.instance
           .collection('Concerns')
           .where('course', isEqualTo: course)
           .where('type', isEqualTo: filterType)
-          .orderBy(sort)
-          .snapshots();
-    } else if (filterType == 'All') {
-      return FirebaseFirestore.instance
-          .collection('Concerns')
-          .where('course', isEqualTo: course)
-          .where('concern', isEqualTo: filterConcern)
           .orderBy(sort)
           .snapshots();
     } else {
@@ -1702,6 +1696,7 @@ class _ReportTabState extends State<ReportTab> {
 
   @override
   Widget build(BuildContext context) {
+    print(listSections);
     return hasLoaded
         ? Scaffold(
             appBar: appbarWidget(widget.page),
@@ -1855,6 +1850,9 @@ class _ReportTabState extends State<ReportTab> {
                                       yearLevel.clear();
                                       concern.clear();
                                       status.clear();
+                                      listSections.clear();
+                                      classCodes.clear();
+
                                       getData();
 
                                       getData2();
@@ -1867,6 +1865,7 @@ class _ReportTabState extends State<ReportTab> {
                                       getTotal4();
                                       getTotal5();
                                       getSections();
+
                                       getCodes();
                                     },
                                   ),
@@ -2004,15 +2003,14 @@ class _ReportTabState extends State<ReportTab> {
                                         total5 = 0;
                                       });
 
-                                      listSections.clear();
-                                      classCodes.clear();
-
                                       name.clear();
                                       email.clear();
                                       courseStud.clear();
                                       yearLevel.clear();
                                       concern.clear();
                                       status.clear();
+                                      listSections.clear();
+                                      classCodes.clear();
                                       getData();
 
                                       getData2();
@@ -2186,6 +2184,8 @@ class _ReportTabState extends State<ReportTab> {
                                                     yearLevel.clear();
                                                     concern.clear();
                                                     status.clear();
+                                                    listSections.clear();
+                                                    classCodes.clear();
                                                     getData();
 
                                                     getData2();
@@ -2303,6 +2303,8 @@ class _ReportTabState extends State<ReportTab> {
                                                     yearLevel.clear();
                                                     concern.clear();
                                                     status.clear();
+                                                    listSections.clear();
+                                                    classCodes.clear();
                                                     getData();
 
                                                     getData2();
@@ -2478,7 +2480,7 @@ class _ReportTabState extends State<ReportTab> {
 
                                                         rows: [
                                                           // row to set the values
-                                                          for (int i = 1;
+                                                          for (int i = 0;
                                                               i <
                                                                   snapshot.data!
                                                                       .size;
