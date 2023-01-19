@@ -84,7 +84,7 @@ class _ReportTabState extends State<ReportTab> {
   }
 
   var listSections = [];
-  var sections = [];
+
   List<int> sectionNumber = [];
   List<int> enrolled = [];
 
@@ -1400,40 +1400,37 @@ class _ReportTabState extends State<ReportTab> {
     // await file.writeAsBytes(await doc.save());
   }
 
-  String sort = 'name';
+  String sort = 'dateTime';
 
   getFilter() {
-    if (course == 'All' &&
-        year == 'All' &&
-        filterConcern == 'All' &&
-        filterType == 'All') {
+    if (course == 'All' && filterConcern == 'All' && filterType == 'All') {
       return FirebaseFirestore.instance.collection('Concerns').snapshots();
-    } else if (course == 'All' && year == 'All' && filterType == 'All') {
+    } else if (course == 'All' && filterType == 'All') {
       return FirebaseFirestore.instance
           .collection('Concerns')
           .where('concern', isEqualTo: filterConcern)
           .orderBy(sort)
           .snapshots();
-    } else if (course == 'All' && year == 'All' && filterConcern == 'All') {
+    } else if (course == 'All' && filterConcern == 'All') {
       return FirebaseFirestore.instance
           .collection('Concerns')
           .where('type', isEqualTo: filterType)
           .orderBy(sort)
           .snapshots();
-    } else if (year == 'All' && filterConcern == 'All' && filterType == 'All') {
+    } else if (filterConcern == 'All' && filterType == 'All') {
       return FirebaseFirestore.instance
           .collection('Concerns')
           .where('course', isEqualTo: course)
           .orderBy(sort)
           .snapshots();
-    } else if (course == 'All' && year == 'All') {
+    } else if (course == 'All') {
       return FirebaseFirestore.instance
           .collection('Concerns')
           .where('type', isEqualTo: filterType)
           .where('concern', isEqualTo: filterConcern)
           .orderBy(sort)
           .snapshots();
-    } else if (year == 'All' && filterType == 'All') {
+    } else if (filterType == 'All') {
       return FirebaseFirestore.instance
           .collection('Concerns')
           .where('course', isEqualTo: course)
@@ -1444,30 +1441,19 @@ class _ReportTabState extends State<ReportTab> {
       return FirebaseFirestore.instance
           .collection('Concerns')
           .where('course', isEqualTo: course)
-          .where('yearLevel', isEqualTo: year)
           .orderBy(sort)
           .snapshots();
     } else if (course == 'All') {
       return FirebaseFirestore.instance
           .collection('Concerns')
-          .where('yearLevel', isEqualTo: year)
           .where('concern', isEqualTo: filterConcern)
           .where('type', isEqualTo: filterType)
-          .orderBy(sort)
-          .snapshots();
-    } else if (year == 'All') {
-      return FirebaseFirestore.instance
-          .collection('Concerns')
-          .where('type', isEqualTo: filterType)
-          .where('course', isEqualTo: course)
-          .where('concern', isEqualTo: filterConcern)
           .orderBy(sort)
           .snapshots();
     } else if (filterConcern == 'All') {
       return FirebaseFirestore.instance
           .collection('Concerns')
           .where('course', isEqualTo: course)
-          .where('yearLevel', isEqualTo: year)
           .where('type', isEqualTo: filterType)
           .orderBy(sort)
           .snapshots();
@@ -1475,14 +1461,12 @@ class _ReportTabState extends State<ReportTab> {
       return FirebaseFirestore.instance
           .collection('Concerns')
           .where('course', isEqualTo: course)
-          .where('yearLevel', isEqualTo: year)
           .where('concern', isEqualTo: filterConcern)
           .orderBy(sort)
           .snapshots();
     } else {
       return FirebaseFirestore.instance
           .collection('Concerns')
-          .where('yearLevel', isEqualTo: year)
           .where('course', isEqualTo: course)
           .where('concern', isEqualTo: filterConcern)
           .where('type', isEqualTo: filterType)
@@ -1718,7 +1702,6 @@ class _ReportTabState extends State<ReportTab> {
 
   @override
   Widget build(BuildContext context) {
-    print(filterConcern);
     return hasLoaded
         ? Scaffold(
             appBar: appbarWidget(widget.page),
@@ -1737,110 +1720,6 @@ class _ReportTabState extends State<ReportTab> {
                         const SizedBox(
                           width: 30,
                         ),
-                        index == 0
-                            ? Padding(
-                                padding: const EdgeInsets.only(top: 10),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                      width: 120,
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(5),
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.fromLTRB(
-                                            20, 2, 20, 2),
-                                        child: DropdownButton(
-                                          underline: Container(
-                                              color: Colors.transparent),
-                                          iconEnabledColor: Colors.black,
-                                          isExpanded: true,
-                                          style: const TextStyle(
-                                              color: Colors.white),
-                                          value: _dropdownValue,
-                                          items: [
-                                            DropdownMenuItem(
-                                              onTap: () {
-                                                year = 'All';
-                                              },
-                                              value: 0,
-                                              child: DropDownItem(label: 'All'),
-                                            ),
-                                            DropdownMenuItem(
-                                              onTap: () {
-                                                year = 'First Year';
-                                              },
-                                              value: 1,
-                                              child: DropDownItem(
-                                                  label: '1st Year'),
-                                            ),
-                                            DropdownMenuItem(
-                                              onTap: () {
-                                                year = 'Second Year';
-                                              },
-                                              value: 2,
-                                              child: DropDownItem(
-                                                  label: '2nd Year'),
-                                            ),
-                                            DropdownMenuItem(
-                                              onTap: () {
-                                                year = 'Third Year';
-                                              },
-                                              value: 3,
-                                              child: DropDownItem(
-                                                  label: '3rd Year'),
-                                            ),
-                                            DropdownMenuItem(
-                                              onTap: () {
-                                                year = 'Fourth Year';
-                                              },
-                                              value: 4,
-                                              child: DropDownItem(
-                                                  label: '4th Year'),
-                                            ),
-                                          ],
-                                          onChanged: (value) {
-                                            setState(() {
-                                              _dropdownValue =
-                                                  int.parse(value.toString());
-                                              hasLoaded = false;
-                                            });
-                                            name.clear();
-                                            email.clear();
-                                            courseStud.clear();
-                                            yearLevel.clear();
-                                            concern.clear();
-                                            status.clear();
-                                            getData();
-
-                                            getData2();
-                                            getData3();
-                                            getData4();
-                                            getData5();
-                                            getTotal();
-                                            getTotal2();
-                                            getTotal3();
-                                            getTotal4();
-                                            getTotal5();
-                                            getSections();
-                                            getCodes();
-                                          },
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 5,
-                                    ),
-                                    NormalText(
-                                        label: '  Filter by Year Level',
-                                        fontSize: 8,
-                                        color: Colors.grey),
-                                  ],
-                                ),
-                              )
-                            : const SizedBox(),
                         const SizedBox(
                           width: 30,
                         ),
@@ -1850,7 +1729,7 @@ class _ReportTabState extends State<ReportTab> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Container(
-                                width: 230,
+                                width: 240,
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(5),
@@ -2004,82 +1883,6 @@ class _ReportTabState extends State<ReportTab> {
                           ),
                         ),
                         const SizedBox(
-                          width: 30,
-                        ),
-                        index == 0
-                            ? Padding(
-                                padding: const EdgeInsets.only(top: 0),
-                                child: Container(
-                                  width: 150,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(5),
-                                  ),
-                                  child: Padding(
-                                    padding:
-                                        const EdgeInsets.fromLTRB(20, 0, 20, 2),
-                                    child: DropdownButton(
-                                      underline:
-                                          Container(color: Colors.transparent),
-                                      iconEnabledColor: Colors.black,
-                                      isExpanded: true,
-                                      style:
-                                          const TextStyle(color: Colors.white),
-                                      value: _dropdownValue2,
-                                      items: [
-                                        DropdownMenuItem(
-                                          onTap: () {
-                                            setState(() {
-                                              sort = 'name';
-                                            });
-                                          },
-                                          value: 0,
-                                          child: DropDownItem(
-                                              label: 'Sort by: Names'),
-                                        ),
-                                        DropdownMenuItem(
-                                          onTap: () {
-                                            setState(() {
-                                              sort = 'dateTime';
-                                            });
-                                          },
-                                          value: 1,
-                                          child: DropDownItem(
-                                              label: 'Sort by: Date'),
-                                        ),
-                                      ],
-                                      onChanged: (value) {
-                                        setState(() {
-                                          _dropdownValue2 =
-                                              int.parse(value.toString());
-                                          hasLoaded = false;
-                                        });
-                                        name.clear();
-                                        email.clear();
-                                        courseStud.clear();
-                                        yearLevel.clear();
-                                        concern.clear();
-                                        status.clear();
-                                        getData();
-
-                                        getData2();
-                                        getData3();
-                                        getData4();
-                                        getData5();
-                                        getTotal();
-                                        getTotal2();
-                                        getTotal3();
-                                        getTotal4();
-                                        getTotal5();
-                                        getSections();
-                                        getCodes();
-                                      },
-                                    ),
-                                  ),
-                                ),
-                              )
-                            : const SizedBox(),
-                        const SizedBox(
                           width: 20,
                         ),
                         PopupMenuButton(
@@ -2110,7 +1913,7 @@ class _ReportTabState extends State<ReportTab> {
                                       yearLevel.clear();
                                       concern.clear();
                                       status.clear();
-                                      sections.clear();
+                                      listSections.clear();
                                       classCodes.clear();
 
                                       getData();
@@ -2158,7 +1961,7 @@ class _ReportTabState extends State<ReportTab> {
                                       yearLevel.clear();
                                       concern.clear();
                                       status.clear();
-                                      sections.clear();
+                                      listSections.clear();
                                       classCodes.clear();
                                       getData();
 
@@ -2178,7 +1981,7 @@ class _ReportTabState extends State<ReportTab> {
                                       // consultationReport();
                                     }),
                                     title: NormalText(
-                                        label: 'Consultation Report',
+                                        label: 'Report by Year Level',
                                         fontSize: 12,
                                         color: Colors.black),
                                   ),
@@ -2201,7 +2004,7 @@ class _ReportTabState extends State<ReportTab> {
                                         total5 = 0;
                                       });
 
-                                      sections.clear();
+                                      listSections.clear();
                                       classCodes.clear();
 
                                       name.clear();
@@ -2227,7 +2030,7 @@ class _ReportTabState extends State<ReportTab> {
                                       // reportByYear();
                                     }),
                                     title: NormalText(
-                                        label: 'Report by Year Level',
+                                        label: 'Report by Class Section',
                                         fontSize: 12,
                                         color: Colors.black),
                                   ),
@@ -2256,7 +2059,7 @@ class _ReportTabState extends State<ReportTab> {
                                       yearLevel.clear();
                                       concern.clear();
                                       status.clear();
-                                      sections.clear();
+                                      listSections.clear();
                                       classCodes.clear();
                                       getData();
 
@@ -2275,7 +2078,7 @@ class _ReportTabState extends State<ReportTab> {
                                       // codeReport();
                                     }),
                                     title: NormalText(
-                                        label: 'Student Consultation Report',
+                                        label: 'Report by Class Code',
                                         fontSize: 12,
                                         color: Colors.black),
                                   ),
@@ -2563,8 +2366,8 @@ class _ReportTabState extends State<ReportTab> {
                                               itemBuilder: ((context, index) {
                                                 classCodes.add(data.docs[index]
                                                     ['classCode']);
-                                                sections.add(data.docs[index]
-                                                    ['section']);
+                                                listSections.add(data
+                                                    .docs[index]['section']);
                                                 name.add(
                                                     data.docs[index]['name']);
                                                 email.add(
@@ -2675,7 +2478,7 @@ class _ReportTabState extends State<ReportTab> {
 
                                                         rows: [
                                                           // row to set the values
-                                                          for (int i = 0;
+                                                          for (int i = 1;
                                                               i <
                                                                   snapshot.data!
                                                                       .size;
