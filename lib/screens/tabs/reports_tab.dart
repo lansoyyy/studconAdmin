@@ -326,6 +326,8 @@ class _ReportTabState extends State<ReportTab> {
           for (var queryDocumentSnapshot in querySnapshot.docs) {
             Map<String, dynamic> data = queryDocumentSnapshot.data();
             year4 = querySnapshot.size;
+            concern1 = data['concern'];
+            type = data['type'];
           }
         });
       }
@@ -340,6 +342,8 @@ class _ReportTabState extends State<ReportTab> {
           for (var queryDocumentSnapshot in querySnapshot.docs) {
             Map<String, dynamic> data = queryDocumentSnapshot.data();
             year4 = querySnapshot.size;
+            concern1 = data['concern'];
+            type = data['type'];
           }
         });
       }
@@ -506,6 +510,8 @@ class _ReportTabState extends State<ReportTab> {
           for (var queryDocumentSnapshot in querySnapshot.docs) {
             Map<String, dynamic> data = queryDocumentSnapshot.data();
             total4 = querySnapshot.size;
+            concern1 = data['concern'];
+            type = data['type'];
           }
         });
       }
