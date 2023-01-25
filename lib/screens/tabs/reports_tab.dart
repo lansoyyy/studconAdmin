@@ -2185,11 +2185,11 @@ class _ReportTabState extends State<ReportTab> {
                                                     ),
                                                     DropdownMenuItem(
                                                       onTap: () {
-                                                        filterType = 'Unsvoled';
+                                                        filterType = 'Unsolved';
                                                       },
                                                       value: 1,
                                                       child: DropDownItem(
-                                                          label: 'Unsvoled'),
+                                                          label: 'Unsolved'),
                                                     ),
                                                     DropdownMenuItem(
                                                       onTap: () {
