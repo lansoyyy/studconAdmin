@@ -4,10 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 Future addCateg(String name) async {
   final docUser = FirebaseFirestore.instance.collection('Categ').doc();
 
-  final json = {
-    'name': name,
-    'id': docUser.id,
-  };
+  final json = {'name': name, 'id': docUser.id, 'sub': []};
 
   await docUser.set(json);
 }

@@ -237,30 +237,131 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       snapshot.data?.size ?? 0,
                                                   itemBuilder:
                                                       ((context, index) {
-                                                    return ListTile(
-                                                      tileColor: Colors.white,
+                                                    List subList =
+                                                        data.docs[index]['sub'];
+
+                                                    return ExpansionTile(
+                                                      children: [
+                                                        for (int i = 0;
+                                                            i < subList.length;
+                                                            i++)
+                                                          SizedBox(
+                                                              height: 150,
+                                                              child: ListTile(
+                                                                tileColor:
+                                                                    Colors
+                                                                        .white,
+                                                                title: NormalText(
+                                                                    label:
+                                                                        subList[
+                                                                            i],
+                                                                    fontSize:
+                                                                        12,
+                                                                    color: Colors
+                                                                        .black),
+                                                                trailing:
+                                                                    IconButton(
+                                                                  onPressed:
+                                                                      (() {
+                                                                    print(data.docs[
+                                                                            index]
+                                                                        [
+                                                                        'sub'][i]);
+                                                                    FirebaseFirestore
+                                                                        .instance
+                                                                        .collection(
+                                                                            'Categ')
+                                                                        .doc(data
+                                                                            .docs[index]
+                                                                            .id)
+                                                                        .update({
+                                                                      'sub': FieldValue
+                                                                          .arrayRemove([
+                                                                        subList[
+                                                                            i]
+                                                                      ])
+                                                                    });
+                                                                  }),
+                                                                  icon:
+                                                                      const Icon(
+                                                                    Icons
+                                                                        .delete,
+                                                                    color: Colors
+                                                                        .red,
+                                                                  ),
+                                                                ),
+                                                              ))
+                                                      ],
                                                       title: NormalText(
                                                           label:
                                                               data.docs[index]
                                                                   ['name'],
                                                           fontSize: 12,
                                                           color: Colors.black),
-                                                      trailing: IconButton(
+                                                      leading: IconButton(
                                                         onPressed: (() {
-                                                          FirebaseFirestore
-                                                              .instance
-                                                              .collection(
-                                                                  'Categ')
-                                                              .doc(data
-                                                                  .docs[index]
-                                                                  .id)
-                                                              .delete();
-                                                          Navigator.of(context)
-                                                              .pop();
+                                                          showDialog(
+                                                              context: context,
+                                                              builder:
+                                                                  ((context) {
+                                                                return Dialog(
+                                                                  child:
+                                                                      SizedBox(
+                                                                    height: 250,
+                                                                    width: 300,
+                                                                    child:
+                                                                        Padding(
+                                                                      padding: const EdgeInsets
+                                                                              .fromLTRB(
+                                                                          10,
+                                                                          10,
+                                                                          10,
+                                                                          10),
+                                                                      child:
+                                                                          Column(
+                                                                        crossAxisAlignment:
+                                                                            CrossAxisAlignment.start,
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.center,
+                                                                        children: [
+                                                                          NormalText(
+                                                                              label: 'Name of Subcategory',
+                                                                              fontSize: 14,
+                                                                              color: Colors.black),
+                                                                          const SizedBox(
+                                                                            height:
+                                                                                10,
+                                                                          ),
+                                                                          TextformfieldWidget(
+                                                                              textFieldController: categController,
+                                                                              label: ''),
+                                                                          const SizedBox(
+                                                                            height:
+                                                                                20,
+                                                                          ),
+                                                                          Align(
+                                                                            alignment:
+                                                                                Alignment.bottomRight,
+                                                                            child: MaterialButton(
+                                                                                color: Colors.green,
+                                                                                onPressed: (() {
+                                                                                  Navigator.of(context).pop();
+                                                                                  addCateg(categController.text);
+
+                                                                                  categController.clear();
+                                                                                }),
+                                                                                child: NormalText(label: 'Continue', fontSize: 12, color: Colors.white)),
+                                                                          )
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                );
+                                                              }));
                                                         }),
                                                         icon: const Icon(
-                                                          Icons.delete,
-                                                          color: Colors.red,
+                                                          Icons.add,
+                                                          color: Colors.blue,
                                                         ),
                                                       ),
                                                     );
