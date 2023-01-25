@@ -346,7 +346,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                                 color: Colors.green,
                                                                                 onPressed: (() {
                                                                                   Navigator.of(context).pop();
-                                                                                  addCateg(categController.text);
+                                                                                  FirebaseFirestore.instance.collection('Categ').doc(data.docs[index].id).update({
+                                                                                    'sub': FieldValue.arrayUnion([
+                                                                                      categController.text
+                                                                                    ])
+                                                                                  });
 
                                                                                   categController.clear();
                                                                                 }),
