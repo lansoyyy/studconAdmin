@@ -298,74 +298,118 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                   ['name'],
                                                           fontSize: 12,
                                                           color: Colors.black),
-                                                      leading: IconButton(
-                                                        onPressed: (() {
-                                                          showDialog(
-                                                              context: context,
-                                                              builder:
-                                                                  ((context) {
-                                                                return Dialog(
-                                                                  child:
-                                                                      SizedBox(
-                                                                    height: 250,
-                                                                    width: 300,
-                                                                    child:
-                                                                        Padding(
-                                                                      padding: const EdgeInsets
-                                                                              .fromLTRB(
-                                                                          10,
-                                                                          10,
-                                                                          10,
-                                                                          10),
-                                                                      child:
-                                                                          Column(
-                                                                        crossAxisAlignment:
-                                                                            CrossAxisAlignment.start,
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.center,
-                                                                        children: [
-                                                                          NormalText(
-                                                                              label: 'Name of Subcategory',
-                                                                              fontSize: 14,
-                                                                              color: Colors.black),
-                                                                          const SizedBox(
-                                                                            height:
+                                                      leading: SizedBox(
+                                                        width: 100,
+                                                        child: Row(
+                                                          children: [
+                                                            IconButton(
+                                                              onPressed: (() {
+                                                                showDialog(
+                                                                    context:
+                                                                        context,
+                                                                    builder:
+                                                                        ((context) {
+                                                                      return Dialog(
+                                                                        child:
+                                                                            SizedBox(
+                                                                          height:
+                                                                              250,
+                                                                          width:
+                                                                              300,
+                                                                          child:
+                                                                              Padding(
+                                                                            padding: const EdgeInsets.fromLTRB(
                                                                                 10,
-                                                                          ),
-                                                                          TextformfieldWidget(
-                                                                              textFieldController: categController,
-                                                                              label: ''),
-                                                                          const SizedBox(
-                                                                            height:
-                                                                                20,
-                                                                          ),
-                                                                          Align(
-                                                                            alignment:
-                                                                                Alignment.bottomRight,
-                                                                            child: MaterialButton(
-                                                                                color: Colors.green,
-                                                                                onPressed: (() {
-                                                                                  Navigator.of(context).pop();
-                                                                                  FirebaseFirestore.instance.collection('Categ').doc(data.docs[index].id).update({
-                                                                                    'sub': FieldValue.arrayUnion([
-                                                                                      categController.text
-                                                                                    ])
-                                                                                  });
+                                                                                10,
+                                                                                10,
+                                                                                10),
+                                                                            child:
+                                                                                Column(
+                                                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                                                              mainAxisAlignment: MainAxisAlignment.center,
+                                                                              children: [
+                                                                                NormalText(label: 'Name of Subcategory', fontSize: 14, color: Colors.black),
+                                                                                const SizedBox(
+                                                                                  height: 10,
+                                                                                ),
+                                                                                TextformfieldWidget(textFieldController: categController, label: ''),
+                                                                                const SizedBox(
+                                                                                  height: 20,
+                                                                                ),
+                                                                                Align(
+                                                                                  alignment: Alignment.bottomRight,
+                                                                                  child: MaterialButton(
+                                                                                      color: Colors.green,
+                                                                                      onPressed: (() {
+                                                                                        Navigator.of(context).pop();
+                                                                                        FirebaseFirestore.instance.collection('Categ').doc(data.docs[index].id).update({
+                                                                                          'sub': FieldValue.arrayUnion([
+                                                                                            categController.text
+                                                                                          ])
+                                                                                        });
 
-                                                                                  categController.clear();
-                                                                                }),
-                                                                                child: NormalText(label: 'Continue', fontSize: 12, color: Colors.white)),
-                                                                          )
+                                                                                        categController.clear();
+                                                                                      }),
+                                                                                      child: NormalText(label: 'Continue', fontSize: 12, color: Colors.white)),
+                                                                                )
+                                                                              ],
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      );
+                                                                    }));
+                                                              }),
+                                                              icon: const Icon(
+                                                                Icons.add,
+                                                                color:
+                                                                    Colors.blue,
+                                                              ),
+                                                            ),
+                                                            IconButton(
+                                                              onPressed: (() {
+                                                                showDialog(
+                                                                    context:
+                                                                        context,
+                                                                    builder:
+                                                                        ((context) {
+                                                                      return AlertDialog(
+                                                                        title: NormalText(
+                                                                            label:
+                                                                                'Are you sure you want to delete this category?',
+                                                                            fontSize:
+                                                                                14,
+                                                                            color:
+                                                                                Colors.black),
+                                                                        content: NormalText(
+                                                                            label:
+                                                                                'This action cannot be undone',
+                                                                            fontSize:
+                                                                                12,
+                                                                            color:
+                                                                                Colors.grey),
+                                                                        actions: [
+                                                                          TextButton(
+                                                                              onPressed: (() {
+                                                                                Navigator.pop(context);
+                                                                              }),
+                                                                              child: BoldText(label: 'Close', fontSize: 12, color: Colors.black)),
+                                                                          TextButton(
+                                                                              onPressed: (() {
+                                                                                Navigator.pop(context);
+                                                                                FirebaseFirestore.instance.collection('Categ').doc(data.docs[index].id).delete();
+                                                                              }),
+                                                                              child: BoldText(label: 'Continue', fontSize: 14, color: Colors.red)),
                                                                         ],
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                );
-                                                              }));
-                                                        }),
-                                                        icon: const Icon(
-                                                          Icons.add,
-                                                          color: Colors.blue,
+                                                                      );
+                                                                    }));
+                                                              }),
+                                                              icon: Icon(
+                                                                Icons.delete,
+                                                                color:
+                                                                    Colors.red,
+                                                              ),
+                                                            ),
+                                                          ],
                                                         ),
                                                       ),
                                                     );
