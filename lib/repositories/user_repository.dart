@@ -30,7 +30,8 @@ class UserRepository implements UsertRepositoryInterface {
       'to': 0,
       'status': 'Active',
       'department': course,
-      'userType': 'Instructor'
+      'userType': 'Instructor',
+      'notif': []
     };
 
     await docUser.set(json);
