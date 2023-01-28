@@ -304,7 +304,7 @@ class _ReportTabState extends State<PermissionPage> {
                     return Expanded(
                       child: SizedBox(
                         child: ListView.builder(
-                            itemCount: 1,
+                            itemCount: data.docs.isNotEmpty ? 1 : 0,
                             itemBuilder: ((context, index) {
                               DateTime created =
                                   data.docs[index]['dateTime'].toDate();
@@ -332,11 +332,7 @@ class _ReportTabState extends State<PermissionPage> {
                                       // datatable widget
                                       columns: [
                                         // column to set the name
-                                        DataColumn(
-                                            label: BoldText(
-                                                label: 'ID',
-                                                fontSize: 16,
-                                                color: Colors.white)),
+
                                         DataColumn(
                                             label: BoldText(
                                                 label: 'Student Name',
@@ -362,7 +358,7 @@ class _ReportTabState extends State<PermissionPage> {
 
                                       rows: [
                                         // row to set the values
-                                        for (int i = 1;
+                                        for (int i = 0;
                                             i < snapshot.data!.size;
                                             i++)
                                           DataRow(
@@ -377,12 +373,6 @@ class _ReportTabState extends State<PermissionPage> {
                                                 }
                                               }),
                                               cells: [
-                                                DataCell(
-                                                  NormalText(
-                                                      label: i.toString(),
-                                                      fontSize: 12,
-                                                      color: Colors.black),
-                                                ),
                                                 DataCell(
                                                   NormalText(
                                                       label: data.docs[i]
