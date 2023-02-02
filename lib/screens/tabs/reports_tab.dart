@@ -62,9 +62,7 @@ class _ReportTabState extends State<ReportTab> {
         });
       }
     } else {
-      var collection = FirebaseFirestore.instance
-          .collection('Concerns')
-          .where('yearLevel', isEqualTo: 'First Year');
+      var collection = FirebaseFirestore.instance.collection('Concerns');
 
       var querySnapshot = await collection.get();
       if (mounted) {
@@ -3112,7 +3110,7 @@ class _ReportTabState extends State<ReportTab> {
                                           ],
 
                                           rows: [
-                                            for (int i = 0;
+                                            for (int i = 1;
                                                 i < listSections.length;
                                                 i++)
                                               DataRow(
