@@ -22,9 +22,31 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    getCodes();
+  }
+
   PageController page = PageController();
 
   final categController = TextEditingController();
+
+  var classCodes = [];
+
+  getCodes() async {
+    var collection = FirebaseFirestore.instance.collection('Class Code');
+
+    var querySnapshot = await collection.get();
+
+    setState(() {
+      for (var queryDocumentSnapshot in querySnapshot.docs) {
+        Map<String, dynamic> data = queryDocumentSnapshot.data();
+
+        classCodes.add(data['classCode']);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -241,57 +263,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                                         data.docs[index]['sub'];
 
                                                     return ExpansionTile(
-                                                      children: [
-                                                        for (int i = 0;
-                                                            i < subList.length;
-                                                            i++)
-                                                          SizedBox(
-                                                              height: 150,
-                                                              child: ListTile(
-                                                                tileColor:
-                                                                    Colors
-                                                                        .white,
-                                                                title: NormalText(
-                                                                    label:
-                                                                        subList[
-                                                                            i],
-                                                                    fontSize:
-                                                                        12,
-                                                                    color: Colors
-                                                                        .black),
-                                                                trailing:
-                                                                    IconButton(
-                                                                  onPressed:
-                                                                      (() {
-                                                                    print(data.docs[
-                                                                            index]
-                                                                        [
-                                                                        'sub'][i]);
-                                                                    FirebaseFirestore
-                                                                        .instance
-                                                                        .collection(
-                                                                            'Categ')
-                                                                        .doc(data
-                                                                            .docs[index]
-                                                                            .id)
-                                                                        .update({
-                                                                      'sub': FieldValue
-                                                                          .arrayRemove([
-                                                                        subList[
-                                                                            i]
-                                                                      ])
-                                                                    });
-                                                                  }),
-                                                                  icon:
-                                                                      const Icon(
-                                                                    Icons
-                                                                        .delete,
-                                                                    color: Colors
-                                                                        .red,
-                                                                  ),
-                                                                ),
-                                                              ))
-                                                      ],
                                                       title: NormalText(
                                                           label:
                                                               data.docs[index]
@@ -403,7 +374,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                       );
                                                                     }));
                                                               }),
-                                                              icon: Icon(
+                                                              icon: const Icon(
                                                                 Icons.delete,
                                                                 color:
                                                                     Colors.red,
@@ -412,6 +383,57 @@ class _HomeScreenState extends State<HomeScreen> {
                                                           ],
                                                         ),
                                                       ),
+                                                      children: [
+                                                        for (int i = 0;
+                                                            i < subList.length;
+                                                            i++)
+                                                          SizedBox(
+                                                              height: 150,
+                                                              child: ListTile(
+                                                                tileColor:
+                                                                    Colors
+                                                                        .white,
+                                                                title: NormalText(
+                                                                    label:
+                                                                        subList[
+                                                                            i],
+                                                                    fontSize:
+                                                                        12,
+                                                                    color: Colors
+                                                                        .black),
+                                                                trailing:
+                                                                    IconButton(
+                                                                  onPressed:
+                                                                      (() {
+                                                                    print(data.docs[
+                                                                            index]
+                                                                        [
+                                                                        'sub'][i]);
+                                                                    FirebaseFirestore
+                                                                        .instance
+                                                                        .collection(
+                                                                            'Categ')
+                                                                        .doc(data
+                                                                            .docs[index]
+                                                                            .id)
+                                                                        .update({
+                                                                      'sub': FieldValue
+                                                                          .arrayRemove([
+                                                                        subList[
+                                                                            i]
+                                                                      ])
+                                                                    });
+                                                                  }),
+                                                                  icon:
+                                                                      const Icon(
+                                                                    Icons
+                                                                        .delete,
+                                                                    color: Colors
+                                                                        .red,
+                                                                  ),
+                                                                ),
+                                                              ))
+                                                      ],
                                                     );
                                                   })),
                                             ),

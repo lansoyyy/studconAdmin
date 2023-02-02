@@ -33,8 +33,7 @@ class _ReportTabState extends State<ReportTab> {
     getTotal3();
     getTotal4();
     getTotal5();
-    getSections();
-    getCodes();
+    getAllData();
 
     super.initState();
   }
@@ -86,76 +85,60 @@ class _ReportTabState extends State<ReportTab> {
 
   var hasLoaded = false;
 
-  getSections() async {
-    // Use provider
-
+  getAllData() async {
+    classCodes.clear();
+    listSections.clear();
+    // Class Code
     if (course == 'All') {
-      var collection = FirebaseFirestore.instance.collection('Section');
+      var collection = FirebaseFirestore.instance.collection('Class Code');
 
       var querySnapshot = await collection.get();
-      if (mounted) {
-        setState(() {
-          for (var queryDocumentSnapshot in querySnapshot.docs) {
-            Map<String, dynamic> data = queryDocumentSnapshot.data();
+      setState(() {
+        for (var queryDocumentSnapshot in querySnapshot.docs) {
+          Map<String, dynamic> data = queryDocumentSnapshot.data();
+          classCodes.add(data['classCode']);
+        }
+      });
 
-            listSections.add(data['section']);
-          }
-        });
-      }
+      var collection1 = FirebaseFirestore.instance.collection('Section');
+
+      var querySnapshot1 = await collection1.get();
+      setState(() {
+        for (var queryDocumentSnapshot in querySnapshot1.docs) {
+          Map<String, dynamic> data = queryDocumentSnapshot.data();
+          listSections.add(data['section']);
+        }
+      });
     } else {
       var collection = FirebaseFirestore.instance
-          .collection('Concerns')
+          .collection('Class Code')
           .where('course', isEqualTo: course);
 
       var querySnapshot = await collection.get();
-      if (mounted) {
-        setState(() {
-          for (var queryDocumentSnapshot in querySnapshot.docs) {
-            Map<String, dynamic> data = queryDocumentSnapshot.data();
+      setState(() {
+        for (var queryDocumentSnapshot in querySnapshot.docs) {
+          Map<String, dynamic> data = queryDocumentSnapshot.data();
+          classCodes.add(data['classCode']);
+        }
+      });
 
-            listSections.add(data['section']);
-          }
-        });
-      }
+      var collection1 = FirebaseFirestore.instance
+          .collection('Section')
+          .where('course', isEqualTo: course);
+
+      var querySnapshot1 = await collection1.get();
+      setState(() {
+        for (var queryDocumentSnapshot in querySnapshot1.docs) {
+          Map<String, dynamic> data = queryDocumentSnapshot.data();
+          listSections.add(data['section']);
+        }
+      });
     }
+    enrolled.add(0);
+    codeNumber.add(0);
+    sectionNumber.add(0);
+    codeEnrolled.add(0);
 
-    if (course != 'All') {
-      for (int i = 0; i < listSections.length; i++) {
-        var collection = FirebaseFirestore.instance
-            .collection('Concerns')
-            .where('course', isEqualTo: course)
-            .where('section', isEqualTo: listSections[i]);
-
-        var querySnapshot = await collection.get();
-
-        sectionNumber.add(querySnapshot.size);
-
-        var collection1 = FirebaseFirestore.instance
-            .collection('Concerns')
-            .where('course', isEqualTo: course)
-            .where('section', isEqualTo: listSections[i]);
-
-        var querySnapshot1 = await collection1.get();
-        enrolled.add(querySnapshot1.size);
-      }
-    } else {
-      for (int i = 0; i < listSections.length; i++) {
-        var collection = FirebaseFirestore.instance
-            .collection('Concerns')
-            .where('section', isEqualTo: listSections[i]);
-
-        var querySnapshot = await collection.get();
-
-        sectionNumber.add(querySnapshot.size);
-
-        var collection1 = FirebaseFirestore.instance
-            .collection('Concerns')
-            .where('section', isEqualTo: listSections[i]);
-
-        var querySnapshot1 = await collection1.get();
-        enrolled.add(querySnapshot1.size);
-      }
-    }
     setState(() {
       hasLoaded = true;
     });
@@ -169,73 +152,6 @@ class _ReportTabState extends State<ReportTab> {
   getCodes() async {
     // Use provider
 
-    if (course == 'All') {
-      var collection = FirebaseFirestore.instance.collection('Class Code');
-
-      var querySnapshot = await collection.get();
-      if (mounted) {
-        setState(() {
-          for (var queryDocumentSnapshot in querySnapshot.docs) {
-            Map<String, dynamic> data = queryDocumentSnapshot.data();
-
-            classCodes.add(data['classCode']);
-          }
-        });
-      }
-    } else {
-      var collection = FirebaseFirestore.instance
-          .collection('Concerns')
-          .where('course', isEqualTo: course);
-
-      var querySnapshot = await collection.get();
-      if (mounted) {
-        setState(() {
-          for (var queryDocumentSnapshot in querySnapshot.docs) {
-            Map<String, dynamic> data = queryDocumentSnapshot.data();
-
-            classCodes.add(data['classCode']);
-          }
-        });
-      }
-    }
-
-    if (course != 'All') {
-      for (int i = 0; i < classCodes.length; i++) {
-        var collection = FirebaseFirestore.instance
-            .collection('Concerns')
-            .where('course', isEqualTo: course)
-            .where('classCode', isEqualTo: classCodes[i]);
-
-        var querySnapshot = await collection.get();
-
-        codeNumber.add(querySnapshot.size);
-
-        var collection1 = FirebaseFirestore.instance
-            .collection('Concerns')
-            .where('course', isEqualTo: course)
-            .where('classCode', isEqualTo: classCodes[i]);
-
-        var querySnapshot1 = await collection1.get();
-        codeEnrolled.add(querySnapshot1.size);
-      }
-    } else {
-      for (int i = 0; i < classCodes.length; i++) {
-        var collection = FirebaseFirestore.instance
-            .collection('Concerns')
-            .where('classCode', isEqualTo: classCodes[i]);
-
-        var querySnapshot = await collection.get();
-
-        codeNumber.add(querySnapshot.size);
-
-        var collection1 = FirebaseFirestore.instance
-            .collection('Concerns')
-            .where('classCode', isEqualTo: classCodes[i]);
-
-        var querySnapshot1 = await collection1.get();
-        codeEnrolled.add(querySnapshot1.size);
-      }
-    }
     setState(() {
       hasLoaded = true;
     });
@@ -574,8 +490,6 @@ class _ReportTabState extends State<ReportTab> {
     }
   }
 
-  final int _dropdownValue = 0;
-
   late String year = 'All';
 
   int concernValue = 0;
@@ -591,6 +505,7 @@ class _ReportTabState extends State<ReportTab> {
   late String filterStatus = 'All';
 
   int _dropdownValue1 = 0;
+  int _dropdownValue2 = 0;
 
   late String course = 'All';
 
@@ -1499,8 +1414,6 @@ class _ReportTabState extends State<ReportTab> {
     }
   }
 
-  final int _dropdownValue2 = 0;
-
   void codeReport() async {
     /// for using an image from assets
     final image = await imageFromAssetBundle('assets/images/bsu.png');
@@ -1726,7 +1639,8 @@ class _ReportTabState extends State<ReportTab> {
 
   @override
   Widget build(BuildContext context) {
-    print(classCodes.length);
+    print(listSections);
+    print(classCodes);
     return hasLoaded
         ? Scaffold(
             appBar: appbarWidget(widget.page),
@@ -1753,154 +1667,286 @@ class _ReportTabState extends State<ReportTab> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Container(
-                                width: 240,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(20, 2, 20, 2),
-                                  child: DropdownButton(
-                                    underline:
-                                        Container(color: Colors.transparent),
-                                    iconEnabledColor: Colors.black,
-                                    isExpanded: true,
-                                    value: _dropdownValue1,
-                                    items: [
-                                      DropdownMenuItem(
-                                        onTap: () {
-                                          course = "All";
-                                        },
-                                        value: 0,
-                                        child: Center(
-                                            child: Row(children: const [
-                                          Text("All",
-                                              style: TextStyle(
-                                                fontFamily: 'QRegular',
-                                                color: primary,
-                                              ))
-                                        ])),
+                              index == 0 || index == 1
+                                  ? Container(
+                                      width: 240,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(5),
                                       ),
-                                      DropdownMenuItem(
-                                        onTap: () {
-                                          course = "Automotive";
-                                        },
-                                        value: 1,
-                                        child: Center(
-                                            child: Row(children: const [
-                                          Text("Automotive",
-                                              style: TextStyle(
-                                                fontFamily: 'QRegular',
-                                                color: primary,
-                                              ))
-                                        ])),
-                                      ),
-                                      DropdownMenuItem(
-                                        onTap: () {
-                                          course = "Food Technology";
-                                        },
-                                        value: 2,
-                                        child: Center(
-                                            child: Row(children: const [
-                                          Text("Food Technology",
-                                              style: TextStyle(
-                                                fontFamily: 'QRegular',
-                                                color: primary,
-                                              ))
-                                        ])),
-                                      ),
-                                      DropdownMenuItem(
-                                        onTap: () {
-                                          course = "Electronic Technology";
-                                        },
-                                        value: 3,
-                                        child: Center(
-                                            child: Row(children: const [
-                                          Text("Electronic Technology",
-                                              style: TextStyle(
-                                                fontFamily: 'QRegular',
-                                                color: primary,
-                                              ))
-                                        ])),
-                                      ),
-                                      DropdownMenuItem(
-                                        onTap: () {
-                                          course =
-                                              "Entertainment and Multimedia Computing";
-                                        },
-                                        value: 4,
-                                        child: Center(
-                                            child: Row(children: const [
-                                          Text(
-                                              "Entertainment and\nMultimedia Computing",
-                                              style: TextStyle(
-                                                fontFamily: 'QRegular',
-                                                color: primary,
-                                              ))
-                                        ])),
-                                      ),
-                                      DropdownMenuItem(
-                                        onTap: () {
-                                          course = "Information Technology";
-                                        },
-                                        value: 5,
-                                        child: Center(
-                                            child: Row(children: const [
-                                          Text("Information Technology",
-                                              style: TextStyle(
-                                                fontFamily: 'QRegular',
-                                                color: primary,
-                                              ))
-                                        ])),
-                                      ),
-                                    ],
-                                    onChanged: (value) {
-                                      setState(() {
-                                        _dropdownValue1 =
-                                            int.parse(value.toString());
-                                        hasLoaded = false;
+                                      child: Padding(
+                                          padding: const EdgeInsets.fromLTRB(
+                                              20, 2, 20, 2),
+                                          child: DropdownButton(
+                                            underline: Container(
+                                                color: Colors.transparent),
+                                            iconEnabledColor: Colors.black,
+                                            isExpanded: true,
+                                            value: _dropdownValue1,
+                                            items: [
+                                              DropdownMenuItem(
+                                                onTap: () {
+                                                  course = "All";
+                                                },
+                                                value: 0,
+                                                child: Center(
+                                                    child: Row(children: const [
+                                                  Text("All",
+                                                      style: TextStyle(
+                                                        fontFamily: 'QRegular',
+                                                        color: primary,
+                                                      ))
+                                                ])),
+                                              ),
+                                              DropdownMenuItem(
+                                                onTap: () {
+                                                  course = "Automotive";
+                                                },
+                                                value: 1,
+                                                child: Center(
+                                                    child: Row(children: const [
+                                                  Text("Automotive",
+                                                      style: TextStyle(
+                                                        fontFamily: 'QRegular',
+                                                        color: primary,
+                                                      ))
+                                                ])),
+                                              ),
+                                              DropdownMenuItem(
+                                                onTap: () {
+                                                  course = "Food Technology";
+                                                },
+                                                value: 2,
+                                                child: Center(
+                                                    child: Row(children: const [
+                                                  Text("Food Technology",
+                                                      style: TextStyle(
+                                                        fontFamily: 'QRegular',
+                                                        color: primary,
+                                                      ))
+                                                ])),
+                                              ),
+                                              DropdownMenuItem(
+                                                onTap: () {
+                                                  course =
+                                                      "Electronic Technology";
+                                                },
+                                                value: 3,
+                                                child: Center(
+                                                    child: Row(children: const [
+                                                  Text("Electronic Technology",
+                                                      style: TextStyle(
+                                                        fontFamily: 'QRegular',
+                                                        color: primary,
+                                                      ))
+                                                ])),
+                                              ),
+                                              DropdownMenuItem(
+                                                onTap: () {
+                                                  course =
+                                                      "Entertainment and Multimedia Computing";
+                                                },
+                                                value: 4,
+                                                child: Center(
+                                                    child: Row(children: const [
+                                                  Text(
+                                                      "Entertainment and\nMultimedia Computing",
+                                                      style: TextStyle(
+                                                        fontFamily: 'QRegular',
+                                                        color: primary,
+                                                      ))
+                                                ])),
+                                              ),
+                                              DropdownMenuItem(
+                                                onTap: () {
+                                                  course =
+                                                      "Information Technology";
+                                                },
+                                                value: 5,
+                                                child: Center(
+                                                    child: Row(children: const [
+                                                  Text("Information Technology",
+                                                      style: TextStyle(
+                                                        fontFamily: 'QRegular',
+                                                        color: primary,
+                                                      ))
+                                                ])),
+                                              ),
+                                            ],
+                                            onChanged: (value) {
+                                              setState(() {
+                                                _dropdownValue1 =
+                                                    int.parse(value.toString());
 
-                                        year1 = 0;
-                                        year2 = 0;
-                                        year3 = 0;
-                                        year4 = 0;
-                                        year5 = 0;
-                                        total1 = 0;
-                                        total2 = 0;
-                                        total3 = 0;
-                                        total4 = 0;
-                                        total5 = 0;
-                                      });
+                                                year1 = 0;
+                                                year2 = 0;
+                                                year3 = 0;
+                                                year4 = 0;
+                                                year5 = 0;
+                                                total1 = 0;
+                                                total2 = 0;
+                                                total3 = 0;
+                                                total4 = 0;
+                                                total5 = 0;
+                                              });
 
-                                      name.clear();
-                                      email.clear();
-                                      courseStud.clear();
-                                      yearLevel.clear();
-                                      concern.clear();
-                                      status.clear();
-                                      listSections.clear();
-                                      classCodes.clear();
+                                              name.clear();
+                                              email.clear();
+                                              courseStud.clear();
+                                              yearLevel.clear();
+                                              concern.clear();
+                                              status.clear();
+                                              classCodes.clear();
+                                              listSections.clear();
 
-                                      getData();
+                                              getAllData();
 
-                                      getData2();
-                                      getData3();
-                                      getData4();
-                                      getData5();
-                                      getTotal();
-                                      getTotal2();
-                                      getTotal3();
-                                      getTotal4();
-                                      getTotal5();
-                                      getSections();
+                                              getData();
 
-                                      getCodes();
-                                    },
-                                  ),
-                                ),
-                              ),
+                                              getData2();
+                                              getData3();
+                                              getData4();
+                                              getData5();
+                                              getTotal();
+                                              getTotal2();
+                                              getTotal3();
+                                              getTotal4();
+                                              getTotal5();
+                                            },
+                                          )),
+                                    )
+                                  : Container(
+                                      width: 240,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(5),
+                                      ),
+                                      child: Padding(
+                                          padding: const EdgeInsets.fromLTRB(
+                                              20, 2, 20, 2),
+                                          child: DropdownButton(
+                                            underline: Container(
+                                                color: Colors.transparent),
+                                            iconEnabledColor: Colors.black,
+                                            isExpanded: true,
+                                            value: _dropdownValue2,
+                                            items: [
+                                              DropdownMenuItem(
+                                                onTap: () {
+                                                  course = "Automotive";
+                                                },
+                                                value: 0,
+                                                child: Center(
+                                                    child: Row(children: const [
+                                                  Text("Automotive",
+                                                      style: TextStyle(
+                                                        fontFamily: 'QRegular',
+                                                        color: primary,
+                                                      ))
+                                                ])),
+                                              ),
+                                              DropdownMenuItem(
+                                                onTap: () {
+                                                  course = "Food Technology";
+                                                },
+                                                value: 1,
+                                                child: Center(
+                                                    child: Row(children: const [
+                                                  Text("Food Technology",
+                                                      style: TextStyle(
+                                                        fontFamily: 'QRegular',
+                                                        color: primary,
+                                                      ))
+                                                ])),
+                                              ),
+                                              DropdownMenuItem(
+                                                onTap: () {
+                                                  course =
+                                                      "Electronic Technology";
+                                                },
+                                                value: 2,
+                                                child: Center(
+                                                    child: Row(children: const [
+                                                  Text("Electronic Technology",
+                                                      style: TextStyle(
+                                                        fontFamily: 'QRegular',
+                                                        color: primary,
+                                                      ))
+                                                ])),
+                                              ),
+                                              DropdownMenuItem(
+                                                onTap: () {
+                                                  course =
+                                                      "Entertainment and Multimedia Computing";
+                                                },
+                                                value: 3,
+                                                child: Center(
+                                                    child: Row(children: const [
+                                                  Text(
+                                                      "Entertainment and\nMultimedia Computing",
+                                                      style: TextStyle(
+                                                        fontFamily: 'QRegular',
+                                                        color: primary,
+                                                      ))
+                                                ])),
+                                              ),
+                                              DropdownMenuItem(
+                                                onTap: () {
+                                                  course =
+                                                      "Information Technology";
+                                                },
+                                                value: 4,
+                                                child: Center(
+                                                    child: Row(children: const [
+                                                  Text("Information Technology",
+                                                      style: TextStyle(
+                                                        fontFamily: 'QRegular',
+                                                        color: primary,
+                                                      ))
+                                                ])),
+                                              ),
+                                            ],
+                                            onChanged: (value) {
+                                              setState(() {
+                                                _dropdownValue2 =
+                                                    int.parse(value.toString());
+
+                                                year1 = 0;
+                                                year2 = 0;
+                                                year3 = 0;
+                                                year4 = 0;
+                                                year5 = 0;
+                                                total1 = 0;
+                                                total2 = 0;
+                                                total3 = 0;
+                                                total4 = 0;
+                                                total5 = 0;
+                                              });
+
+                                              name.clear();
+                                              email.clear();
+                                              courseStud.clear();
+                                              yearLevel.clear();
+                                              concern.clear();
+                                              status.clear();
+                                              classCodes.clear();
+                                              listSections.clear();
+                                              getAllData();
+
+                                              getData();
+
+                                              getData2();
+                                              getData3();
+                                              getData4();
+                                              getData5();
+                                              getTotal();
+                                              getTotal2();
+                                              getTotal3();
+                                              getTotal4();
+                                              getTotal5();
+                                            },
+                                          )),
+                                    ),
                               const SizedBox(
                                 height: 5,
                               ),
@@ -1924,7 +1970,7 @@ class _ReportTabState extends State<ReportTab> {
                                         onTap: (() {
                                           setState(() {
                                             index = 0;
-                                            hasLoaded = false;
+
                                             year1 = 0;
                                             year2 = 0;
                                             year3 = 0;
@@ -1943,8 +1989,6 @@ class _ReportTabState extends State<ReportTab> {
                                           yearLevel.clear();
                                           concern.clear();
                                           status.clear();
-                                          listSections.clear();
-                                          classCodes.clear();
 
                                           getData();
 
@@ -1957,8 +2001,7 @@ class _ReportTabState extends State<ReportTab> {
                                           getTotal3();
                                           getTotal4();
                                           getTotal5();
-                                          getSections();
-                                          getCodes();
+
                                           Navigator.pop(context);
                                         }),
                                         title: NormalText(
@@ -1972,7 +2015,7 @@ class _ReportTabState extends State<ReportTab> {
                                         onTap: (() {
                                           setState(() {
                                             index = 1;
-                                            hasLoaded = false;
+
                                             year1 = 0;
                                             year2 = 0;
                                             year3 = 0;
@@ -1991,8 +2034,7 @@ class _ReportTabState extends State<ReportTab> {
                                           yearLevel.clear();
                                           concern.clear();
                                           status.clear();
-                                          listSections.clear();
-                                          classCodes.clear();
+
                                           getData();
 
                                           getData2();
@@ -2004,8 +2046,7 @@ class _ReportTabState extends State<ReportTab> {
                                           getTotal3();
                                           getTotal4();
                                           getTotal5();
-                                          getSections();
-                                          getCodes();
+
                                           Navigator.pop(context);
 
                                           // consultationReport();
@@ -2021,7 +2062,7 @@ class _ReportTabState extends State<ReportTab> {
                                         onTap: (() {
                                           setState(() {
                                             index = 2;
-                                            hasLoaded = false;
+
                                             year1 = 0;
                                             year2 = 0;
                                             year3 = 0;
@@ -2040,8 +2081,7 @@ class _ReportTabState extends State<ReportTab> {
                                           yearLevel.clear();
                                           concern.clear();
                                           status.clear();
-                                          listSections.clear();
-                                          classCodes.clear();
+
                                           getData();
 
                                           getData2();
@@ -2053,8 +2093,7 @@ class _ReportTabState extends State<ReportTab> {
                                           getTotal3();
                                           getTotal4();
                                           getTotal5();
-                                          getSections();
-                                          getCodes();
+
                                           Navigator.pop(context);
                                           // reportByYear();
                                         }),
@@ -2069,7 +2108,7 @@ class _ReportTabState extends State<ReportTab> {
                                         onTap: (() {
                                           setState(() {
                                             index = 3;
-                                            hasLoaded = false;
+
                                             year1 = 0;
                                             year2 = 0;
                                             year3 = 0;
@@ -2088,8 +2127,7 @@ class _ReportTabState extends State<ReportTab> {
                                           yearLevel.clear();
                                           concern.clear();
                                           status.clear();
-                                          listSections.clear();
-                                          classCodes.clear();
+
                                           getData();
 
                                           getData2();
@@ -2101,8 +2139,7 @@ class _ReportTabState extends State<ReportTab> {
                                           getTotal3();
                                           getTotal4();
                                           getTotal5();
-                                          getSections();
-                                          getCodes();
+
                                           Navigator.pop(context);
                                           // codeReport();
                                         }),
@@ -2208,7 +2245,6 @@ class _ReportTabState extends State<ReportTab> {
                                                     setState(() {
                                                       typeValue = int.parse(
                                                           value.toString());
-                                                      hasLoaded = false;
                                                     });
                                                     name.clear();
                                                     email.clear();
@@ -2216,8 +2252,7 @@ class _ReportTabState extends State<ReportTab> {
                                                     yearLevel.clear();
                                                     concern.clear();
                                                     status.clear();
-                                                    listSections.clear();
-                                                    classCodes.clear();
+
                                                     getData();
 
                                                     getData2();
@@ -2229,8 +2264,6 @@ class _ReportTabState extends State<ReportTab> {
                                                     getTotal3();
                                                     getTotal4();
                                                     getTotal5();
-                                                    getSections();
-                                                    getCodes();
                                                   },
                                                 ),
                                               ),
@@ -2327,7 +2360,6 @@ class _ReportTabState extends State<ReportTab> {
                                                     setState(() {
                                                       concernValue = int.parse(
                                                           value.toString());
-                                                      hasLoaded = false;
                                                     });
                                                     name.clear();
                                                     email.clear();
@@ -2335,8 +2367,7 @@ class _ReportTabState extends State<ReportTab> {
                                                     yearLevel.clear();
                                                     concern.clear();
                                                     status.clear();
-                                                    listSections.clear();
-                                                    classCodes.clear();
+
                                                     getData();
 
                                                     getData2();
@@ -2348,8 +2379,6 @@ class _ReportTabState extends State<ReportTab> {
                                                     getTotal3();
                                                     getTotal4();
                                                     getTotal5();
-                                                    getSections();
-                                                    getCodes();
                                                   },
                                                 ),
                                               ),
@@ -2398,10 +2427,6 @@ class _ReportTabState extends State<ReportTab> {
                                           child: ListView.builder(
                                               itemCount: data.size == 0 ? 0 : 1,
                                               itemBuilder: ((context, index) {
-                                                classCodes.add(data.docs[index]
-                                                    ['classCode']);
-                                                listSections.add(data
-                                                    .docs[index]['section']);
                                                 name.add(
                                                     data.docs[index]['name']);
                                                 email.add(
@@ -3106,30 +3131,214 @@ class _ReportTabState extends State<ReportTab> {
                                                           color: Colors.black),
                                                     ),
                                                     DataCell(
-                                                      NormalText(
-                                                          label: enrolled[i]
-                                                              .toString(),
-                                                          fontSize: 12,
-                                                          color: Colors.black),
+                                                      StreamBuilder<
+                                                              QuerySnapshot>(
+                                                          stream: FirebaseFirestore
+                                                              .instance
+                                                              .collection(
+                                                                  'Users')
+                                                              .where('section',
+                                                                  isEqualTo:
+                                                                      listSections[
+                                                                          i])
+                                                              .snapshots(),
+                                                          builder: (BuildContext
+                                                                  context,
+                                                              AsyncSnapshot<
+                                                                      QuerySnapshot>
+                                                                  snapshot) {
+                                                            if (snapshot
+                                                                .hasError) {
+                                                              print('error');
+                                                              return const Center(
+                                                                  child: Text(
+                                                                      'Error'));
+                                                            }
+                                                            if (snapshot
+                                                                    .connectionState ==
+                                                                ConnectionState
+                                                                    .waiting) {
+                                                              return const Padding(
+                                                                padding: EdgeInsets
+                                                                    .only(
+                                                                        top:
+                                                                            50),
+                                                                child: Center(
+                                                                    child:
+                                                                        CircularProgressIndicator(
+                                                                  color: Colors
+                                                                      .black,
+                                                                )),
+                                                              );
+                                                            }
+
+                                                            final data = snapshot
+                                                                .requireData;
+                                                            return NormalText(
+                                                                label: data
+                                                                    .docs.length
+                                                                    .toString(),
+                                                                fontSize: 12,
+                                                                color: Colors
+                                                                    .black);
+                                                          }),
                                                     ),
                                                     DataCell(
-                                                      NormalText(
-                                                          label:
-                                                              sectionNumber[i]
-                                                                  .toString(),
-                                                          fontSize: 12,
-                                                          color: Colors.black),
+                                                      StreamBuilder<
+                                                              QuerySnapshot>(
+                                                          stream: FirebaseFirestore
+                                                              .instance
+                                                              .collection(
+                                                                  'Concerns')
+                                                              .where('section',
+                                                                  isEqualTo:
+                                                                      listSections[
+                                                                          i])
+                                                              .snapshots(),
+                                                          builder: (BuildContext
+                                                                  context,
+                                                              AsyncSnapshot<
+                                                                      QuerySnapshot>
+                                                                  snapshot) {
+                                                            if (snapshot
+                                                                .hasError) {
+                                                              print('error');
+                                                              return const Center(
+                                                                  child: Text(
+                                                                      'Error'));
+                                                            }
+                                                            if (snapshot
+                                                                    .connectionState ==
+                                                                ConnectionState
+                                                                    .waiting) {
+                                                              return const Padding(
+                                                                padding: EdgeInsets
+                                                                    .only(
+                                                                        top:
+                                                                            50),
+                                                                child: Center(
+                                                                    child:
+                                                                        CircularProgressIndicator(
+                                                                  color: Colors
+                                                                      .black,
+                                                                )),
+                                                              );
+                                                            }
+
+                                                            final data = snapshot
+                                                                .requireData;
+                                                            return NormalText(
+                                                                label: data
+                                                                    .docs.length
+                                                                    .toString(),
+                                                                fontSize: 12,
+                                                                color: Colors
+                                                                    .black);
+                                                          }),
                                                     ),
                                                     DataCell(
-                                                      NormalText(
-                                                          label: sectionNumber[
-                                                                      i] ==
-                                                                  0
-                                                              ? "0"
-                                                              : "${((sectionNumber[i] / enrolled[i]) * 100).toStringAsFixed(2)}%"
-                                                                  .toString(),
-                                                          fontSize: 12,
-                                                          color: Colors.black),
+                                                      StreamBuilder<
+                                                              QuerySnapshot>(
+                                                          stream: FirebaseFirestore
+                                                              .instance
+                                                              .collection(
+                                                                  'Concerns')
+                                                              .where(
+                                                                  'classCode',
+                                                                  isEqualTo:
+                                                                      classCodes[
+                                                                          i])
+                                                              .snapshots(),
+                                                          builder: (BuildContext
+                                                                  context,
+                                                              AsyncSnapshot<
+                                                                      QuerySnapshot>
+                                                                  snapshot1) {
+                                                            if (snapshot1
+                                                                .hasError) {
+                                                              print('error');
+                                                              return const Center(
+                                                                  child: Text(
+                                                                      'Error'));
+                                                            }
+                                                            if (snapshot1
+                                                                    .connectionState ==
+                                                                ConnectionState
+                                                                    .waiting) {
+                                                              return const Padding(
+                                                                padding: EdgeInsets
+                                                                    .only(
+                                                                        top:
+                                                                            50),
+                                                                child: Center(
+                                                                    child:
+                                                                        CircularProgressIndicator(
+                                                                  color: Colors
+                                                                      .black,
+                                                                )),
+                                                              );
+                                                            }
+
+                                                            final data1 =
+                                                                snapshot1
+                                                                    .requireData;
+                                                            return StreamBuilder<
+                                                                    QuerySnapshot>(
+                                                                stream: FirebaseFirestore
+                                                                    .instance
+                                                                    .collection(
+                                                                        'Users')
+                                                                    .where(
+                                                                        'classCode',
+                                                                        isEqualTo:
+                                                                            classCodes[
+                                                                                i])
+                                                                    .snapshots(),
+                                                                builder: (BuildContext
+                                                                        context,
+                                                                    AsyncSnapshot<
+                                                                            QuerySnapshot>
+                                                                        snapshot) {
+                                                                  if (snapshot
+                                                                      .hasError) {
+                                                                    print(
+                                                                        'error');
+                                                                    return const Center(
+                                                                        child: Text(
+                                                                            'Error'));
+                                                                  }
+                                                                  if (snapshot
+                                                                          .connectionState ==
+                                                                      ConnectionState
+                                                                          .waiting) {
+                                                                    return const Padding(
+                                                                      padding: EdgeInsets
+                                                                          .only(
+                                                                              top: 50),
+                                                                      child: Center(
+                                                                          child: CircularProgressIndicator(
+                                                                        color: Colors
+                                                                            .black,
+                                                                      )),
+                                                                    );
+                                                                  }
+
+                                                                  final data =
+                                                                      snapshot
+                                                                          .requireData;
+                                                                  return NormalText(
+                                                                      label: data1
+                                                                              .docs
+                                                                              .isEmpty
+                                                                          ? "0"
+                                                                          : "${((data1.docs.length / data.docs.length) * 100).toStringAsFixed(2)}%"
+                                                                              .toString(),
+                                                                      fontSize:
+                                                                          12,
+                                                                      color: Colors
+                                                                          .black);
+                                                                });
+                                                          }),
                                                     ),
                                                     DataCell(
                                                       NormalText(
@@ -3139,24 +3348,118 @@ class _ReportTabState extends State<ReportTab> {
                                                           color: Colors.black),
                                                     ),
                                                     DataCell(
-                                                      NormalText(
-                                                          label: sectionNumber[
-                                                                      i] ==
-                                                                  0
-                                                              ? '0'
-                                                              : concern1,
-                                                          fontSize: 12,
-                                                          color: Colors.black),
+                                                      StreamBuilder<
+                                                              QuerySnapshot>(
+                                                          stream: FirebaseFirestore
+                                                              .instance
+                                                              .collection(
+                                                                  'Concerns')
+                                                              .where(
+                                                                  'classCode',
+                                                                  isEqualTo:
+                                                                      classCodes[
+                                                                          i])
+                                                              .snapshots(),
+                                                          builder: (BuildContext
+                                                                  context,
+                                                              AsyncSnapshot<
+                                                                      QuerySnapshot>
+                                                                  snapshot1) {
+                                                            if (snapshot1
+                                                                .hasError) {
+                                                              print('error');
+                                                              return const Center(
+                                                                  child: Text(
+                                                                      'Error'));
+                                                            }
+                                                            if (snapshot1
+                                                                    .connectionState ==
+                                                                ConnectionState
+                                                                    .waiting) {
+                                                              return const Padding(
+                                                                padding: EdgeInsets
+                                                                    .only(
+                                                                        top:
+                                                                            50),
+                                                                child: Center(
+                                                                    child:
+                                                                        CircularProgressIndicator(
+                                                                  color: Colors
+                                                                      .black,
+                                                                )),
+                                                              );
+                                                            }
+
+                                                            final data1 =
+                                                                snapshot1
+                                                                    .requireData;
+                                                            return NormalText(
+                                                                label: data1
+                                                                        .docs
+                                                                        .isEmpty
+                                                                    ? '0'
+                                                                    : concern1,
+                                                                fontSize: 12,
+                                                                color: Colors
+                                                                    .black);
+                                                          }),
                                                     ),
                                                     DataCell(
-                                                      NormalText(
-                                                          label: sectionNumber[
-                                                                      i] ==
-                                                                  0
-                                                              ? '0'
-                                                              : type,
-                                                          fontSize: 12,
-                                                          color: Colors.black),
+                                                      StreamBuilder<
+                                                              QuerySnapshot>(
+                                                          stream: FirebaseFirestore
+                                                              .instance
+                                                              .collection(
+                                                                  'Concerns')
+                                                              .where(
+                                                                  'classCode',
+                                                                  isEqualTo:
+                                                                      classCodes[
+                                                                          i])
+                                                              .snapshots(),
+                                                          builder: (BuildContext
+                                                                  context,
+                                                              AsyncSnapshot<
+                                                                      QuerySnapshot>
+                                                                  snapshot1) {
+                                                            if (snapshot1
+                                                                .hasError) {
+                                                              print('error');
+                                                              return const Center(
+                                                                  child: Text(
+                                                                      'Error'));
+                                                            }
+                                                            if (snapshot1
+                                                                    .connectionState ==
+                                                                ConnectionState
+                                                                    .waiting) {
+                                                              return const Padding(
+                                                                padding: EdgeInsets
+                                                                    .only(
+                                                                        top:
+                                                                            50),
+                                                                child: Center(
+                                                                    child:
+                                                                        CircularProgressIndicator(
+                                                                  color: Colors
+                                                                      .black,
+                                                                )),
+                                                              );
+                                                            }
+
+                                                            final data1 =
+                                                                snapshot1
+                                                                    .requireData;
+                                                            return NormalText(
+                                                                label: data1
+                                                                        .docs
+                                                                        .isEmpty
+                                                                    ? '0'
+                                                                    : type,
+                                                                fontSize: 12,
+                                                                color: Colors
+                                                                    .black);
+                                                          }),
                                                     ),
                                                   ])
                                           ],
@@ -3272,28 +3575,217 @@ class _ReportTabState extends State<ReportTab> {
                                                           color: Colors.black),
                                                     ),
                                                     DataCell(
-                                                      NormalText(
-                                                          label: codeEnrolled[i]
-                                                              .toString(),
-                                                          fontSize: 12,
-                                                          color: Colors.black),
+                                                      StreamBuilder<
+                                                              QuerySnapshot>(
+                                                          stream: FirebaseFirestore
+                                                              .instance
+                                                              .collection(
+                                                                  'Users')
+                                                              .where(
+                                                                  'classCode',
+                                                                  isEqualTo:
+                                                                      classCodes[
+                                                                          i])
+                                                              .snapshots(),
+                                                          builder: (BuildContext
+                                                                  context,
+                                                              AsyncSnapshot<
+                                                                      QuerySnapshot>
+                                                                  snapshot) {
+                                                            if (snapshot
+                                                                .hasError) {
+                                                              print('error');
+                                                              return const Center(
+                                                                  child: Text(
+                                                                      'Error'));
+                                                            }
+                                                            if (snapshot
+                                                                    .connectionState ==
+                                                                ConnectionState
+                                                                    .waiting) {
+                                                              return const Padding(
+                                                                padding: EdgeInsets
+                                                                    .only(
+                                                                        top:
+                                                                            50),
+                                                                child: Center(
+                                                                    child:
+                                                                        CircularProgressIndicator(
+                                                                  color: Colors
+                                                                      .black,
+                                                                )),
+                                                              );
+                                                            }
+
+                                                            final data = snapshot
+                                                                .requireData;
+
+                                                            return NormalText(
+                                                                label: data
+                                                                    .docs.length
+                                                                    .toString(),
+                                                                fontSize: 12,
+                                                                color: Colors
+                                                                    .black);
+                                                          }),
                                                     ),
                                                     DataCell(
-                                                      NormalText(
-                                                          label: codeNumber[i]
-                                                              .toString(),
-                                                          fontSize: 12,
-                                                          color: Colors.black),
+                                                      StreamBuilder<
+                                                              QuerySnapshot>(
+                                                          stream: FirebaseFirestore
+                                                              .instance
+                                                              .collection(
+                                                                  'Concerns')
+                                                              .where(
+                                                                  'classCode',
+                                                                  isEqualTo:
+                                                                      classCodes[
+                                                                          i])
+                                                              .snapshots(),
+                                                          builder: (BuildContext
+                                                                  context,
+                                                              AsyncSnapshot<
+                                                                      QuerySnapshot>
+                                                                  snapshot) {
+                                                            if (snapshot
+                                                                .hasError) {
+                                                              print('error');
+                                                              return const Center(
+                                                                  child: Text(
+                                                                      'Error'));
+                                                            }
+                                                            if (snapshot
+                                                                    .connectionState ==
+                                                                ConnectionState
+                                                                    .waiting) {
+                                                              return const Padding(
+                                                                padding: EdgeInsets
+                                                                    .only(
+                                                                        top:
+                                                                            50),
+                                                                child: Center(
+                                                                    child:
+                                                                        CircularProgressIndicator(
+                                                                  color: Colors
+                                                                      .black,
+                                                                )),
+                                                              );
+                                                            }
+
+                                                            final data = snapshot
+                                                                .requireData;
+
+                                                            return NormalText(
+                                                                label: data
+                                                                    .docs.length
+                                                                    .toString(),
+                                                                fontSize: 12,
+                                                                color: Colors
+                                                                    .black);
+                                                          }),
                                                     ),
                                                     DataCell(
-                                                      NormalText(
-                                                          label: codeNumber[
-                                                                      i] ==
-                                                                  0
-                                                              ? "0"
-                                                              : "${((codeNumber[i] / codeEnrolled[i]) * 100).toStringAsFixed(2)}%",
-                                                          fontSize: 12,
-                                                          color: Colors.black),
+                                                      StreamBuilder<
+                                                              QuerySnapshot>(
+                                                          stream: FirebaseFirestore
+                                                              .instance
+                                                              .collection(
+                                                                  'Concerns')
+                                                              .where(
+                                                                  'classCode',
+                                                                  isEqualTo:
+                                                                      classCodes[
+                                                                          i])
+                                                              .snapshots(),
+                                                          builder: (BuildContext
+                                                                  context,
+                                                              AsyncSnapshot<
+                                                                      QuerySnapshot>
+                                                                  snapshot1) {
+                                                            if (snapshot1
+                                                                .hasError) {
+                                                              print('error');
+                                                              return const Center(
+                                                                  child: Text(
+                                                                      'Error'));
+                                                            }
+                                                            if (snapshot1
+                                                                    .connectionState ==
+                                                                ConnectionState
+                                                                    .waiting) {
+                                                              return const Padding(
+                                                                padding: EdgeInsets
+                                                                    .only(
+                                                                        top:
+                                                                            50),
+                                                                child: Center(
+                                                                    child:
+                                                                        CircularProgressIndicator(
+                                                                  color: Colors
+                                                                      .black,
+                                                                )),
+                                                              );
+                                                            }
+
+                                                            final data1 =
+                                                                snapshot1
+                                                                    .requireData;
+                                                            return StreamBuilder<
+                                                                    QuerySnapshot>(
+                                                                stream: FirebaseFirestore
+                                                                    .instance
+                                                                    .collection(
+                                                                        'Users')
+                                                                    .where(
+                                                                        'classCode',
+                                                                        isEqualTo:
+                                                                            classCodes[
+                                                                                i])
+                                                                    .snapshots(),
+                                                                builder: (BuildContext
+                                                                        context,
+                                                                    AsyncSnapshot<
+                                                                            QuerySnapshot>
+                                                                        snapshot) {
+                                                                  if (snapshot
+                                                                      .hasError) {
+                                                                    print(
+                                                                        'error');
+                                                                    return const Center(
+                                                                        child: Text(
+                                                                            'Error'));
+                                                                  }
+                                                                  if (snapshot
+                                                                          .connectionState ==
+                                                                      ConnectionState
+                                                                          .waiting) {
+                                                                    return const Padding(
+                                                                      padding: EdgeInsets
+                                                                          .only(
+                                                                              top: 50),
+                                                                      child: Center(
+                                                                          child: CircularProgressIndicator(
+                                                                        color: Colors
+                                                                            .black,
+                                                                      )),
+                                                                    );
+                                                                  }
+
+                                                                  final data =
+                                                                      snapshot
+                                                                          .requireData;
+                                                                  return NormalText(
+                                                                      label: data
+                                                                              .docs
+                                                                              .isEmpty
+                                                                          ? "0"
+                                                                          : "${((data.docs.length / data1.docs.length) * 100).toStringAsFixed(2)}%",
+                                                                      fontSize:
+                                                                          12,
+                                                                      color: Colors
+                                                                          .black);
+                                                                });
+                                                          }),
                                                     ),
                                                     DataCell(
                                                       NormalText(
@@ -3303,22 +3795,118 @@ class _ReportTabState extends State<ReportTab> {
                                                           color: Colors.black),
                                                     ),
                                                     DataCell(
-                                                      NormalText(
-                                                          label:
-                                                              codeNumber[i] == 0
-                                                                  ? "0"
-                                                                  : concern1,
-                                                          fontSize: 12,
-                                                          color: Colors.black),
+                                                      StreamBuilder<
+                                                              QuerySnapshot>(
+                                                          stream: FirebaseFirestore
+                                                              .instance
+                                                              .collection(
+                                                                  'Concerns')
+                                                              .where(
+                                                                  'classCode',
+                                                                  isEqualTo:
+                                                                      classCodes[
+                                                                          i])
+                                                              .snapshots(),
+                                                          builder: (BuildContext
+                                                                  context,
+                                                              AsyncSnapshot<
+                                                                      QuerySnapshot>
+                                                                  snapshot1) {
+                                                            if (snapshot1
+                                                                .hasError) {
+                                                              print('error');
+                                                              return const Center(
+                                                                  child: Text(
+                                                                      'Error'));
+                                                            }
+                                                            if (snapshot1
+                                                                    .connectionState ==
+                                                                ConnectionState
+                                                                    .waiting) {
+                                                              return const Padding(
+                                                                padding: EdgeInsets
+                                                                    .only(
+                                                                        top:
+                                                                            50),
+                                                                child: Center(
+                                                                    child:
+                                                                        CircularProgressIndicator(
+                                                                  color: Colors
+                                                                      .black,
+                                                                )),
+                                                              );
+                                                            }
+
+                                                            final data1 =
+                                                                snapshot1
+                                                                    .requireData;
+                                                            return NormalText(
+                                                                label: data1
+                                                                        .docs
+                                                                        .isEmpty
+                                                                    ? "0"
+                                                                    : concern1,
+                                                                fontSize: 12,
+                                                                color: Colors
+                                                                    .black);
+                                                          }),
                                                     ),
                                                     DataCell(
-                                                      NormalText(
-                                                          label:
-                                                              codeNumber[i] == 0
-                                                                  ? "0"
-                                                                  : type,
-                                                          fontSize: 12,
-                                                          color: Colors.black),
+                                                      StreamBuilder<
+                                                              QuerySnapshot>(
+                                                          stream: FirebaseFirestore
+                                                              .instance
+                                                              .collection(
+                                                                  'Concerns')
+                                                              .where(
+                                                                  'classCode',
+                                                                  isEqualTo:
+                                                                      classCodes[
+                                                                          i])
+                                                              .snapshots(),
+                                                          builder: (BuildContext
+                                                                  context,
+                                                              AsyncSnapshot<
+                                                                      QuerySnapshot>
+                                                                  snapshot1) {
+                                                            if (snapshot1
+                                                                .hasError) {
+                                                              print('error');
+                                                              return const Center(
+                                                                  child: Text(
+                                                                      'Error'));
+                                                            }
+                                                            if (snapshot1
+                                                                    .connectionState ==
+                                                                ConnectionState
+                                                                    .waiting) {
+                                                              return const Padding(
+                                                                padding: EdgeInsets
+                                                                    .only(
+                                                                        top:
+                                                                            50),
+                                                                child: Center(
+                                                                    child:
+                                                                        CircularProgressIndicator(
+                                                                  color: Colors
+                                                                      .black,
+                                                                )),
+                                                              );
+                                                            }
+
+                                                            final data1 =
+                                                                snapshot1
+                                                                    .requireData;
+                                                            return NormalText(
+                                                                label: data1
+                                                                        .docs
+                                                                        .isEmpty
+                                                                    ? "0"
+                                                                    : type,
+                                                                fontSize: 12,
+                                                                color: Colors
+                                                                    .black);
+                                                          }),
                                                     ),
                                                   ])
                                           ],
