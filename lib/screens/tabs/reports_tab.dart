@@ -527,7 +527,7 @@ class _ReportTabState extends State<ReportTab> {
 
     doc.addPage(
       pw.Page(
-        pageFormat: PdfPageFormat.a4,
+        pageFormat: PdfPageFormat.letter.landscape,
         build: (pw.Context context) {
           return pw.Container(
             margin: const pw.EdgeInsets.all(20),
@@ -777,7 +777,7 @@ class _ReportTabState extends State<ReportTab> {
 
     doc.addPage(
       pw.Page(
-        pageFormat: PdfPageFormat.a4,
+        pageFormat: PdfPageFormat.letter.landscape,
         build: (pw.Context context) {
           return pw.Container(
             margin: const pw.EdgeInsets.all(20),
@@ -1148,7 +1148,7 @@ class _ReportTabState extends State<ReportTab> {
 
     doc.addPage(
       pw.Page(
-        pageFormat: PdfPageFormat.a4,
+        pageFormat: PdfPageFormat.letter.landscape,
         build: (pw.Context context) {
           return pw.Container(
             margin: const pw.EdgeInsets.all(20),
@@ -1419,7 +1419,7 @@ class _ReportTabState extends State<ReportTab> {
 
     doc.addPage(
       pw.Page(
-        pageFormat: PdfPageFormat.a4,
+        pageFormat: PdfPageFormat.letter.landscape,
         build: (pw.Context context) {
           return pw.Container(
             margin: const pw.EdgeInsets.all(20),
