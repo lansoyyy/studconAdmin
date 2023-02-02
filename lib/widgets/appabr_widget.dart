@@ -19,7 +19,9 @@ PreferredSizeWidget appbarWidget(PageController page) {
       ),
       Center(
           child: BoldText(
-              label: 'BukSU Consultation', fontSize: 24, color: primary)),
+              label: 'BUKSU Student Consultation System',
+              fontSize: 24,
+              color: primary)),
       const Expanded(child: SizedBox()),
       const CircleAvatar(
         minRadius: 20,
